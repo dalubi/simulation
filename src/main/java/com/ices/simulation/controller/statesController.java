@@ -1,12 +1,7 @@
 package com.ices.simulation.controller;
 
-import com.ices.simulation.config.pathVariable;
-import com.ices.simulation.dao.mapper.federateMapper;
-import com.ices.simulation.dao.mapper.interactionMapper;
-import com.ices.simulation.dao.mapper.parameterMapper;
+import com.ices.simulation.cyf.pathVariable;
 import com.ices.simulation.dto.bpmnDTO;
-import com.ices.simulation.dto.federateDTO;
-import com.ices.simulation.dto.interactionDTO;
 import com.ices.simulation.service.StatesPageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

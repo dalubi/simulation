@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test" id="m1586786943177" name="">
  <process id="external" name="external" isExecutable="true" isClosed="false" processType="None">
-<userTask id="Activity_17nzsf0" name="疫情，停工"><documentation id="s6b863341-ed1a-4a42-beea-623b265a465b">null</documentation></userTask>
-<endEvent id="s370b8309-6f8c-49e1-8d76-62b89d42f41b" />
-<sequenceFlow id="se51b3f44-eabb-46f4-8200-8481676930ad" sourceRef="Activity_17nzsf0" targetRef="s370b8309-6f8c-49e1-8d76-62b89d42f41b"/>
-<userTask id="Activity_1b4jw0p" name="疫情，交通运输受阻"><documentation id="s50f958f1-a0b6-4a69-9221-e31bdf67d93f">null</documentation></userTask>
-<endEvent id="s5ee49fed-6ea5-4fd3-b313-1b505b51675a" />
-<sequenceFlow id="s1c3a03cf-a09b-4606-ae72-08289859e460" sourceRef="Activity_1b4jw0p" targetRef="s5ee49fed-6ea5-4fd3-b313-1b505b51675a"/>
-<userTask id="Activity_0fn78nx" name="环保检查"><documentation id="s34c3cd53-7be9-4b59-ac87-37db5bd8b198">null</documentation></userTask>
-<endEvent id="sd5d05ff7-5cd9-49c4-8450-7a52f7f6ae48" />
-<sequenceFlow id="s644c5ee8-595f-40d4-a690-54c97fdc332f" sourceRef="Activity_0fn78nx" targetRef="sd5d05ff7-5cd9-49c4-8450-7a52f7f6ae48"/>
-<parallelGateway gatewayDirection="Unspecified" id="sd895786a-f4e1-4196-ac59-723aa93d39ed" />
-<sequenceFlow id="s5320a580-dc22-4c54-b43e-1e75902bd9c2" sourceRef="sd895786a-f4e1-4196-ac59-723aa93d39ed" targetRef="Activity_17nzsf0"/>
-<sequenceFlow id="s71e8d36a-f34f-4242-8328-a0bea6cd08c8" sourceRef="sd895786a-f4e1-4196-ac59-723aa93d39ed" targetRef="Activity_1b4jw0p"/>
-<sequenceFlow id="s074cc223-a25d-40b2-b522-b1abaafcfaf6" sourceRef="sd895786a-f4e1-4196-ac59-723aa93d39ed" targetRef="Activity_0fn78nx"/>
-<startEvent id="s8963c263-9345-4a19-992b-94951afb6892" />
-<sequenceFlow id="s46b58112-f123-495b-8082-d4c2e4cbd9ef" sourceRef="s8963c263-9345-4a19-992b-94951afb6892" targetRef="sd895786a-f4e1-4196-ac59-723aa93d39ed"/>
+<userTask id="Activity_17nzsf0" name="疫情，停工"><documentation id="s518aa6dd-2805-4d0a-bccc-ed75b004afc0">null</documentation></userTask>
+<endEvent id="sc4a678f5-fb83-4817-9ea6-7523966ddfab" />
+<sequenceFlow id="sf3a2780b-4a2d-477c-9236-2d3c5fb7f910" sourceRef="Activity_17nzsf0" targetRef="sc4a678f5-fb83-4817-9ea6-7523966ddfab"/>
+<userTask id="Activity_1b4jw0p" name="疫情，交通运输受阻"><documentation id="sd0b144b4-8d9a-4d7a-92d5-499b067572f4">null</documentation></userTask>
+<endEvent id="s361d70bc-beb6-48ff-a038-c3f6641ce34f" />
+<sequenceFlow id="s95a14e42-f1d7-437b-885f-b206607a0c92" sourceRef="Activity_1b4jw0p" targetRef="s361d70bc-beb6-48ff-a038-c3f6641ce34f"/>
+<userTask id="Activity_0fn78nx" name="环保检查"><documentation id="s7bd21929-bf20-4f77-8856-89ef0a3c9ec4">null</documentation></userTask>
+<endEvent id="sfad4f50a-aee5-4bcd-8f04-525ae2ff2b9a" />
+<sequenceFlow id="sfe3dcf31-6813-4328-bf8b-62834c628dc6" sourceRef="Activity_0fn78nx" targetRef="sfad4f50a-aee5-4bcd-8f04-525ae2ff2b9a"/>
+<parallelGateway gatewayDirection="Unspecified" id="s36153189-4c0c-421b-9199-f6466225666a" />
+<sequenceFlow id="s66ddc31d-e41c-44c4-85d2-6226ee3082d5" sourceRef="s36153189-4c0c-421b-9199-f6466225666a" targetRef="Activity_17nzsf0"/>
+<sequenceFlow id="s05842f86-0943-4efc-b932-fe731de5256e" sourceRef="s36153189-4c0c-421b-9199-f6466225666a" targetRef="Activity_1b4jw0p"/>
+<sequenceFlow id="s17c05eb4-8d9f-4a1e-ab00-a578254608f2" sourceRef="s36153189-4c0c-421b-9199-f6466225666a" targetRef="Activity_0fn78nx"/>
+<startEvent id="seb121466-6da7-474b-a3c2-39d2d7edf048" />
+<sequenceFlow id="s988483c9-d607-4213-9680-f39f74d5766f" sourceRef="seb121466-6da7-474b-a3c2-39d2d7edf048" targetRef="s36153189-4c0c-421b-9199-f6466225666a"/>
 	</process>
 </definitions>

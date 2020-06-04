@@ -36,18 +36,20 @@ public class DeployPageService {
     @Autowired
     federateObjectMapper federateObjectMapper;
 
-    public void LoadBPMNFile(String processDefinitionKey,String pathName){
+    public activitiProcess LoadBPMNFile(String processDefinitionKey,String pathName){
         //proc.init("platform", "processes/platform.bpmn");
         proc.init(processDefinitionKey,pathName);
         //加载文件
         proc.process();
+
+        return proc;
     }
 
     public String BPMNXMLStr (String showbpmnpath,String pathName) throws DocumentException {
         //在页面中找到bpmn图
         StringBuilder xmlpath = new StringBuilder();
         xmlpath.append(showbpmnpath)
-                .append(pathName.split("/")[1].split(".")[0])
+                .append(pathName.split("/")[1].split("\\.")[0])
                 .append(".xml");
         String xmlstr = readXML.read(xmlpath.toString());
         return xmlstr;

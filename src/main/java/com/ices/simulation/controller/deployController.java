@@ -1,21 +1,19 @@
 package com.ices.simulation.controller;
 
-import com.ices.simulation.config.pathVariable;
-import com.ices.simulation.cyf.utils.generateUtils;
+import com.ices.simulation.cyf.pathVariable;
 import com.ices.simulation.dao.mapper.federateListMapper;
 import com.ices.simulation.dao.mapper.interactionMapper;
 import com.ices.simulation.dao.mapper.parameterMapper;
 import com.ices.simulation.dao.mapper.startInformationMapper;
-import com.ices.simulation.dao.model.federateList;
 import com.ices.simulation.dto.federateDTO;
 import com.ices.simulation.service.DeployPageService;
+import com.ices.simulation.service.process.activitiProcess;
 import org.dom4j.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -48,11 +46,12 @@ public class deployController {
                          Model model) throws DocumentException {
 
         //activiti引擎加载图
-        thisPageService.LoadBPMNFile(processDefinitionKey,pathName);
+        activitiProcess proc = thisPageService.LoadBPMNFile(processDefinitionKey, pathName);
 
         //别忘了打开
-//        currentTaskController.setProc(proc);
+        currentTaskController.setProc(proc);
 //        publishController.setProc(proc);
+
         //在页面中找到bpmn图，放到页面上
         String xmlstr = thisPageService.BPMNXMLStr(pathVariable.getShowbpmnpath(), pathName);
         model.addAttribute("xmlstr",xmlstr);

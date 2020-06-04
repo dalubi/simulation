@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:tns="http://www.activiti.org/test" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="m1586786943177" name="" targetNamespace="http://www.activiti.org/test" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="6.5.1">
+  <process id="external" name="external" processType="None" isClosed="false" isExecutable="true">
+    <userTask id="Activity_17nzsf0" name="疫情，停工" activiti:exclusive="true">
+      <documentation id="sf9f443f4-7ea5-4d64-a997-881712435b6a">null</documentation>
+    </userTask>
+    <userTask id="Activity_1b4jw0p" name="疫情，交通运输受阻" activiti:exclusive="true">
+      <documentation id="s9e7fe57b-4fbd-4ce0-ad9f-f99807fe4940">null</documentation>
+    </userTask>
+    <endEvent id="saaf72dba-23a0-4d75-bfd9-5f80b16fff40" />
+    <sequenceFlow id="s83bb8d03-77df-46e8-9ca9-c928f52514d6" sourceRef="Activity_1b4jw0p" targetRef="saaf72dba-23a0-4d75-bfd9-5f80b16fff40" />
+    <userTask id="Activity_0fn78nx" name="环保检查" activiti:exclusive="true">
+      <documentation id="secf98a75-9dd2-41f7-bed6-f1c1a55d63c8">null</documentation>
+    </userTask>
+    <endEvent id="sb54be66f-505f-4ec1-aeb6-bb75b64a8f8a" />
+    <sequenceFlow id="s30be8d3e-8a26-4573-bb49-d86707e10950" sourceRef="Activity_0fn78nx" targetRef="sb54be66f-505f-4ec1-aeb6-bb75b64a8f8a" />
+    <parallelGateway id="s7560df82-e386-412b-884d-e02d23081b3e" />
+    <sequenceFlow id="s5003c0f3-b27d-4a8d-ac69-34a228d19df3" sourceRef="s7560df82-e386-412b-884d-e02d23081b3e" targetRef="Activity_17nzsf0" />
+    <sequenceFlow id="sbef10c68-837e-4e36-a2f8-fe7aa1581c03" sourceRef="s7560df82-e386-412b-884d-e02d23081b3e" targetRef="Activity_1b4jw0p" />
+    <sequenceFlow id="sb16605f4-b307-4317-99cf-cff9fb2d3537" sourceRef="s7560df82-e386-412b-884d-e02d23081b3e" targetRef="Activity_0fn78nx" />
+    <startEvent id="se6c55bd3-a871-4ad9-96f8-f9e21ebe5201" />
+    <sequenceFlow id="seda0b041-38a9-43c2-b275-a575b911379d" sourceRef="se6c55bd3-a871-4ad9-96f8-f9e21ebe5201" targetRef="s7560df82-e386-412b-884d-e02d23081b3e" />
+    <endEvent id="_2" />
+    <sequenceFlow id="_3" sourceRef="Activity_17nzsf0" targetRef="_2" />
+  </process>
+  <bpmndi:BPMNDiagram id="Diagram-_1" name="New Diagram" documentation="background=#FFFFFF;count=1;horizontalcount=1;orientation=0;width=842.4;height=1195.2;imageableWidth=832.4;imageableHeight=1185.2;imageableX=5.0;imageableY=5.0">
+    <bpmndi:BPMNPlane bpmnElement="external">
+      <bpmndi:BPMNEdge id="BPMNEdge__3" bpmnElement="_3" sourceElement="Shape-Activity_17nzsf0" targetElement="Shape-_2">
+        <omgdi:waypoint x="429" y="121" />
+        <omgdi:waypoint x="490" y="116" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="0" y="0" width="0" height="0" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_seda0b041-38a9-43c2-b275-a575b911379d" bpmnElement="seda0b041-38a9-43c2-b275-a575b911379d" sourceElement="Shape-se6c55bd3-a871-4ad9-96f8-f9e21ebe5201" targetElement="Shape-s7560df82-e386-412b-884d-e02d23081b3e">
+        <omgdi:waypoint x="192" y="216" />
+        <omgdi:waypoint x="252" y="216" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="-1" y="-1" width="-1" height="-1" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_sb16605f4-b307-4317-99cf-cff9fb2d3537" bpmnElement="sb16605f4-b307-4317-99cf-cff9fb2d3537" sourceElement="Shape-s7560df82-e386-412b-884d-e02d23081b3e" targetElement="Shape-Activity_0fn78nx">
+        <omgdi:waypoint x="284" y="216" />
+        <omgdi:waypoint x="344" y="311" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="-1" y="-1" width="-1" height="-1" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_sbef10c68-837e-4e36-a2f8-fe7aa1581c03" bpmnElement="sbef10c68-837e-4e36-a2f8-fe7aa1581c03" sourceElement="Shape-s7560df82-e386-412b-884d-e02d23081b3e" targetElement="Shape-Activity_1b4jw0p">
+        <omgdi:waypoint x="284" y="216" />
+        <omgdi:waypoint x="344" y="216" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="-1" y="-1" width="-1" height="-1" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_s5003c0f3-b27d-4a8d-ac69-34a228d19df3" bpmnElement="s5003c0f3-b27d-4a8d-ac69-34a228d19df3" sourceElement="Shape-s7560df82-e386-412b-884d-e02d23081b3e" targetElement="Shape-Activity_17nzsf0">
+        <omgdi:waypoint x="284" y="216" />
+        <omgdi:waypoint x="344" y="121" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="-1" y="-1" width="-1" height="-1" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_s30be8d3e-8a26-4573-bb49-d86707e10950" bpmnElement="s30be8d3e-8a26-4573-bb49-d86707e10950" sourceElement="Shape-Activity_0fn78nx" targetElement="Shape-sb54be66f-505f-4ec1-aeb6-bb75b64a8f8a">
+        <omgdi:waypoint x="429" y="311" />
+        <omgdi:waypoint x="489" y="311" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="-1" y="-1" width="-1" height="-1" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_s83bb8d03-77df-46e8-9ca9-c928f52514d6" bpmnElement="s83bb8d03-77df-46e8-9ca9-c928f52514d6" sourceElement="Shape-Activity_1b4jw0p" targetElement="Shape-saaf72dba-23a0-4d75-bfd9-5f80b16fff40">
+        <omgdi:waypoint x="429" y="216" />
+        <omgdi:waypoint x="489" y="216" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="-1" y="-1" width="-1" height="-1" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Shape-Activity_17nzsf0" bpmnElement="Activity_17nzsf0">
+        <omgdc:Bounds x="344" y="94" width="85" height="55" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="0" y="0" width="85" height="55" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape-Activity_1b4jw0p" bpmnElement="Activity_1b4jw0p">
+        <omgdc:Bounds x="344" y="189" width="85" height="55" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="0" y="0" width="85" height="55" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape-saaf72dba-23a0-4d75-bfd9-5f80b16fff40" bpmnElement="saaf72dba-23a0-4d75-bfd9-5f80b16fff40">
+        <omgdc:Bounds x="489" y="200" width="32" height="32" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="0" y="0" width="32" height="32" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape-Activity_0fn78nx" bpmnElement="Activity_0fn78nx">
+        <omgdc:Bounds x="344" y="284" width="85" height="55" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="0" y="0" width="85" height="55" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape-sb54be66f-505f-4ec1-aeb6-bb75b64a8f8a" bpmnElement="sb54be66f-505f-4ec1-aeb6-bb75b64a8f8a">
+        <omgdc:Bounds x="489" y="295" width="32" height="32" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="0" y="0" width="32" height="32" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape-s7560df82-e386-412b-884d-e02d23081b3e" bpmnElement="s7560df82-e386-412b-884d-e02d23081b3e">
+        <omgdc:Bounds x="252" y="200" width="32" height="32" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="0" y="0" width="32" height="32" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape-se6c55bd3-a871-4ad9-96f8-f9e21ebe5201" bpmnElement="se6c55bd3-a871-4ad9-96f8-f9e21ebe5201">
+        <omgdc:Bounds x="160" y="200" width="32" height="32" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="0" y="0" width="32" height="32" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape-_2" bpmnElement="_2">
+        <omgdc:Bounds x="490" y="100" width="32" height="32" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="0" y="0" width="32" height="32" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

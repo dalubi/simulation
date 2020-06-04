@@ -4,8 +4,8 @@ package com.ices.simulation.controller.post;
 //import com.alibaba.fastjson.JSONObject;
 
 
-import com.example.elema.dao.mapper.instructioncreateMapper;
-import com.example.elema.dao.model.instructioncreate;
+import com.ices.simulation.dao.mapper.instructionCreateMapper;
+import com.ices.simulation.dao.model.instructionCreate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 public class createController {
 
     @Autowired
-    instructioncreateMapper instructioncreateMapper;
+    instructionCreateMapper instructionCreateMapper;
 
 
 
@@ -28,14 +28,14 @@ public class createController {
                                             @RequestParam("actualInformation")String actualInformation,
                                             @RequestParam("outName")String outName)
     {
-        instructioncreate create = new instructioncreate();
+        instructionCreate create = new instructionCreate();
         create.setOutName(outName);
         create.setTypeInformation(typeInformation);
         create.setActualInformation(actualInformation);
         create.setIndent(5);
-        int objectId = instructioncreateMapper.findObjectIdByName(federateObject);
+        int objectId = instructionCreateMapper.findObjectIdByName(federateObject);
         create.setObjectId(objectId);
-        instructioncreateMapper.insert(create);
+        instructionCreateMapper.insert(create);
 
         String body = "成功插入，ObjectId为"+objectId;
         return new ResponseEntity<String>(body, HttpStatus.OK);

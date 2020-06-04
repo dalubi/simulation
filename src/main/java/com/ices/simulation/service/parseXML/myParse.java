@@ -3,7 +3,7 @@ package com.ices.simulation.service.parseXML;
 import org.dom4j.*;
 import org.dom4j.io.SAXReader;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.ices.simulation.config.pathVariable;
+import com.ices.simulation.cyf.pathVariable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;

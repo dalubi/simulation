@@ -15,7 +15,7 @@ public interface federateMapper {
             "values(#{federateName},#{publishInteractionIds},#{subscribeInteractionIds})")
     void insert(federate federate);
 
-    @Select("select federateId,federateName,federate from federate")
+    @Select("select federateId,federateName from federate")
     @ResultType(value= federateDTO.class)
     List<federateDTO> allFederateInfo();
 

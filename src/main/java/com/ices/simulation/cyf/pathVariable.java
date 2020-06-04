@@ -1,4 +1,4 @@
-package com.ices.simulation.config;
+package com.ices.simulation.cyf;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
