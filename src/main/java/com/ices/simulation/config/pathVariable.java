@@ -14,4 +14,7 @@ public class pathVariable {
 
     @Value("${file.processespath}")
     private String processespath;
+
+    @Value("${file.processesfilefolder}")
+    private String processesfilefolder;
 }

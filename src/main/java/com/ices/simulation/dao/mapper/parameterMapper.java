@@ -15,7 +15,7 @@ public interface parameterMapper {
             "values(#{parameterName},#{parameterType})")
     void insert(parameter para);
 
-    @Select("select * from elema.parameter")
+    @Select("select * from parameter")
     @ResultType(value = parameter.class)
     List<parameter> getAllParameter();
 

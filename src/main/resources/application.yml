@@ -49,7 +49,9 @@ file:
   filepath: /Users/america/IdeaProjects/simulation/src/main/resources/bpmnGraph/
   #将上传上来的文件解析到的文件夹
   showbpmnpath: /Users/america/IdeaProjects/simulation/src/main/resources/showGraphs/
-  #bpmn文件加载的路径
+  #bpmn文件加载的路径+/
   processespath: /Users/america/IdeaProjects/simulation/src/main/resources/processes/
+  #bpmn加载路径的文件夹
+  processesfilefolder: /Users/america/IdeaProjects/simulation/src/main/resources/processes
 
 

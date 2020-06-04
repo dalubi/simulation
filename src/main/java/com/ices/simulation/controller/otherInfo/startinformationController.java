@@ -29,9 +29,6 @@ public class startinformationController {
         String[] initialInstanceTasks = initialInstanceTask.split(",");
         String[] updateInstanceTasks = updateInstanceTask.split(",");
 
-
-
-
         int finalCount=federateIds.length;
         for(int i=0;i<finalCount;i++){
             startInformation startinformation=new startInformation();

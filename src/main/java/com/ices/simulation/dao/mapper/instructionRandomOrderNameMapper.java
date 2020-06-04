@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 @Mapper
-public interface instructionrandomordernameMapper {
+public interface instructionRandomOrderNameMapper {
 
     @Insert("insert into instructionrandomordername(outName,indent) " +
             "values(#{outName},#{indent})")
