@@ -1,11 +1,7 @@
 package com.ices.simulation.controller;
 
-import com.ices.simulation.dao.mapper.editInformationMapper;
-import com.ices.simulation.dao.mapper.taskMapper;
-import com.ices.simulation.dao.model.editInformation;
 import com.ices.simulation.dto.taskDTO;
 import com.ices.simulation.service.CurrentTaskPageService;
-import com.ices.simulation.service.parseXML.readXML;
 import com.ices.simulation.service.process.activitiProcess;
 import org.dom4j.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +32,6 @@ public class currentTaskController {
 
         taskDTO taskdto = proc.queryTask();
         publishController.setTaskdto(taskdto);
-
         String pathName = proc.getPathName();
 
         //将xml展示到图片上

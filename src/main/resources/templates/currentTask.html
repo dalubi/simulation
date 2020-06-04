@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>当前任务编辑</title>
+    <!-- required modeler styles -->
+    <link rel="stylesheet" href="https://unpkg.com/bpmn-js@6.5.1/dist/assets/diagram-js.css">
+    <link rel="stylesheet" href="https://unpkg.com/bpmn-js@6.5.1/dist/assets/bpmn-font/css/bpmn.css">
+    <!-- modeler distro -->
+    <script src="https://unpkg.com/bpmn-js@6.5.1/dist/bpmn-modeler.development.js"></script>
+    <!-- needed for this example only -->
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery.serializeJSON/2.9.0/jquery.serializejson.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <!-- example styles -->
+    <style>
+        #canvas {
+            padding: 0;
+            margin-left: 100px;
+            width: 1200px;
+            height: 400px;
+            border:5px;
+            border-style: dotted;
+            border-color: red;
+        }
+
+        .diagram-note {
+            background-color: rgba(66, 180, 21, 0.7);
+            color: White;
+            border-radius: 5px;
+            font-family: Arial;
+            font-size: 12px;
+
+            padding: 5px;
+            min-height: 16px;
+            width: 50px;
+            text-align: center;
+        }
+
+        .needs-discussion:not(.djs-connection) .djs-visual > :nth-child(1) {
+            stroke: rgba(66, 180, 21, 0.7) !important; /* color elements as red */
+        }
+
+        #save-button {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+        }
+    </style>
+
+    <script language="JavaScript">
+        function addInstruction() {
+            let inst_count = document.getElementsByClassName("instruction").length;
+            let html = " <div id=\"instruction_"+inst_count+"\" class=\"instruction\" style=\"border: black;border-width: 2px;border-style: dotted\">\n" +
+                "          <br />\n" +
+                "          <span class=\"dropdown\">\n" +
+                "              <button class=\"btn btn-secondary dropdown-toggle\" type=\"button\" id=\"dropdownMenu2\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n" +
+                "                  请选择要插入的操作命令\n" +
+                "              </button>\n" +
+                "              <span class=\"dropdown-menu\" aria-labelledby=\"dropdownMenu2\">\n" +
+                "                  <button class=\"dropdown-item\" type=\"button\" onclick=\"CreateInstruction(this)\">创建对象</button>\n" +
+                "                  <button class=\"dropdown-item\" type=\"button\" onclick=\"DelayInstruction(this)\">延时</button>\n" +
+                "                  <button class=\"dropdown-item\" type=\"button\" onclick=\"ExpressionInstruction(this)\">表达式</button>\n" +
+                "                  <button class=\"dropdown-item\" type=\"button\" onclick=\"ListAddInstruction(this)\">列表加入</button>\n" +
+                "                  <button class=\"dropdown-item\" type=\"button\" onclick=\"ListSizeInstruction(this)\">列表大小</button>\n" +
+                "                  <button class=\"dropdown-item\" type=\"button\" onclick=\"ListClearInstruction(this)\">列表清空</button>\n" +
+                "                  <button class=\"dropdown-item\" type=\"button\" onclick=\"ListRemoveInstruction(this)\">列表移除</button>\n" +
+                "                  <button class=\"dropdown-item\" type=\"button\" onclick=\"ListGetInstruction(this)\">列表获得一个对象（按名字）</button>\n" +
+                "                  <button class=\"dropdown-item\" type=\"button\" onclick=\"ListGetIndexInstruction(this)\">列表获得一个对象（按下标）</button>\n" +
+                "                  <button class=\"dropdown-item\" type=\"button\" onclick=\"ObjectGetInstruction(this)\">获得一个对象</button>\n" +
+                "                  <button class=\"dropdown-item\" type=\"button\" onclick=\"ObjectSetInstruction(this)\">设置一个对象</button>\n" +
+                "                  <button class=\"dropdown-item\" type=\"button\" onclick=\"SendInstruction(this)\">发送一个交互类</button>\n" +
+                "                  <button class=\"dropdown-item\" type=\"button\" onclick=\"TypeConversionInstruction(this)\">强制转换</button>\n" +
+                "                  <button class=\"dropdown-item\" type=\"button\" onclick=\"UpdateTimePeriodInstruction(this)\">生命周期更新</button>\n" +
+                "                  <button class=\"dropdown-item\" type=\"button\" onclick=\"MathAbsInstruction(this)\">绝对值</button>\n" +
+                "                  <button class=\"dropdown-item\" type=\"button\" onclick=\"RandomIntInstruction(this)\">产生一个随机数</button>\n" +
+                "                  <button class=\"dropdown-item\" type=\"button\" onclick=\"SelectInstruction(this)\">选择</button>\n" +
+                "                  <button class=\"dropdown-item\" type=\"button\" onclick=\"ForeachInstruction(this)\">foreach</button>\n" +
+                "                  <button class=\"dropdown-item\" type=\"button\" onclick=\"FornumberInstruction(this)\">fornumber</button>\n" +
+                "              </span>\n" +
+                "          </span>\n" +
+                "          <span>\n" +
+                "            <button type=\"button\" class=\"btn btn-outline-warning\" id=\"hideButton\" onclick=\"HideDetails(this)\">隐藏指令细节</button>\n" +
+                "          </span>\n" +
+                "          <br /><br />\n" +
+                "          <!--在这里插入一条指令的具体内容-->\n" +
+                "        </div><br />";
+            let addInstruction = document.getElementById("addInstruction");
+            addInstruction.insertAdjacentHTML("beforebegin",html);
+        }
+
+        function HideDetails(obj) {
+            let AncestorDiv = obj.parentElement.parentElement;
+            let sequence = AncestorDiv.getAttribute("id").split("_")[1];
+            let insertId = "insert"+sequence;
+
+            let current = document.getElementById(insertId);
+            let css = current.getAttribute("style");
+
+            if (css===null || css===""){
+                current.setAttribute("style","display: none");
+                current.innerText = "展开指令细节";
+            }else{
+                current.setAttribute("style","");
+                current.innerText = "隐藏指令细节";
+            }
+        }
+
+        function addInsideTask() {
+            let html="<div>\n" +
+                "                <span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp内部任务Id:</span><input type=\"text\" name=\"insidetaskId\"><span>&nbsp&nbsp&nbsp</span>\n" +
+                "                <span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp任务内容:</span><input type=\"text\" name=\"information\"><span>&nbsp&nbsp&nbsp</span>\n" +
+                "                <span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp是否完成(请填写no):</span><input type=\"text\" name=\"iscomplete\"><span>&nbsp&nbsp&nbsp</span>\n" +
+                "                <br />\n" +
+                "                <br />\n" +
+                "            </div>";
+            let insideTaskAfter = document.getElementById("insideTaskAfter");
+            insideTaskAfter.insertAdjacentHTML("beforebegin",html);
+        }
+
+        function showInnerTask(){
+            let innerElement = document.getElementById("inner");
+            innerElement.setAttribute("style","");
+        }
+
+        function submitInsideTask(){
+            let formId = "#insidetaskForm";
+            let serializeArray = $(formId).serializeArray();
+            console.log(serializeArray);
+            $.ajax({
+                url:"/post/insidetask",
+                type:"post",
+                dataType:"text",
+                data:serializeArray,
+                success:function(result){
+                    alert(result);
+                }
+            });
+        }
+
+    </script>
+
+</head>
+<body>
+    <div>
+            <!--导航栏-->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="/">BPMN SIMU</a>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/">上传BPMN<span class="sr-only">(current)</span></a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/cleanActivitiData">数据清理</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/states">所有联邦成员状态图</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!--流程图展示-->
+            <div style="width: 1200px;margin-left: 100px;">
+                <br />
+                <h2>
+                    本联邦成员的状态图表示如下
+                </h2>
+                <br />
+            </div>
+            <div id="canvas"></div>
+            <br />
+
+            <!--其他信息的栏目-->
+            <div style="width: 1200px;height: 600px;margin-left: 100px;">
+                <!--辅助信息-->
+                <div class="jumbotron">
+                    <h2>组织指令设计任务的流程</h2>
+                    <br /><hr><br />
+                    <table class="table">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">任务描述</th>
+                            <th scope="col">任务ID</th>
+                            <th scope="col">收到的交互类</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td th:text="${taskdto.getTaskName()}"></td>
+                            <td th:text="${taskdto.getTaskId()}"></td>
+                            <td th:text="${taskdto.getInteraction()}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <br /><hr><br />
+                    <h3>辅助信息</h3>
+                    <br /><br />
+                    <div id="interactionInfoTable">
+                        <h5 th:text="'收到的的交互类（'+${taskdto.getTaskName()}+'）中的参数表'"></h5>
+                        <table class="table table-hover table-danger">
+                            <thead>
+                            <tr>
+                                <th scope="col">交互类中的参数</th>
+                                <th scope="col">参数对应的类型</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>id</td>
+                                <td>int</td>
+                            </tr>
+                            <tr>
+                                <td>name</td>
+                                <td>String</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <br />
+
+                <!--指令的编辑-->
+                <div id="instruction_0" class="instruction" style="border: black;border-width: 2px;border-style: dotted">
+                    <br />
+                    <span class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      请选择要插入的操作命令
+                  </button>
+                  <span class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                      <button class="dropdown-item" type="button" onclick="CreateInstruction(this)">创建对象</button>
+                      <button class="dropdown-item" type="button" onclick="DelayInstruction(this)">延时</button>
+                      <button class="dropdown-item" type="button" onclick="ExpressionInstruction(this)">表达式</button>
+                      <button class="dropdown-item" type="button" onclick="ListAddInstruction(this)">列表加入</button>
+                      <button class="dropdown-item" type="button" onclick="ListSizeInstruction(this)">列表大小</button>
+                      <button class="dropdown-item" type="button" onclick="ListClearInstruction(this)">列表清空</button>
+                      <button class="dropdown-item" type="button" onclick="ListRemoveInstruction(this)">列表移除</button>
+                      <button class="dropdown-item" type="button" onclick="ListGetInstruction(this)">列表获得一个对象（按名字）</button>
+                      <button class="dropdown-item" type="button" onclick="ListGetIndexInstruction(this)">列表获得一个对象（按下标）</button>
+                      <button class="dropdown-item" type="button" onclick="ObjectGetInstruction(this)">获得一个对象</button>
+                      <button class="dropdown-item" type="button" onclick="ObjectSetInstruction(this)">设置一个对象</button>
+                      <button class="dropdown-item" type="button" onclick="SendInstruction(this)">发送一个交互类</button>
+                      <button class="dropdown-item" type="button" onclick="TypeConversionInstruction(this)">强制转换</button>
+                      <button class="dropdown-item" type="button" onclick="UpdateTimePeriodInstruction(this)">生命周期更新</button>
+                      <button class="dropdown-item" type="button" onclick="MathAbsInstruction(this)">绝对值</button>
+                      <button class="dropdown-item" type="button" onclick="RandomIntInstruction(this)">产生一个随机数</button>
+                      <button class="dropdown-item" type="button" onclick="SelectInstruction(this)">选择</button>
+                      <button class="dropdown-item" type="button" onclick="ForeachInstruction(this)">foreach</button>
+                      <button class="dropdown-item" type="button" onclick="FornumberInstruction(this)">fornumber</button>
+                  </span>
+              </span>
+                    <span>
+                <button type="button" class="btn btn-outline-warning" id="hideButton" onclick="HideDetails(this)">隐藏指令细节</button>
+              </span>
+                    <br /><br />
+                    <!--在这里插入一条指令的具体内容-->
+                </div><br />
+
+                <!--在这里之前插入一条指令的div-->
+                <div id="addInstruction">
+                    <br />
+                </div>
+
+                <!--添加一条指令编辑的按钮-->
+                <button type="button" class="btn btn-dark"
+                        style="margin-left: 1070px"
+                        onclick="addInstruction()">
+                    增加一个命令
+                </button>
+
+                <!--内部任务-->
+                <div id="inner" style="display: none">
+                        <div class="jumbotron">
+                            <h2>内部任务</h2>
+                            <button type="button" class="btn btn-primary" onclick="addInsideTask()"
+                                    style="right: 20px;text-align: center;margin-left: 970px">
+                                增加一个内部任务
+                            </button>
+                            <br />
+                            <br />
+                            <div style="border: black;border-style: dotted;border-width: 1px">
+                                <form id="insidetaskForm">
+                                    <div>
+                                        <br>
+                                        <span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp内部任务Id:</span><input type="text" name="insidetaskId"><span>&nbsp&nbsp&nbsp</span>
+                                        <span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp任务内容:</span><input type="text" name="information"><span>&nbsp&nbsp&nbsp</span>
+                                        <span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp是否完成(请填写no):</span><input type="text" name="iscomplete"><span>&nbsp&nbsp&nbsp</span>
+                                        <br />
+                                    </div><br/>
+                                    <button id="insideTaskAfter" type="button" class="btn btn-success" style="margin-left: 1000px" onclick="submitInsideTask()">
+                                        提交内部任务
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                <!--是否显示内部任务，以及进入下一个流程-->
+                <div class="jumbotron" style="text-align: center">
+                        <h3>如果当前的指令，需要内部任务的执行，点击创建内部任务</h3>
+                        <br />
+                        <button type="button" class="btn btn-outline-danger"
+                                onclick="showInnerTask()" style="margin-left: 1010px">
+                            显示内部任务
+                        </button>
+
+                        <br />
+                        <hr />
+                        <br />
+                        <h3>
+                            当前Task的指令编辑添加完毕，查询当前这个任务的指令序列
+                        </h3>
+                        <br />
+                    <a th:href="'/taskInfo/' + ${taskdto.getTaskId()}"
+                       class="btn btn-primary btn-lg active" role="button" aria-pressed="true">
+                        查询当前指令命令序列
+                    </a>
+
+                    </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        // modeler instance
+        var bpmnModeler = new BpmnJS({
+            container: '#canvas',
+            keyboard: {
+                bindTo: window
+            }
+        });
+        var bpmnXML = [[${xmlstr}]];
+        openDiagram(bpmnXML);
+        function openDiagram(bpmnXML) {
+            // import diagram
+            bpmnModeler.importXML(bpmnXML, function(err) {
+                if (err) {
+                    return console.error('could not import BPMN 2.0 diagram', err);
+                }
+                // access modeler components
+                var canvas = bpmnModeler.get('canvas');
+                var overlays = bpmnModeler.get('overlays');
+                // zoom to fit full viewport
+                canvas.zoom('fit-viewport');
+                // attach an overlay to a node
+                overlays.add('SCAN_OK', 'note', {
+                    position: {
+                        bottom: 0,
+                        right: 0
+                    },
+                    html: '<div class="diagram-note">Mixed up the labels?</div>'
+                });
+                // add marker
+                canvas.addMarker('SCAN_OK', 'needs-discussion');
+            });
+        }
+    </script>
+
+    <script language="JavaScript">
+        //create指令
+        function CreateInstruction(obj){
+            let AncestorDiv = obj.parentElement.parentElement.parentElement;
+            let sequence = AncestorDiv.getAttribute("id").split("_")[1];
+            let formId = "instruction"+sequence;
+            let insertId = "insert"+sequence;
+            let html = "<div id=\""+insertId+"\">\n" +
+                "    <br />\n" +
+                "    <h3 style=\"color:indigo\">创建对象</h3>\n" +
+                "    <hr >\n" +
+                "    <form id=\""+formId+"\">\n" +
+                "      <div>\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">请输入这个对象的名称</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"outName\" class=\"form-control\" placeholder=\"给这个对象命名\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">请输入创建的对象的类型</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"federateObject\" class=\"form-control\" placeholder=\"输入对应的对象类型\">\n" +
+                "        </div>\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">请输入这个对象中对应各个参数的类型</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"typeInformation\" class=\"form-control\" placeholder=\"用逗号隔开\">\n" +
+                "        </div>\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">填充这个对象的各个参数</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"actualInformation\" class=\"form-control\" placeholder=\"用逗号隔开\">\n" +
+                "        </div>\n" +
+                "      </div>\n" +
+                "      <button type=\"button\" class=\"btn btn-success\" style=\"margin-left: 1070px\" onclick=\"submitCreateInstruction(this)\">提交这条命令</button>\n" +
+                "      <p style=\"margin-left: 700px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
+                "    </form>\n" +
+                "  </div>";
+            AncestorDiv.insertAdjacentHTML("beforeend",html);
+        }
+        function submitCreateInstruction(obj) {
+            //instruction0 -- alert('#'+obj.parentElement.getAttribute("id"));
+            let formId='#'+obj.parentElement.getAttribute("id");
+            //alert(formId);
+            let serializeArray = $(formId).serializeArray();
+            $.ajax({
+                url:"/post/create",
+                type:"post",
+                dataType:"text",
+                data:serializeArray,
+                success:function(result){
+                    alert(result);
+                }
+            });
+        }
+
+        //delay指令
+        function DelayInstruction(obj) {
+            let AncestorDiv = obj.parentElement.parentElement.parentElement;
+            let sequence = AncestorDiv.getAttribute("id").split("_")[1];
+            let formId = "instruction"+sequence;
+            let insertId = "insert"+sequence;
+            let html = "<div id=\""+insertId+"\">\n" +
+                "    <br />\n" +
+                "    <h3 style=\"color:indigo\">延时</h3>\n" +
+                "    <hr >\n" +
+                "    <form id=\""+formId+"\">\n" +
+                "      <div>\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">延时的时间</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"delayTime\" class=\"form-control\" placeholder=\"输入时间\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">打印的信息</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"logInformation\" class=\"form-control\" placeholder=\"打印的提示信息\">\n" +
+                "        </div>\n" +
+                "      </div>\n" +
+                "      <button type=\"button\" class=\"btn btn-success\" style=\"margin-left: 1070px\" onclick=\"submitDelayInstruction(this)\">提交这条命令</button>\n" +
+                "      <p style=\"margin-left: 700px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
+                "    </form>\n" +
+                "  </div>";
+            AncestorDiv.insertAdjacentHTML("beforeend",html);
+        }
+        function submitDelayInstruction(obj) {
+            let formId='#'+obj.parentElement.getAttribute("id");
+            //alert(formId);
+            let serializeArray = $(formId).serializeArray();
+            $.ajax({
+                url:"/post/delay",
+                type:"post",
+                dataType:"text",
+                data:serializeArray,
+                success:function(result){
+                    alert(result);
+                }
+            });
+        }
+
+        // expression
+        function ExpressionInstruction(obj) {
+            let AncestorDiv = obj.parentElement.parentElement.parentElement;
+            let sequence = AncestorDiv.getAttribute("id").split("_")[1];
+            let formId = "instruction"+sequence;
+            let insertId = "insert"+sequence;
+            let html = "<div id=\""+insertId+"\">\n" +
+                "    <br />\n" +
+                "    <h3 style=\"color:indigo\">设置表达式</h3>\n" +
+                "    <hr >\n" +
+                "    <form id=\""+formId+"\">\n" +
+                "      <div>\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">expression的表达式</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"expressionInformation\" class=\"form-control\" placeholder=\"用？代表每个变量\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">每个问号代表的变量类型</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"fillType\" class=\"form-control\" placeholder=\"1表示XXX，2表示YYY\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">每个问号填充的数据，对应变量的类型</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"fillInformation\" class=\"form-control\" placeholder=\"UNKNOWN\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">表达式的结果类型</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"outType\" class=\"form-control\" placeholder=\"UNKNOWN\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">保存表达式结果的变量</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"outName\" class=\"form-control\" placeholder=\"UNKNOWN\">\n" +
+                "        </div>\n" +
+                "      </div>\n" +
+                "      <button type=\"button\" class=\"btn btn-success\" style=\"margin-left: 1070px\" onclick=\"submitExpressionInstruction(this)\">提交这条命令</button>\n" +
+                "      <p style=\"margin-left: 700px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
+                "    </form>\n" +
+                "  </div>"
+            AncestorDiv.insertAdjacentHTML("beforeend",html);
+        }
+        function submitExpressionInstruction(obj) {
+            let formId='#'+obj.parentElement.getAttribute("id");
+            let serializeArray = $(formId).serializeArray();
+            $.ajax({
+                url:"/post/expression",
+                type:"post",
+                dataType:"text",
+                data:serializeArray,
+                success:function(result){
+                    alert(result);
+                }
+            });
+        }
+
+        //listadd
+        function ListAddInstruction(obj) {
+            let AncestorDiv = obj.parentElement.parentElement.parentElement;
+            let sequence = AncestorDiv.getAttribute("id").split("_")[1];
+            let formId = "instruction"+sequence;
+            let insertId = "insert"+sequence;
+            let html ="  <div id=\""+insertId+"\">\n" +
+                "    <br />\n" +
+                "    <h3 style=\"color:indigo\">已知对象名，将该对象添加到某个列表中</h3>\n" +
+                "    <hr >\n" +
+                "    <form id=\""+formId+"\">\n" +
+                "      <div>\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">将对象添加到哪个列表中</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"listName\" class=\"form-control\" placeholder=\"输入列表的名字\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">输入添加的对象的名字</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"objectName\" class=\"form-control\" placeholder=\"要添加的对象的名字\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "      </div>\n" +
+                "      <button type=\"button\" class=\"btn btn-success\" style=\"margin-left: 1070px\" onclick=\"submitListaddInstruction(this)\">提交这条命令</button>\n" +
+                "      <p style=\"margin-left: 700px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
+                "    </form>\n" +
+                "  </div>";
+            AncestorDiv.insertAdjacentHTML("beforeend",html);
+        }
+        function submitListaddInstruction(obj){
+            let formId='#'+obj.parentElement.getAttribute("id");
+            let serializeArray = $(formId).serializeArray();
+            $.ajax({
+                url:"/post/listadd",
+                type:"post",
+                dataType:"text",
+                data:serializeArray,
+                success:function(result){
+                    alert(result);
+                }
+            });
+        }
+
+        //ListSize
+        function ListSizeInstruction(obj) {
+            let AncestorDiv = obj.parentElement.parentElement.parentElement;
+            let sequence = AncestorDiv.getAttribute("id").split("_")[1];
+            let formId = "instruction"+sequence;
+            let insertId = "insert"+sequence;
+            let html ="  <div id=\""+insertId+"\">\n" +
+                "    <br />\n" +
+                "    <h3 style=\"color:indigo\">获得已知名称的列表的长度</h3>\n" +
+                "    <hr >\n" +
+                "    <form id=\""+formId+"\">\n" +
+                "      <div>\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">想要得到长度的列表名</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"listName\" class=\"form-control\" placeholder=\"输入列表的名字\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">用来保存列表的长度的变量名</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"outName\" class=\"form-control\" placeholder=\"变量名\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "      </div>\n" +
+                "      <button type=\"button\" class=\"btn btn-success\" style=\"margin-left: 1070px\" onclick=\"submitListsizeInstruction(this)\">提交这条命令</button>\n" +
+                "      <p style=\"margin-left: 700px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
+                "    </form>\n" +
+                "  </div>";
+            AncestorDiv.insertAdjacentHTML("beforeend",html);
+        }
+        function submitListsizeInstruction(obj) {
+            let formId='#'+obj.parentElement.getAttribute("id");
+            let serializeArray = $(formId).serializeArray();
+            $.ajax({
+                url:"/post/listsize",
+                type:"post",
+                dataType:"text",
+                data:serializeArray,
+                success:function(result){
+                    alert(result);
+                }
+            });
+        }
+
+        //ListClear
+        function ListClearInstruction(obj) {
+            let AncestorDiv = obj.parentElement.parentElement.parentElement;
+            let sequence = AncestorDiv.getAttribute("id").split("_")[1];
+            let formId = "instruction"+sequence;
+            let insertId = "insert"+sequence;
+            let html = "  <div id=\""+insertId+"\">\n" +
+                "    <br />\n" +
+                "    <h3 style=\"color:indigo\">清空列表</h3>\n" +
+                "    <hr >\n" +
+                "    <form id=\""+formId+"\">\n" +
+                "      <div>\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">输入想要清空的列表的名字</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"listName\" class=\"form-control\" placeholder=\"将要清空的列表名\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "      </div>\n" +
+                "      <button type=\"button\" class=\"btn btn-success\" style=\"margin-left: 1070px\" onclick=\"submitListclearInstruction(this)\">提交这条命令</button>\n" +
+                "      <p style=\"margin-left: 700px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
+                "    </form>\n" +
+                "  </div>";
+            AncestorDiv.insertAdjacentHTML("beforeend",html);
+        }
+        function submitListclearInstruction(obj) {
+            let formId='#'+obj.parentElement.getAttribute("id");
+            let serializeArray = $(formId).serializeArray();
+            $.ajax({
+                url:"/post/listclear",
+                type:"post",
+                dataType:"text",
+                data:serializeArray,
+                success:function(result){
+                    alert(result);
+                }
+            });
+        }
+
+        // list remove
+        function ListRemoveInstruction(obj) {
+            let AncestorDiv = obj.parentElement.parentElement.parentElement;
+            let sequence = AncestorDiv.getAttribute("id").split("_")[1];
+            let formId = "instruction"+sequence;
+            let insertId = "insert"+sequence;
+            let html = "  <div id=\""+insertId+"\">\n" +
+                "    <br />\n" +
+                "    <h3 style=\"color:indigo\">移除列表中某个元素</h3>\n" +
+                "    <hr >\n" +
+                "    <form id=\""+formId+"\">\n" +
+                "      <div>\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">请输入队列的Id</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"listId\" class=\"form-control\" placeholder=\"列表Id\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">移除依据的参数类型</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"accordingToParameterName\" class=\"form-control\" placeholder=\"若移除类型为3请填写-1\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">移除元素的类型</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"removeType\" class=\"form-control\" placeholder=\"UNKOWN\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">移除的参数值</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"removeName\" class=\"form-control\" placeholder=\"UNKNOWN\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "      </div>\n" +
+                "      <button type=\"button\" class=\"btn btn-success\" style=\"margin-left: 1070px\" onclick=\"submitListremoveInstruction(this)\">提交这条命令</button>\n" +
+                "      <p style=\"margin-left: 700px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
+                "    </form>\n" +
+                "  </div>";
+            AncestorDiv.insertAdjacentHTML("beforeend",html);
+        }
+        function submitListremoveInstruction(obj) {
+            let formId='#'+obj.parentElement.getAttribute("id");
+            let serializeArray = $(formId).serializeArray();
+            $.ajax({
+                url:"/post/listremove",
+                type:"post",
+                dataType:"text",
+                data:serializeArray,
+                success:function(result){
+                    alert(result);
+                }
+            });
+        }
+
+        //fornumber
+        function FornumberInstruction(obj) {
+            let AncestorDiv = obj.parentElement.parentElement.parentElement;
+            let sequence = AncestorDiv.getAttribute("id").split("_")[1];
+            let formId = "instruction"+sequence;
+            let insertId = "insert"+sequence;
+            let html = "  <div id=\""+insertId+"\">\n" +
+                "    <br />\n" +
+                "    <h3 style=\"color:indigo\">ForNumber指令（详细意义不明）</h3>\n" +
+                "    <hr >\n" +
+                "    <form id=\""+formId+"\">\n" +
+                "      <div>\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">给定定义的列表的名字</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"number\" class=\"form-control\" placeholder=\"listName\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">内部task的Id</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"insideTaskId\" class=\"form-control\" placeholder=\"内部Id\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "      </div>\n" +
+                "      <button type=\"button\" class=\"btn btn-success\" style=\"margin-left: 1070px\" onclick=\"submitFornumberInstruction(this)\">提交这条命令</button>\n" +
+                "      <p style=\"margin-left: 700px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
+                "    </form>\n" +
+                "  </div>";
+            AncestorDiv.insertAdjacentHTML("beforeend",html);
+        }
+        function submitFornumberInstruction(obj){
+            let formId='#'+obj.parentElement.getAttribute("id");
+            let serializeArray = $(formId).serializeArray();
+            $.ajax({
+                url:"/post/fornumber",
+                type:"post",
+                dataType:"text",
+                data:serializeArray,
+                success:function(result){
+                    alert(result);
+                }
+            });
+        }
+
+        //foreach
+        function ForeachInstruction(obj) {
+            let AncestorDiv = obj.parentElement.parentElement.parentElement;
+            let sequence = AncestorDiv.getAttribute("id").split("_")[1];
+            let formId = "instruction"+sequence;
+            let insertId = "insert"+sequence;
+            let html = "  <div id=\""+insertId+"\">\n" +
+                "    <br />\n" +
+                "    <h3 style=\"color:indigo\">ForEach指令（详细意义不明）</h3>\n" +
+                "    <hr >\n" +
+                "    <form id=\""+formId+"\">\n" +
+                "      <div>\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">要遍历的列表的名字</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"listName\" class=\"form-control\" placeholder=\"要遍历的列表的名字\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">在列表中查找到对象的名字</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"objectName\" class=\"form-control\" placeholder=\"对象名\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">输出对象的名字</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"outName\" class=\"form-control\" placeholder=\"UNKNOWN\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">内部task的Id</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"insideTaskId\" class=\"form-control\" placeholder=\"内部Id\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "      </div>\n" +
+                "      <button type=\"button\" class=\"btn btn-success\" style=\"margin-left: 1070px\" onclick=\"submitForeachInstruction(this)\">提交这条命令</button>\n" +
+                "      <p style=\"margin-left: 700px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
+                "    </form>\n" +
+                "  </div>";
+            AncestorDiv.insertAdjacentHTML("beforeend",html);
+        }
+        function submitForeachInstruction(obj) {
+            let formId='#'+obj.parentElement.getAttribute("id");
+            let serializeArray = $(formId).serializeArray();
+            $.ajax({
+                url:"/post/foreach",
+                type:"post",
+                dataType:"text",
+                data:serializeArray,
+                success:function(result){
+                    alert(result);
+                }
+            });
+        }
+
+        //select
+        function SelectInstruction(obj) {
+            let AncestorDiv = obj.parentElement.parentElement.parentElement;
+            let sequence = AncestorDiv.getAttribute("id").split("_")[1];
+            let formId = "instruction"+sequence;
+            let insertId = "insert"+sequence;
+            let html = "  <div id=\""+insertId+"\">\n" +
+                "    <br />\n" +
+                "    <h3 style=\"color:indigo\">Select指令</h3>\n" +
+                "    <hr >\n" +
+                "    <form id=\""+formId+"\">\n" +
+                "      <div>\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">给定定义的expression的名字</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"InformationName\" class=\"form-control\" placeholder=\"exp表达式\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">分支的id1</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"branch1Id\" class=\"form-control\" placeholder=\"分支id1\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">分支的id2</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"branch2Id\" class=\"form-control\" placeholder=\"分支的id2\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "      </div>\n" +
+                "      <button type=\"button\" class=\"btn btn-success\" style=\"margin-left: 1070px\" onclick=\"submitSelectInstruction(this)\">提交这条命令</button>\n" +
+                "      <p style=\"margin-left: 700px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
+                "    </form>\n" +
+                "  </div>";
+            AncestorDiv.insertAdjacentHTML("beforeend",html);
+        }
+        function submitSelectInstruction(obj) {
+            let formId='#'+obj.parentElement.getAttribute("id");
+            let serializeArray = $(formId).serializeArray();
+            $.ajax({
+                url:"/post/select",
+                type:"post",
+                dataType:"text",
+                data:serializeArray,
+                success:function(result){
+                    alert(result);
+                }
+            });
+        }
+
+        //randomint
+        function RandomIntInstruction(obj) {
+            let AncestorDiv = obj.parentElement.parentElement.parentElement;
+            let sequence = AncestorDiv.getAttribute("id").split("_")[1];
+            let formId = "instruction"+sequence;
+            let insertId = "insert"+sequence;
+            let html = "  <div id=\""+insertId+"\">\n" +
+                "    <br />\n" +
+                "    <h3 style=\"color:indigo\">产生一个指定范围的随机数</h3>\n" +
+                "    <hr >\n" +
+                "    <form id=\""+formId+"\">\n" +
+                "      <div>\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">给出随机数的开始和结束的值</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"range\" class=\"form-control\" placeholder=\"用，隔开开始和结束的值\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">给这个随机数起个名字</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"outName\" class=\"form-control\" placeholder=\"随机数的名字\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "      </div>\n" +
+                "      <button type=\"button\" class=\"btn btn-success\" style=\"margin-left: 1070px\" onclick=\"submitRandomintInstruction(this)\">提交这条命令</button>\n" +
+                "      <p style=\"margin-left: 700px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
+                "    </form>\n" +
+                "  </div>";
+            AncestorDiv.insertAdjacentHTML("beforeend",html);
+        }
+        function submitRandomintInstruction(obj) {
+            let formId='#'+obj.parentElement.getAttribute("id");
+            let serializeArray = $(formId).serializeArray();
+            $.ajax({
+                url:"/post/randomint",
+                type:"post",
+                dataType:"text",
+                data:serializeArray,
+                success:function(result){
+                    alert(result);
+                }
+            });
+        }
+
+        //mathabs
+        function MathAbsInstruction(obj) {
+            let AncestorDiv = obj.parentElement.parentElement.parentElement;
+            let sequence = AncestorDiv.getAttribute("id").split("_")[1];
+            let formId = "instruction"+sequence;
+            let insertId = "insert"+sequence;
+            let html = "  <div id=\""+insertId+"\">\n" +
+                "    <br />\n" +
+                "    <h3 style=\"color:indigo\">取绝对值指令（意义不明）</h3>\n" +
+                "    <hr >\n" +
+                "    <form id=\""+formId+"\">\n" +
+                "      <div>\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">填写的内容</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"fillInformation\" class=\"form-control\" placeholder=\"填写的内容\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">命名</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"outName\" class=\"form-control\" placeholder=\"命名\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "      </div>\n" +
+                "      <button type=\"button\" class=\"btn btn-success\" style=\"margin-left: 1070px\" onclick=\"submitMathabsInstruction(this)\">提交这条命令</button>\n" +
+                "      <p style=\"margin-left: 700px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
+                "    </form>\n" +
+                "  </div>";
+            AncestorDiv.insertAdjacentHTML("beforeend",html);
+        }
+        function submitMathabsInstruction(obj) {
+            let formId='#'+obj.parentElement.getAttribute("id");
+            let serializeArray = $(formId).serializeArray();
+            $.ajax({
+                url:"/post/mathabs",
+                type:"post",
+                dataType:"text",
+                data:serializeArray,
+                success:function(result){
+                    alert(result);
+                }
+            });
+        }
+
+        //UpdateTimePeriod
+        function UpdateTimePeriodInstruction(obj) {
+            let AncestorDiv = obj.parentElement.parentElement.parentElement;
+            let sequence = AncestorDiv.getAttribute("id").split("_")[1];
+            let formId = "instruction"+sequence;
+            let insertId = "insert"+sequence;
+            let html = " <div id=\""+insertId+"\">\n" +
+                "    <br />\n" +
+                "    <h3 style=\"color:indigo\">生命周期信息更新</h3>\n" +
+                "    <hr >\n" +
+                "    <form id=\""+formId+"\">\n" +
+                "      <div>\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">需要控制生命周期的实例对象名</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"instanceName\" class=\"form-control\" placeholder=\"实例对象名\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">输入活跃的队列名</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"activeListName\" class=\"form-control\" placeholder=\"活跃的队列名\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">输入休眠的队列名</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"dormantListName\" class=\"form-control\" placeholder=\"休眠的队列名\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "      </div>\n" +
+                "      <button type=\"button\" class=\"btn btn-success\" style=\"margin-left: 1070px\" onclick=\"submitUpdatetimeperiodInstruction(this)\">提交这条命令</button>\n" +
+                "      <p style=\"margin-left: 700px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
+                "    </form>\n" +
+                "  </div>";
+            AncestorDiv.insertAdjacentHTML("beforeend",html);
+        }
+        function submitUpdatetimeperiodInstruction(obj) {
+            let formId='#'+obj.parentElement.getAttribute("id");
+            let serializeArray = $(formId).serializeArray();
+            $.ajax({
+                url:"/post/updatetimeperiod",
+                type:"post",
+                dataType:"text",
+                data:serializeArray,
+                success:function(result){
+                    alert(result);
+                }
+            });
+        }
+
+        //TypeConversion
+        function TypeConversionInstruction(obj) {
+            let AncestorDiv = obj.parentElement.parentElement.parentElement;
+            let sequence = AncestorDiv.getAttribute("id").split("_")[1];
+            let formId = "instruction"+sequence;
+            let insertId = "insert"+sequence;
+            let html = "  <div id=\""+insertId+"\">\n" +
+                "    <br />\n" +
+                "    <h3 style=\"color:indigo\">强制类型转换</h3>\n" +
+                "    <hr >\n" +
+                "    <form id=\""+formId+"\">\n" +
+                "      <div>\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">请输入强制转换后的类型</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"conversionType\" class=\"form-control\" placeholder=\"强制转换的类型\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">填充转换的信息</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"information\" class=\"form-control\" placeholder=\"转换的内容\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">输入得到的变量名</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"outName\" class=\"form-control\" placeholder=\"输出变量名\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "      </div>\n" +
+                "      <button type=\"button\" class=\"btn btn-success\" style=\"margin-left: 1070px\" onclick=\"submitTypeconversionInstruction(this)\">\n" +
+                "        提交这条命令\n" +
+                "      </button>\n" +
+                "      <p style=\"margin-left: 700px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
+                "    </form>\n" +
+                "  </div>";
+            AncestorDiv.insertAdjacentHTML("beforeend",html);
+        }
+        function submitTypeconversionInstruction(obj) {
+            let formId='#'+obj.parentElement.getAttribute("id");
+            let serializeArray = $(formId).serializeArray();
+            $.ajax({
+                url:"/post/typeconversion",
+                type:"post",
+                dataType:"text",
+                data:serializeArray,
+                success:function(result){
+                    alert(result);
+                }
+            });
+        }
+
+        //send
+        function SendInstruction(obj) {
+            let AncestorDiv = obj.parentElement.parentElement.parentElement;
+            let sequence = AncestorDiv.getAttribute("id").split("_")[1];
+            let formId = "instruction"+sequence;
+            let insertId = "insert"+sequence;
+            let html = "  <div id=\""+insertId+"\">\n" +
+                "    <br />\n" +
+                "    <h3 style=\"color:indigo\">发送交互类</h3>\n" +
+                "    <hr >\n" +
+                "    <form id=\""+formId+"\">\n" +
+                "      <div>\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">选择要发送的交互类</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"sendInteractionId\" class=\"form-control\" placeholder=\"交互类id\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">填充交互类的参数的类型</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"sendTypes\" class=\"form-control\" placeholder=\"用，隔开\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">填充交互类的参数</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"sendInformation\" class=\"form-control\" placeholder=\"用，隔开\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "      </div>\n" +
+                "      <button type=\"button\" class=\"btn btn-success\" style=\"margin-left: 1070px\" onclick=\"submitSendInstruction(this)\">\n" +
+                "        提交这条命令\n" +
+                "      </button>\n" +
+                "      <p style=\"margin-left: 700px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
+                "    </form>\n" +
+                "  </div>";
+            AncestorDiv.insertAdjacentHTML("beforeend",html);
+        }
+        function submitSendInstruction(obj) {
+            let formId='#'+obj.parentElement.getAttribute("id");
+            let serializeArray = $(formId).serializeArray();
+            $.ajax({
+                url:"/post/send",
+                type:"post",
+                dataType:"text",
+                data:serializeArray,
+                success:function(result){
+                    alert(result);
+                }
+            });
+        }
+
+        //objectset
+        function ObjectSetInstruction(obj) {
+            let AncestorDiv = obj.parentElement.parentElement.parentElement;
+            let sequence = AncestorDiv.getAttribute("id").split("_")[1];
+            let formId = "instruction"+sequence;
+            let insertId = "insert"+sequence;
+            let html = " <div id=\""+insertId+"\">\n" +
+                "    <br />\n" +
+                "    <h3 style=\"color:indigo\">设置对象（意义不明）</h3>\n" +
+                "    <hr >\n" +
+                "    <form id=\""+formId+"\">\n" +
+                "      <div>\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">请输入这个对象的名称</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"objectName\" class=\"form-control\" placeholder=\"对象名称\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">请输入想要设置的参数名称</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"parameterName\" class=\"form-control\" placeholder=\"参数的名字\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">参数的类型</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"setType\" class=\"form-control\" placeholder=\"setType\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">设置的信息</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"setName\" class=\"form-control\" placeholder=\"setName\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "      </div>\n" +
+                "      <button type=\"button\" class=\"btn btn-success\" style=\"margin-left: 1070px\" onclick=\"submitObjectsetInstruction(this)\">\n" +
+                "        提交这条命令\n" +
+                "      </button>\n" +
+                "      <p style=\"margin-left: 700px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
+                "    </form>\n" +
+                "  </div>";
+            AncestorDiv.insertAdjacentHTML("beforeend",html);
+        }
+        function submitObjectsetInstruction(obj) {
+            let formId='#'+obj.parentElement.getAttribute("id");
+            let serializeArray = $(formId).serializeArray();
+            $.ajax({
+                url:"/post/objectset",
+                type:"post",
+                dataType:"text",
+                data:serializeArray,
+                success:function(result){
+                    alert(result);
+                }
+            });
+        }
+
+        //objectget
+        function ObjectGetInstruction(obj) {
+            let AncestorDiv = obj.parentElement.parentElement.parentElement;
+            let sequence = AncestorDiv.getAttribute("id").split("_")[1];
+            let formId = "instruction"+sequence;
+            let insertId = "insert"+sequence;
+            let html = "  <div id=\""+insertId+"\">\n" +
+                "    <br />\n" +
+                "    <h3 style=\"color:indigo\">获取对象（意义不明）</h3>\n" +
+                "    <hr >\n" +
+                "    <form id=\""+formId+"\">\n" +
+                "      <div>\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">请输入这个对象的名称</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"objectName\" class=\"form-control\" placeholder=\"对象名称\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">请输入想要得到的参数名称</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"parameterName\" class=\"form-control\" placeholder=\"参数的名字\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">参数的类型</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"outType\" class=\"form-control\" placeholder=\"outType\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">输入得到参数后的变量名</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"outName\" class=\"form-control\" placeholder=\"outName\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "      </div>\n" +
+                "      <button type=\"button\" class=\"btn btn-success\" style=\"margin-left: 1070px\" onclick=\"submitObjectgetInstruction(this)\">\n" +
+                "        提交这条命令\n" +
+                "      </button>\n" +
+                "      <p style=\"margin-left: 700px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
+                "    </form>\n" +
+                "  </div>";
+            AncestorDiv.insertAdjacentHTML("beforeend",html);
+        }
+        function submitObjectgetInstruction(obj) {
+            let formId='#'+obj.parentElement.getAttribute("id");
+            let serializeArray = $(formId).serializeArray();
+            $.ajax({
+                url:"/post/objectget",
+                type:"post",
+                dataType:"text",
+                data:serializeArray,
+                success:function(result){
+                    alert(result);
+                }
+            });
+        }
+
+        //ListGetIndex
+        function ListGetIndexInstruction(obj) {
+            let AncestorDiv = obj.parentElement.parentElement.parentElement;
+            let sequence = AncestorDiv.getAttribute("id").split("_")[1];
+            let formId = "instruction"+sequence;
+            let insertId = "insert"+sequence;
+            let html = "  <div id=\""+insertId+"\">\n" +
+                "    <br />\n" +
+                "    <h3 style=\"color:indigo\">按照下标从列表中获得元素</h3>\n" +
+                "    <hr >\n" +
+                "    <form id=\""+formId+"\">\n" +
+                "      <div>\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">请输入想要获得对象所在列表的名字</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"listName\" class=\"form-control\" placeholder=\"对象所在的列表名\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">想要获得的对象名</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"objectName\" class=\"form-control\" placeholder=\"想要获得的对象的名字\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">填充的信息</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"fillInformation\" class=\"form-control\" placeholder=\"\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">输出的新的对象的名字</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"outName\" class=\"form-control\" placeholder=\"新的对象名\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "      </div>\n" +
+                "      <button type=\"button\" class=\"btn btn-success\" style=\"margin-left: 1070px\" onclick=\"submitListgetindexInstruction(this)\">\n" +
+                "        提交这条命令\n" +
+                "      </button>\n" +
+                "      <p style=\"margin-left: 700px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
+                "    </form>\n" +
+                "  </div>";
+            AncestorDiv.insertAdjacentHTML("beforeend",html);
+        }
+        function submitListgetindexInstruction(obj) {
+            let formId='#'+obj.parentElement.getAttribute("id");
+            let serializeArray = $(formId).serializeArray();
+            $.ajax({
+                url:"/post/listgetindex",
+                type:"post",
+                dataType:"text",
+                data:serializeArray,
+                success:function(result){
+                    alert(result);
+                }
+            });
+        }
+
+        //Listget
+        function ListGetInstruction(obj) {
+            let AncestorDiv = obj.parentElement.parentElement.parentElement;
+            let sequence = AncestorDiv.getAttribute("id").split("_")[1];
+            let formId = "instruction"+sequence;
+            let insertId = "insert"+sequence;
+            let html = "  <div id=\""+insertId+"\">\n" +
+                "    <br />\n" +
+                "    <h3 style=\"color:indigo\">按照名字从列表中获得元素</h3>\n" +
+                "    <hr >\n" +
+                "    <form id=\""+formId+"\">\n" +
+                "      <div>\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">请输入想要获得对象所在列表的名字</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"listName\" class=\"form-control\" placeholder=\"对象所在的列表名\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">想要获得的对象名</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"objectName\" class=\"form-control\" placeholder=\"想要获得的对象的名字\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">想要获得的对象的类型</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"getType\" class=\"form-control\" placeholder=\"对象的类型\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">填充的信息</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"fillInformation\" class=\"form-control\" placeholder=\"\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">所按照的参数名</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"accordingParameter\" class=\"form-control\" placeholder=\"所依照的参数名\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "        <div class=\"input-group mb-3\">\n" +
+                "          <div class=\"input-group-prepend\">\n" +
+                "            <span class=\"input-group-text\">输出的新的对象的名字</span>\n" +
+                "          </div>\n" +
+                "          <input type=\"text\" name=\"outName\" class=\"form-control\" placeholder=\"新的对象名\">\n" +
+                "        </div>\n" +
+                "\n" +
+                "      </div>\n" +
+                "      <button type=\"button\" class=\"btn btn-success\" style=\"margin-left: 1070px\" onclick=\"submitListgetInstruction(this)\">\n" +
+                "        提交这条命令\n" +
+                "      </button>\n" +
+                "      <p style=\"margin-left: 700px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
+                "    </form>\n" +
+                "  </div>";
+            AncestorDiv.insertAdjacentHTML("beforeend",html);
+        }
+        function submitListgetInstruction(obj) {
+            let formId='#'+obj.parentElement.getAttribute("id");
+            let serializeArray = $(formId).serializeArray();
+            console.log(serializeArray);
+            $.ajax({
+                url:"/post/listget",
+                type:"post",
+                dataType:"text",
+                data:serializeArray,
+                success:function(result){
+                    alert(result);
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

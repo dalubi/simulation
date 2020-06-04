@@ -50,7 +50,7 @@ public class deployController {
 
         //别忘了打开
         currentTaskController.setProc(proc);
-//        publishController.setProc(proc);
+        publishController.setProc(proc);
 
         //在页面中找到bpmn图，放到页面上
         String xmlstr = thisPageService.BPMNXMLStr(pathVariable.getShowbpmnpath(), pathName);
