@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>状态图</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <style type="text/css">
+        input{
+            width: 300px;
+        }
+    </style>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery.serializeJSON/2.9.0/jquery.serializejson.min.js"></script>
+
+</head>
+<body>
+
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/">BPMN SIMU</a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">上传BPMN<span class="sr-only">(current)</span></a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/cleanActivitiData">数据清理</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/states">所有联邦成员状态图</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <div>
+        <div id="allStateGraphs">
+            <div class="jumbotron" style="width:1200px;margin-left:100px;">
+                <h2>BPMN经解析后，生成的所有状态图</h2><br />
+                <h3>&nbsp;&nbsp;&nbsp;&nbsp;Step1.如果是初次得到所有联邦成员的状态图，完成设计仿真系统时必要信息的填写</h3>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（如果已经初始化了，直接进入Step2）</p>
+                <h3>&nbsp;&nbsp;&nbsp;&nbsp;Step2.进入每个仿真系统的状态图进行仿真必要信息编辑</h3>
+
+                <br />
+
+                <div style="width:1000px;margin-left: 50px">
+                    <h4>所有联邦成员的编辑与运行</h4>
+                    <br /><hr />
+                    <div>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-outline-primary btn-sm" style="margin-right: 160px">***.bpmn</button>可以对联邦成员的内部进行编辑
+                    </div>
+                    <hr/>
+                    <div>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-outline-success btn-sm" style="margin-right: 110px">Run *** federate</button>在已有生成代码的基础上，
+                        可以运行仿真的这个联邦成员
+                    </div>
+                    <hr/>
+                    <div>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-outline-info btn-sm" style="margin-right: 100px">DOWNLOAD LOG</button>可以下载当前联邦成员运行过程中的日志信息
+                    </div>
+                    <hr /><br/>
+
+
+                    <div>
+                        <button type="button" style="position:absolute; right:260px" onclick="submitGenerateCode()"
+                                class="btn btn-outline-secondary btn-lg" >GENERATE SIMULATION CODE！
+                        </button>
+                        <br /><br />
+                        <div style="margin-left: 680px">
+                            <small>只有全部的联邦成员都编辑完毕，才能点击生成代码，等待服务响应代码是否成功生成</small>
+                        </div>
+                    </div>
+                    <br />
+
+
+                    <ul class="list-group" th:each="bpmn:${bpmnDTOs}">
+                        <li class="list-group-item">
+                            <button class="btn btn-outline-primary btn-lg">
+                                <a class="bpmnClass" th:text="${bpmn.getBpmnFileName()}" href="" ></a>
+                            </button>
+                            <button class="btn btn-outline-success btn-lg" style="margin-left: 150px"
+                                    onclick="runFederate(this)" th:value="${bpmn.getBpmnName()}" th:text="'Run ' + ${bpmn.getBpmnName()} + ' Federate!' ">
+                            </button>
+                            <button class="btn btn-outline-info btn-lg" th:value="${bpmn.getBpmnName()}"
+                                    style="margin-left: 150px" onclick="downloadSimuLog(this)">
+                                DOWNLOAD LOG
+                            </button>
+                        </li>
+                    </ul>
+
+                </div>
+                <br /><hr ><br />
+                <button type="button" class="btn btn-danger btn-lg" onclick="showDIV(this)" value="parameterDIV">
+                    编辑仿真交互类需要的参数
+                </button>
+
+                <button type="button" class="btn btn-primary btn-lg" onclick="showDIV(this)" value="interactionDIV">
+                    编辑仿真交互类
+                </button>
+            </div>
+
+            <div style="width:1200px;margin-left:100px;">
+                <div id="otherInfo">
+                    <div id="parameterDIV" style="display: none">
+                        <br />
+                        <div class="jumbotron">
+                            <h2>添加这个联邦所需的交互类的各个参数必要信息！</h2><br />
+                            <button type="button" class="btn btn-dark" id="addParameter" onclick="addParameter()"
+                                    style="text-align: center;margin-left: 1000px">
+                                增加一个参数
+                            </button>
+                            <form id="parameterForm" action="/post/parameter" method="get">
+                                <br />
+                                <div style="border: black;border-style:dotted;border-width: 2px;">
+                                    <br />
+                                    <h4>
+                                        <div class="parameter">&nbsp;&nbsp;&nbsp;&nbsp;第1个联邦参数</div>
+                                    </h4>
+                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;参数名称:</span><input type="text" name="parameterName"><span>&nbsp;&nbsp;&nbsp;</span>
+                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;参数类型:</span>
+                                    <select name="parameterType">
+                                        <option value="String">字符串</option>
+                                        <option value="int">整数</option>
+                                        <option value="double">浮点数</option>
+                                    </select>
+                                    <br />
+                                    <br />
+                                </div>
+
+                                <div id="theAddedParameterAfter">
+                                    <br />
+                                </div>
+
+                                <input type="submit" class="btn btn-danger" style="margin-left: 860px" value="提交这个联邦的所有参数">
+                            </form>
+                        </div>
+                    </div>
+                    <div id="interactionDIV" style="display: none">
+                        <div class="jumbotron" >
+                            <h2>设计这个联邦成员发布的交互类信息</h2>
+
+                            <br /><hr><br/>
+                            <div>
+                                <h4>已有联邦参数信息</h4>
+
+                                <table class="table table-striped table-primary">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">参数id</th>
+                                        <th scope="col">参数名称</th>
+                                        <th scope="col">参数类型</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr th:each="parameter:${parameters}">
+                                        <td th:text="${parameter.getParameterId()}"></td>
+                                        <td th:text="${parameter.getParameterName()}"></td>
+                                        <td th:text="${parameter.getParameterType()}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <br /><hr><br/>
+
+                            <form id="InteractionParamsForm" action="/post/fillInteractionWithParams">
+                                <div class="input-group flex-nowrap" th:each="interaction:${interactionDTOs}">
+
+                                    <span class="input-group-prepend" style="width: 220px">
+                                        <span class="input-group-text" th:text="${interaction.getInteractionName()}" style="width: 220px"></span>
+                                    </span>
+                                    <input type="text" class="form-control" name="interactionId" th:value="${interaction.getInteractionId()}">
+
+                                    <span class="input-group-prepend"><span class="input-group-text">交互类订阅的参数的ID</span></span>
+                                    <input type="text" class="form-control" placeholder="交互类所含的参数的ID，用';'分开" name="parameters">
+                                </div>
+                                <br />
+                                <button  type="button" class="btn btn-danger" style="margin-left: 860px"
+                                         onclick="submitInteractionParams()">完善这个联邦成员包含的参数信息
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+
+<script language="JavaScript">
+    var bpmnFile = document.getElementsByClassName("bpmnClass");
+    for(var i=0;i<bpmnFile.length;i++){
+        var text = bpmnFile.item(i).text;
+        var poolNamepre = text.split(".")[0];
+        var poolName = poolNamepre;
+        var hrefStr = "http://localhost:8080/deploy?processDefinitionKey="+poolName+"&pathName=processes/"+text;
+        bpmnFile.item(i).setAttribute('href',hrefStr);
+    }
+
+    //联邦参数，验证上传成功
+    var countOfParameter  = 2 ;
+    var addParameter = document.getElementById("addParameter");
+    addParameter.onclick = function() {
+        var html="<br />\n" +
+            "                    <div style=\"border: black;border-style:dotted;border-width: 2px;\">\n" +
+            "                        <br />\n" +
+            "                        <h4>\n" +
+            "                            <div class=\"parameter\">&nbsp;&nbsp;&nbsp;&nbsp;第"+countOfParameter+"个联邦参数</div>\n" +
+            "                        </h4>\n" +
+            "\n" +
+            "                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;参数名称:</span><input type=\"text\" name=\"parameterName\"><span>&nbsp;&nbsp;&nbsp;</span>\n" +
+            "                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;参数类型:</span>\n" +
+            "                        <select name=\"parameterType\">\n" +
+            "                            <option value=\"String\">字符串</option>\n" +
+            "                            <option value=\"int\">整数</option>\n" +
+            "                            <option value=\"double\">浮点数</option>\n" +
+            "                        </select>\n" +
+            "                        <br />\n" +
+            "                        <br />\n" +
+            "                    </div>";
+        var theAddedParameterAfter = document.getElementById("theAddedParameterAfter");
+        theAddedParameterAfter.insertAdjacentHTML("beforebegin",html);
+        countOfParameter++;
+    }
+    function submitParameter() {
+        var formId = "#parameterForm";
+        var parameterData = $(formId).serializeArray();
+        $.ajax({
+            url:"/parameterData",
+            type:"post",
+            dataType:"text",
+            data:parameterData,
+            success:function(result){
+            }
+        });
+    }
+
+    //运行仿真代码
+    function runFederate(obj) {
+        var runFederateName = obj.getAttribute("value");
+        $.ajax({
+            url:"/startup",
+            type:"get",
+            dataType:"text",
+            data:{'federateName':runFederateName},
+            success:function(result){
+                alert(result);
+            }
+        });
+    }
+
+    //生成代码
+    function submitGenerateCode() {
+        var generateCodeData = "Generate";
+        $.ajax({
+            url:"/createSimulation",
+            type:"get",
+            dataType:"text",
+            data:generateCodeData,
+            success:function(result){
+                alert(result);
+            }
+        });
+    }
+
+    //日志下载按钮
+    function downloadSimuLog(obj) {
+        var federateName = obj.getAttribute("value");
+        $.ajax({
+            url:"/downLog",
+            type:"get",
+            dataType:"text",
+            data:{'federateName':federateName},
+            success:function(result){
+                alert(result);
+            }
+        });
+    }
+
+    function showDIV(obj){
+        var showId = obj.getAttribute("value");
+        var css = document.getElementById(showId).getAttribute("style");
+        if(css==='display: none'){
+            document.getElementById(showId).setAttribute("style",'');
+        }else{
+            document.getElementById(showId).setAttribute('style','display: none');
+        }
+    }
+
+</script>
+
+</html>

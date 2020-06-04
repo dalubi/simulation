@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- required modeler styles -->
+    <link rel="stylesheet" href="https://unpkg.com/bpmn-js@6.5.1/dist/assets/diagram-js.css">
+    <link rel="stylesheet" href="https://unpkg.com/bpmn-js@6.5.1/dist/assets/bpmn-font/css/bpmn.css">
+    <!-- modeler distro -->
+    <script src="https://unpkg.com/bpmn-js@6.5.1/dist/bpmn-modeler.development.js"></script>
+    <!-- needed for this example only -->
+    <script src="https://unpkg.com/jquery@3.3.1/dist/jquery.js"></script>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <!-- example styles -->
+    <style>
+        #canvas {
+            padding: 0;
+            width: 1200px;
+            height: 400px;
+            border:5px;
+            border-style: dotted;
+            border-color: red;
+        }
+
+        .diagram-note {
+            background-color: rgba(66, 180, 21, 0.7);
+            color: White;
+            border-radius: 5px;
+            font-family: Arial;
+            font-size: 12px;
+
+            padding: 5px;
+            min-height: 16px;
+            width: 50px;
+            text-align: center;
+        }
+
+        .needs-discussion:not(.djs-connection) .djs-visual > :nth-child(1) {
+            stroke: rgba(66, 180, 21, 0.7) !important; /* color elements as red */
+        }
+
+        #save-button {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+        }
+    </style>
+
+    <style type="text/css">
+        input{
+            width: 200px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div>
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/">BPMN SIMU</a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">上传BPMN<span class="sr-only">(current)</span></a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/cleanActivitiData">数据清理</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/states">所有联邦成员状态图</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div style="width:1200px;margin-left:100px;">
+            <div>
+                <br />
+            </div>
+            <div id="canvas"></div>
+            <br /><hr><br />
+
+            <div>
+                <p>点击下方按钮，完成不同信息的编辑</p>
+
+                <button type="button" class="btn btn-secondary btn-lg" onclick="showDIV(this)" value="startInformationDIV">
+                    编辑仿真成员初始化信息
+                </button>
+
+                <button type="button" class="btn btn-success btn-lg" onclick="showDIV(this)" value="objectDIV">
+                    编辑仿真对象
+                </button>
+
+                <button type="button" class="btn btn-danger btn-lg" onclick="showDIV(this)" value="variableDIV">
+                    编辑仿真变量
+                </button>
+
+                <button type="button" class="btn btn-warning btn-lg" onclick="showDIV(this)" value="ListDIV">
+                    编辑仿真列表
+                </button>
+
+                <button type="button" class="btn btn-outline-primary btn-lg">
+                    <a href="/currentTask">
+                        进入当前状态图
+                    </a>
+                </button>
+            </div>
+
+            <br /><hr><br />
+
+
+            <div id="startInformationDIV" style="display: none" >
+                <div class="jumbotron">
+                    <h2>添加联邦所需初始化信息！</h2><br />
+
+                    <h4 style="color: red">参考信息（各个联邦成员及对应的id）</h4>
+                    <ul class="list-group" th:each="federateInfo:${federateInfos}">
+                        <li class="list-group-item list-group-item-info" th:text="'联邦成员（'+${federateInfo.getFederateName()}+'）'+
+                        '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对应的ID为'+${federateInfo.getFederateId()}"></li>
+                    </ul>
+
+                    <br /><br />
+
+                    <form id="startInfoForm" action="/post/startinformation" method="post">
+                        <br />
+                        <div style="border: black;border-style:dotted;border-width: 2px;">
+                            <br />
+                            <h4>
+                                <div class="startinformation">&nbsp;&nbsp;&nbsp;&nbsp;联邦成员初始化信息</div>
+                            </h4>
+                            <br />
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联邦Id:(自添加外部事件联邦时Id为当前最大值+1)</span>
+                            <input type="text" name="federateId">
+                            <br /><br />
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联邦的类型:</span>
+                            <select name="isFirst">
+                                <option value="0">普通联邦</option>
+                                <option value="1">起始联邦</option>
+                                <option value="-1">外部事件联邦</option>
+                            </select>
+
+                            <span>&nbsp;当没有外部事件联邦时选择添加:</span>
+                            <select name="isaddexternal">
+                                <option value="0">不添加</option>
+                                <option value="1">添加</option>
+                            </select>
+                            <br /><br />
+
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;初始taskId(无时填写-1):</span><input type="text" name="firstTask"><span>&nbsp;&nbsp;&nbsp;</span><br /><br />
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;初始实例taskId(无时填写-1):</span><input type="text" name="initialInstanceTask"><span>&nbsp;&nbsp;&nbsp;</span><br /><br />
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;更新实例taskId(无时填写-1):</span><input type="text" name="updateInstanceTask"><span>&nbsp;&nbsp;&nbsp;</span>
+                            <br /><br />
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联邦含有的列表Id(逗号隔开,无时填写-1):</span><input type="text" name="listIds"><span>&nbsp;&nbsp;&nbsp;</span><br /><br />
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联邦含有的变量Id(逗号隔开,无时填写-1):</span><input type="text" name="variableIds"><span>&nbsp;&nbsp;&nbsp;</span>
+                            <br />
+                            <br />
+                        </div>
+
+                        <div id="theAddedStartInformationAfter">
+                            <br />
+                        </div>
+
+                        <button type="button" class="btn btn-info" style="margin-left: 880px" onclick="submitStartInformation()">
+                            提交这个联邦成员的初始化信息
+                        </button>
+
+                    </form>
+                    <br /><hr><br />
+                    <div id="inner">
+                        <div style="border: black;border-style: dotted;border-width: 2px;">
+                            <br />
+                            <h2>&nbsp;&nbsp;内部任务</h2>
+                            <button type="button" class="btn btn-primary" id="addInsideTask" onclick="addInsideTask()"
+                                    style="right: 20px;text-align: center;margin-left: 970px">
+                                增加一个内部任务
+                            </button>
+                            <br />
+                            <hr>
+                            <br />
+                            <div>
+                                <form action="/post/insidetask" method="post">
+                                    <div>
+                                        <br>
+                                        <span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp内部任务Id:</span><input type="text" name="insidetaskId"><span>&nbsp&nbsp&nbsp</span>
+                                        <span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp任务内容:</span><input type="text" name="information"><span>&nbsp&nbsp&nbsp</span>
+                                        <span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp是否完成(请填写no):</span><input type="text" name="iscomplete"><span>&nbsp&nbsp&nbsp</span>
+                                        <br />
+                                        <br />
+                                    </div>
+                                    <input id="insideTaskAfter" style="margin-left: 920px" type="submit"  value="提交内部任务">
+                                </form>
+                                <br /><br/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="objectDIV" style="display: none">
+                <div class="jumbotron">
+                    <h2>添加这个联邦成员所需的对象必要信息！</h2><br />
+
+                    <button type="button" class="btn btn-dark" id="addObject" onclick="addObject()"
+                            style="right: 20px;text-align: center;margin-left: 840px">
+                        增加这个联邦成员所需要的对象信息
+                    </button>
+
+                    <form id="objectForm" action="/post/federateobject" method="post">
+                        <br />
+                        <div style="border: black;border-style: dotted;border-width: 2px;">
+                            <br />
+                            <h4>
+                                <div class="federateobject">&nbsp;&nbsp;&nbsp;&nbsp;第1个联邦对象信息</div>
+                            </h4>
+                            <br />
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;对象名称:</span><input type="text" name="objectName"><span>&nbsp;&nbsp;&nbsp;</span>
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;初始化ID(非实例对象填写-1):</span><input type="text" name="InitialId"><span>&nbsp;&nbsp;&nbsp;</span>
+                            <br /><br />
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;参数类型(空格隔开):</span><input type="text" name="parameterTypes"><span>&nbsp;&nbsp;&nbsp;</span>
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;参数名(空格隔开):</span><input type="text" name="parameterNames"><span>&nbsp;&nbsp;&nbsp;</span>
+                            <br />
+                            <br />
+                        </div>
+                        <div id="theAddedFederateObjectAfter">
+                            <br />
+                        </div>
+
+
+                        <button type="button" class="btn btn-info" style="margin-left: 865px" onclick="submitObjectInfo()">
+                            提交这个联邦成员所需对象的编辑
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div  id="variableDIV" style="display: none" >
+                <div class="jumbotron">
+                    <h2>添加这个联邦成员所需的变量信息！</h2><br />
+
+                    <button type="button" class="btn btn-dark" id="addVariable" onclick="addVariable()"
+                            style="right: 20px;text-align: center;margin-left: 1010px">
+                        增加一个变量
+                    </button>
+
+                    <form id="variableForm" action="/post/federatevariable" method="post">
+                        <br>
+                        <div style="border: black;border-style: dotted;border-width: 2px;">
+                            <br />
+                            <h4>
+                                <div class="federatevariable">&nbsp;&nbsp;&nbsp;&nbsp;第1个联邦变量</div>
+                            </h4>
+                            <br />
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;变量类型:</span>
+                            <select name="variableType">
+                                <option value="String">字符串</option>
+                                <option value="int">整数</option>
+                                <option value="double">浮点数</option>
+                                <option value="boolean">布尔类型</option>
+                            </select>
+                            <br />
+                            <br />
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;变量名称:</span><input type="text" name="variableName"><span>&nbsp;&nbsp;&nbsp;</span>
+                            <br />
+                            <br />
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;是否静态变量:</span>
+                            <select name="isStatic">
+                                <option value="1">是</option>
+                                <option value="0">否</option>
+                            </select>
+                            <br />
+                            <br />
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;变量初始值:</span><input type="text" name="InitialValue"><span>&nbsp;&nbsp;&nbsp;</span>
+                            <br /><br />
+                        </div>
+                        <div id="theAddedVariableAfter">
+                            <br />
+                        </div>
+
+                        <button type="button" class="btn btn-info" style="margin-left: 910px" onclick="submitVariable()">
+                            提交本联邦所需的变量信息
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div id="ListDIV" style="display: none">
+                <div class="jumbotron">
+                    <h2>添加这个联邦成员所需的列表信息！</h2><br />
+                    <button type="button" class="btn btn-dark" id="addList" onclick="addParameter()"
+                            style="right: 20px;text-align: center;margin-left: 1010px">
+                        增加一个列表
+                    </button>
+                    <form id="listForm" action="/post/federatelist" method="post">
+                        <br>
+                        <div style="border: black;border-style: dotted;border-width: 2px;">
+                            <br />
+                            <h4>
+                                <div class="federatelist">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;第1个联邦列表</div>
+                            </h4>
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对象名称(首字母大写):</span><input type="text" name="objectName"><span>&nbsp;&nbsp;&nbsp;</span>
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;列表名称:</span><input type="text" name="listName"><span>&nbsp;&nbsp;&nbsp;</span>
+                            <br />
+                            <br />
+                        </div>
+                        <div id="theAddedListAfter" >
+                            <br />
+                        </div>
+                        <button type="button" class="btn btn-info" style="margin-left: 1010px" onclick="submitList()">
+                            提交列表信息
+                        </button>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+
+        // modeler instance
+        var bpmnModeler = new BpmnJS({
+            container: '#canvas',
+            keyboard: {
+                bindTo: window
+            }
+        });
+
+        var bpmnXML = [[${xmlstr}]];
+        openDiagram(bpmnXML);
+
+        function openDiagram(bpmnXML) {
+            // import diagram
+            bpmnModeler.importXML(bpmnXML, function(err) {
+                if (err) {
+                    return console.error('could not import BPMN 2.0 diagram', err);
+                }
+                // access modeler components
+                var canvas = bpmnModeler.get('canvas');
+                var overlays = bpmnModeler.get('overlays');
+                // zoom to fit full viewport
+                canvas.zoom('fit-viewport');
+                // attach an overlay to a node
+                overlays.add('SCAN_OK', 'note', {
+                    position: {
+                        bottom: 0,
+                        right: 0
+                    },
+                    html: '<div class="diagram-note">Mixed up the labels?</div>'
+                });
+                // add marker
+                canvas.addMarker('SCAN_OK', 'needs-discussion');
+            });
+        }
+
+        function submitInteractionParams(){
+            var formId = "#InteractionParamsForm";
+            var InteractionParamsFormData = $(formId).serializeArray();
+            $.ajax({
+                url:"/post/fillInteractionWithParams",
+                type:"post",
+                dataType:"text",
+                data:InteractionParamsFormData,
+                success:function(result){
+                    alert(result);
+                }
+            });
+        }
+
+    </script>
+
+</body>
+
+<script language="JavaScript">
+
+    function submitStartInformation() {
+        var formId = "#startInfoForm";
+        var startInfoData = $(formId).serializeArray();
+        $.ajax({
+            url:"/post/startinformation",
+            type:"post",
+            dataType:"text",
+            data:startInfoData,
+            success:function(result){
+                alert(result);
+            }
+        });
+    }
+
+    //对象，验证上传成功
+    var countOfObject = 2 ;
+    var addObject = document.getElementById("addObject");
+    addObject.onclick = function() {
+        var html="<br />\n" +
+            "                    <div style=\"border: black;border-style: dotted;border-width: 2px;\">\n" +
+            "                        <br />\n" +
+            "                        <h4>\n" +
+            "                            <div class=\"federateobject\">&nbsp;&nbsp;&nbsp;&nbsp;第"+countOfObject+"个联邦对象信息</div>\n" +
+            "                        </h4>\n" +
+            "                        <br />\n" +
+            "                        <span>&nbsp;&nbsp;&nbsp;&nbsp;对象名称:</span><input type=\"text\" name=\"objectName\"><span>&nbsp;&nbsp;&nbsp;</span>\n" +
+            "                        <span>&nbsp;&nbsp;&nbsp;&nbsp;初始化ID(非实例对象填写-1):</span><input type=\"text\" name=\"InitialId\"><span>&nbsp;&nbsp;&nbsp;</span>\n" +
+            "                        <br /><br />\n" +
+            "                        <span>&nbsp;&nbsp;&nbsp;&nbsp;参数类型(空格隔开):</span><input type=\"text\" name=\"parameterTypes\"><span>&nbsp;&nbsp;&nbsp;</span>\n" +
+            "                        <span>&nbsp;&nbsp;&nbsp;&nbsp;参数名(空格隔开):</span><input type=\"text\" name=\"parameterNames\"><span>&nbsp;&nbsp;&nbsp;</span>\n" +
+            "                        <br />\n" +
+            "                        <br />\n" +
+            "                    </div>";
+        var theAddedFederateObjectAfter = document.getElementById("theAddedFederateObjectAfter");
+        theAddedFederateObjectAfter.insertAdjacentHTML("beforebegin",html);
+        countOfObject++;
+    }
+    function submitObjectInfo(){
+        var formId = "#objectForm";
+        var objectInfoData = $(formId).serializeArray();
+        $.ajax({
+            url:"/post/federateobject",
+            type:"post",
+            dataType:"text",
+            data:objectInfoData,
+            success:function(result){
+                alert(result);
+            }
+        });
+    }
+
+    //变量
+    var countOfVariable =2;
+    var addVariable = document.getElementById("addVariable");
+    addVariable.onclick = function() {
+        var html= "<br>\n" +
+            "                    <div style=\"border: black;border-style: dotted;border-width: 2px;\">\n" +
+            "                        <br />\n" +
+            "                        <h4>\n" +
+            "                            <div class=\"federatevariable\">&nbsp;&nbsp;&nbsp;&nbsp;第"+countOfVariable+"个联邦变量</div>\n" +
+            "                        </h4>\n" +
+            "                        <br />\n" +
+            "                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;变量类型:</span>\n" +
+            "                        <select name=\"variableType\">\n" +
+            "                            <option value=\"String\">字符串</option>\n" +
+            "                            <option value=\"int\">整数</option>\n" +
+            "                            <option value=\"double\">浮点数</option>\n" +
+            "                            <option value=\"boolean\">布尔类型</option>\n" +
+            "                        </select>\n" +
+            "                        <br />\n" +
+            "                        <br />\n" +
+            "                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;变量名称:</span><input type=\"text\" name=\"variableName\"><span>&nbsp;&nbsp;&nbsp;</span>\n" +
+            "                        <br />\n" +
+            "                        <br />\n" +
+            "                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;是否静态变量:</span>\n" +
+            "                        <select name=\"isStatic\">\n" +
+            "                            <option value=\"1\">是</option>\n" +
+            "                            <option value=\"0\">否</option>\n" +
+            "                        </select>\n" +
+            "                        <br />\n" +
+            "                        <br />\n" +
+            "                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;变量初始值:</span><input type=\"text\" name=\"InitialValue\"><span>&nbsp;&nbsp;&nbsp;</span>\n" +
+            "                        <br /><br />\n" +
+            "                    </div>";
+        var theAddedVariableAfter = document.getElementById("theAddedVariableAfter");
+        theAddedVariableAfter.insertAdjacentHTML("beforebegin",html);
+        countOfVariable++;
+    }
+    function submitVariable() {
+        var formId = "#variableForm";
+        var variableData = $(formId).serializeArray();
+        $.ajax({
+            url:"/post/federateVariable",
+            type:"post",
+            dataType:"text",
+            data:variableData,
+            success:function(result){
+                alert(result);
+            }
+        });
+    }
+
+    //列表
+    var countOfList = 2;
+    var addList = document.getElementById("addList");
+    addList.onclick = function() {
+        var html="                    <br /><div style=\"border: black;border-style: dotted;border-width: 2px;\">\n" +
+            "                        <br />\n" +
+            "                        <h4>\n" +
+            "                            <div class=\"federatelist\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;第"+countOfList+"个联邦列表</div>\n" +
+            "                        </h4>\n" +
+            "                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对象名称(首字母大写):</span><input type=\"text\" name=\"objectName\"><span>&nbsp;&nbsp;&nbsp;</span>\n" +
+            "                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;列表名称:</span><input type=\"text\" name=\"listName\"><span>&nbsp;&nbsp;&nbsp;</span>\n" +
+            "                        <br />\n" +
+            "                        <br />\n" +
+            "                    </div>\n";
+        var theAddedListAfter = document.getElementById("theAddedListAfter");
+        theAddedListAfter.insertAdjacentHTML("beforebegin",html);
+        countOfList++;
+    }
+    function submitList() {
+        var formId = "#listForm";
+        var listInfoData = $(formId).serializeArray();
+        $.ajax({
+            url:"/post/federatelist",
+            type:"post",
+            dataType:"text",
+            data:listInfoData,
+            success:function(result){
+                alert(result);
+            }
+        });
+    }
+
+    document.getElementById("addInsideTask").onclick = function () {
+        var html="<div>\n" +
+            "                <span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp内部任务Id:</span><input type=\"text\" name=\"insidetaskId\"><span>&nbsp&nbsp&nbsp</span>\n" +
+            "                <span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp任务内容:</span><input type=\"text\" name=\"information\"><span>&nbsp&nbsp&nbsp</span>\n" +
+            "                <span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp是否完成(请填写no):</span><input type=\"text\" name=\"iscomplete\"><span>&nbsp&nbsp&nbsp</span>\n" +
+            "                <br />\n" +
+            "                <br />\n" +
+            "            </div>";
+        var insideTaskAfter = document.getElementById("insideTaskAfter");
+        insideTaskAfter.insertAdjacentHTML("beforebegin",html);
+    }
+
+    function showDIV(obj){
+        var showId = obj.getAttribute("value");
+        var css = document.getElementById(showId).getAttribute("style");
+        if(css==='display: none'){
+            document.getElementById(showId).setAttribute("style",'');
+        }else{
+            document.getElementById(showId).setAttribute('style','display: none');
+        }
+    }
+</script>
+</html>

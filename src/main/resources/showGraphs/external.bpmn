@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test" id="m1586786943177" name="">
+ <process id="external" name="external" isExecutable="true" isClosed="false" processType="None">
+<startEvent id="s3538d325-547f-4f44-b319-3795f9f6994d" />
+<sequenceFlow id="se591c3c8-38ff-43ac-ae32-cc7b47a82f13" sourceRef="s3538d325-547f-4f44-b319-3795f9f6994d" targetRef="sdaef7e1c-d801-4f8c-8e39-6c1c6836b417"/>
+<parallelGateway gatewayDirection="Unspecified" id="sdaef7e1c-d801-4f8c-8e39-6c1c6836b417" />
+<userTask id="Activity_17nzsf0" name="疫情，停工"><documentation id="s9f5d4fe3-6753-454f-98bc-856aca8eeba0">null</documentation></userTask>
+<sequenceFlow id="s760ab505-147a-4a7a-bcae-71dab0421eb8" sourceRef="sdaef7e1c-d801-4f8c-8e39-6c1c6836b417" targetRef="Activity_17nzsf0"/>
+<sequenceFlow id="s444e364f-788f-440b-9c13-1e91117b1811" sourceRef="Activity_17nzsf0" targetRef="s84354abc-638f-44fa-b77b-342e8512219b"/>
+<endEvent id="s84354abc-638f-44fa-b77b-342e8512219b" />
+<userTask id="Activity_1b4jw0p" name="疫情，交通运输受阻"><documentation id="s313a51d8-3260-4a78-a440-a3c0d9c32002">null</documentation></userTask>
+<sequenceFlow id="s1b996ccf-ce24-4c89-9af8-ca782ea99c5b" sourceRef="sdaef7e1c-d801-4f8c-8e39-6c1c6836b417" targetRef="Activity_1b4jw0p"/>
+<sequenceFlow id="se5259946-b326-45e6-b83b-eec27707549d" sourceRef="Activity_1b4jw0p" targetRef="sde7f439b-f5ec-4f36-8587-5765c4b52800"/>
+<endEvent id="sde7f439b-f5ec-4f36-8587-5765c4b52800" />
+<userTask id="Activity_0fn78nx" name="环保检查"><documentation id="s1763b334-12ba-42e4-8ffa-23aed822c4cc">null</documentation></userTask>
+<sequenceFlow id="s1e81ac1a-167c-4728-a136-2cf27dac39a2" sourceRef="sdaef7e1c-d801-4f8c-8e39-6c1c6836b417" targetRef="Activity_0fn78nx"/>
+<sequenceFlow id="s017da09b-e369-435b-9fdd-d10bdedade01" sourceRef="Activity_0fn78nx" targetRef="s8750901b-0379-4965-aa78-685b1c2e9561"/>
+<endEvent id="s8750901b-0379-4965-aa78-685b1c2e9561" />
+	</process>
+</definitions>

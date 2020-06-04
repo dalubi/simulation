@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>BPMNSIMU</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/">BPMN SIMU</a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">上传BPMN<span class="sr-only">(current)</span></a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/cleanActivitiData">数据清理</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/states">所有联邦成员状态图</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="jumbotron" style="width:1200px;margin-left:100px;">
+            <h1>上传BPMN流程图！</h1><br />
+            <p>BPMN流程图文件上传，并解析为多个状态图</p>
+            <p>选择上传并解析，将BPMN流程图，转化为每个联邦成员的状态图！</p>
+
+            <br />
+
+            <div style="border: black;border-style:dotted;border-width: 1px">
+                <br />
+                <form action="upload" method="POST" enctype="multipart/form-data">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BPMN文件：<input type="file" name="file"/>
+                    <input type="submit" value="上传并解析"/>
+                </form>
+                <br />
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
+
+

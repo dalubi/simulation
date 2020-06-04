@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test" id="m1586786943177" name="">
+ <process id="external" name="external" isExecutable="true" isClosed="false" processType="None">
+<userTask id="Activity_17nzsf0" name="疫情，停工"><documentation id="s435a4b81-da71-47d5-a57e-df20ae19d3ff">null</documentation></userTask>
+<endEvent id="s16457f95-11da-4fab-af17-ff1fb8533e6d" />
+<sequenceFlow id="s7e5e2dac-41f5-4a82-b6c3-3cce1a7035d7" sourceRef="Activity_17nzsf0" targetRef="s16457f95-11da-4fab-af17-ff1fb8533e6d"/>
+<userTask id="Activity_1b4jw0p" name="疫情，交通运输受阻"><documentation id="s3e3cd67b-5d44-436a-bcf6-6be48c1a2e96">null</documentation></userTask>
+<endEvent id="s15735619-9622-4efd-bec2-9be86b4fed74" />
+<sequenceFlow id="sda8da910-9499-47c5-b216-1cff46ddb3a0" sourceRef="Activity_1b4jw0p" targetRef="s15735619-9622-4efd-bec2-9be86b4fed74"/>
+<userTask id="Activity_0fn78nx" name="环保检查"><documentation id="s30f70b16-4770-40af-a247-4774e8eab40d">null</documentation></userTask>
+<endEvent id="s4ec8e999-0a3a-468a-9c9a-a126e77ea959" />
+<sequenceFlow id="s4adab31a-770a-41e1-8e36-dc13a00a62ab" sourceRef="Activity_0fn78nx" targetRef="s4ec8e999-0a3a-468a-9c9a-a126e77ea959"/>
+<parallelGateway gatewayDirection="Unspecified" id="sbc167ec9-ac29-4f64-94dc-fceca6cbd4ed" />
+<sequenceFlow id="sc2457e16-c68f-4310-a06d-0b7857d19af6" sourceRef="sbc167ec9-ac29-4f64-94dc-fceca6cbd4ed" targetRef="Activity_17nzsf0"/>
+<sequenceFlow id="sec308b27-4c43-4d79-9315-f48af40c3fdb" sourceRef="sbc167ec9-ac29-4f64-94dc-fceca6cbd4ed" targetRef="Activity_1b4jw0p"/>
+<sequenceFlow id="s65614f99-846f-4eaf-a924-262f36b8be49" sourceRef="sbc167ec9-ac29-4f64-94dc-fceca6cbd4ed" targetRef="Activity_0fn78nx"/>
+<startEvent id="sc9a59edd-1ce1-4971-9c3f-5361a512ab30" />
+<sequenceFlow id="sa6047c10-7fd3-4d09-81aa-a4cf1a237c37" sourceRef="sc9a59edd-1ce1-4971-9c3f-5361a512ab30" targetRef="sbc167ec9-ac29-4f64-94dc-fceca6cbd4ed"/>
+	</process>
+</definitions>

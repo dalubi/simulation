@@ -1,0 +1,55 @@
+spring:
+  activiti:
+    check-process-definitions: true #自动检查、部署流程定义文件
+    database-schema-update: true #自动更新数据库结构
+    #流程定义文件存放目录
+    process-definition-location-prefix: classpath:/processes/
+    #process-definition-location-suffixes: #流程文件格式
+
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/simulation?characterEncoding=UTF-8&nullCatalogMeansCurrent=true&serverTimezone=GMT&useSSL=false&allowMultiQueries=true
+    username : root
+    password : haohao123
+    initsize : 10
+    maxActive : 20
+    minIdle : 10
+    maxWait : 120000
+    poolPreparedStatements : false
+    maxOpenPreparedStatements : -1
+    validationQuery : select 1
+    testOnborrow : true
+    testOnReturn : true
+    testWhileIdle : true
+    timeBetweenEvictionRunsMillis : 120000
+server:
+  port: 8080
+
+## 该配置节点为独立的节点，有很多同学容易将这个配置放在spring的节点下，导致配置无法被识别
+mybatis:
+  mapper-locations: classpath:mapper/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
+  type-aliases-package: com.ices.simulation.dao.model  # 注意：对应实体类的路径
+
+## MULTIPART (MultipartProperties)
+# 开启 multipart 上传功能
+spring.servlet.multipart.enabled : true
+# 文件写入磁盘的阈值
+spring.servlet.multipart.file-size-threshold : 2KB
+# 最大文件大小
+spring.servlet.multipart.max-file-size : 200MB
+# 最大请求大小
+spring.servlet.multipart.max-request-size : 215MB
+
+## 文件存储所需参数
+# 所有通过 REST APIs 上传的文件都将存储在此目录下
+file.upload-dir : ./uploads
+
+file:
+  #FileController将数据上传到的路径，注意要有一个'/'
+  filepath: /Users/america/IdeaProjects/simulation/src/main/resources/bpmnGraph/
+  #将上传上来的文件解析到的文件夹
+  showbpmnpath: /Users/america/IdeaProjects/simulation/src/main/resources/showGraphs/
+  #bpmn文件加载的路径
+  processespath: /Users/america/IdeaProjects/simulation/src/main/resources/processes/
+
+
