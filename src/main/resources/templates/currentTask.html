@@ -237,6 +237,59 @@
                 </div>
                 <br />
 
+
+
+                <!-- Modal -->
+                <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">查询未完成的选择指令</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="table-wrapper">
+                                    <table id="insideSelectTable" class="table price-table">
+                                        <thead>
+                                            <tr class="table-header">
+                                                <th>选择指令Id</th>
+                                                <th>分支1内容</th>
+                                                <th>分支2内容</th>
+                                                <th>完成情况</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>123</th>
+                                                <td>aaa</td>
+                                                <td>bbb</td>
+                                                <td>ccc</td>
+                                            </tr>
+                                            <tr>
+                                                <td>234</th>
+                                                <td>bbb</td>
+                                                <td>eee</td>
+                                                <td>rrr</td>
+                                            </tr>
+                                            <tr>
+                                                <td>345</th>
+                                                <td>ooo</td>
+                                                <td>ppp</td>
+                                                <td>qqq</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!--指令的编辑-->
                 <div id="instruction_0" class="instruction" style="border: black;border-width: 2px;border-style: dotted">
                     <br />
@@ -858,7 +911,7 @@
             let sequence = AncestorDiv.getAttribute("id").split("_")[1];
             let formId = "instruction"+sequence;
             let insertId = "insert"+sequence;
-            let html = "  <div id=\""+insertId+"\">\n" +
+            let html = "<div id=\""+insertId+"\">\n" +
                 "    <br />\n" +
                 "    <h3 style=\"color:indigo\">Select指令</h3>\n" +
                 "    <hr >\n" +
@@ -868,7 +921,7 @@
                 "          <div class=\"input-group-prepend\">\n" +
                 "            <span class=\"input-group-text\">给定定义的expression的名字</span>\n" +
                 "          </div>\n" +
-                "          <input type=\"text\" name=\"InformationName\" class=\"form-control\" placeholder=\"exp表达式\">\n" +
+                "          <input type=\"text\" name=\"informationName\" class=\"form-control\" placeholder=\"exp表达式\">\n" +
                 "        </div>\n" +
                 "\n" +
                 "        <div class=\"input-group mb-3\">\n" +
@@ -886,6 +939,11 @@
                 "        </div>\n" +
                 "\n" +
                 "      </div>\n" +
+                "      <!-- Button trigger modal -->\n" +
+                "      <button type=\"button\" class=\"btn btn-danger\" data-toggle=\"modal\" style=\"margin-left: 1036px\" data-target=\"#staticBackdrop\">\n" +
+                "        查询未完成的指令\n" +
+                "      </button>\n" +
+                "      <br /><br />\n" +
                 "      <button type=\"button\" class=\"btn btn-success\" style=\"margin-left: 1070px\" onclick=\"submitSelectInstruction(this)\">提交这条命令</button>\n" +
                 "      <p style=\"margin-left: 700px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
                 "    </form>\n" +
