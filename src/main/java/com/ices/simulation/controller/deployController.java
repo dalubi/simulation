@@ -52,6 +52,9 @@ public class deployController {
         currentTaskController.setProc(proc);
         publishController.setProc(proc);
 
+        //将联邦成员的名字输出
+        model.addAttribute("processDefineKey",proc.getProcessDefinitionKey());
+
         //在页面中找到bpmn图，放到页面上
         String xmlstr = thisPageService.BPMNXMLStr(pathVariable.getShowbpmnpath(), pathName);
         model.addAttribute("xmlstr",xmlstr);
@@ -104,6 +107,5 @@ public class deployController {
         thisPageService.federateObjectProcess(objectNames,InitialIds,parameterNamesArray,paremeterNamesFinals,parameterTypesArray,paremeterTypesFinals,this.curFederateId);
         return "本联邦所需对象的设计信息已提交";
     }
-
 
 }

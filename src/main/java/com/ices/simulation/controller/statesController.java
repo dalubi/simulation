@@ -25,6 +25,7 @@ public class statesController {
         //找到processes下面所有bpmn文件
         //File dictionary = new File("/Users/america/Mystudy/elema/src/main/resources/processes");
         List<bpmnDTO> bpmnInfos = thisPageService.getBpmnInfos(pathVariable.getProcessesfilefolder());
+
         //将bpmn文件输入到页面上
         model.addAttribute("bpmnDTOs",bpmnInfos);
 

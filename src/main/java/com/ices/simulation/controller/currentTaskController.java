@@ -34,6 +34,8 @@ public class currentTaskController {
         publishController.setTaskdto(taskdto);
         String pathName = proc.getPathName();
 
+        model.addAttribute("processDefineKey",proc.getProcessDefinitionKey());
+
         //将xml展示到图片上
         model.addAttribute("xmlstr",thisPageService.showBPMN(pathName));
 

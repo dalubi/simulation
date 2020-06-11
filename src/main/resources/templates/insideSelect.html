@@ -10,11 +10,12 @@
 
 </head>
 <body>
-<div>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="/">BPMN SIMU</a>
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -27,140 +28,206 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/cleanActivitiData">数据清理</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/insideSelect">选择补充</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/insideTask">内部任务</a>
-                </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="/states">所有联邦成员状态图</a>
                 </li>
             </ul>
         </div>
     </nav>
-</div>
-<div class="jumbotron" style="width:1200px;margin-left:100px;">
-    <div class="table-wrapper">
-        <h1 class="text-center">
-            查询 <b>未完成的选择指令</b>
-        </h1>
-        <button onclick="chaInsideSelect()" class="btn btn-border">查询</button>
-        <table id="insideSelectTable" class="table price-table">
-            <tbody>
-            <tr class="table-header">
-                <th>选择指令Id</th>
-                <th>分支1内容</th>
-                <th>分支2内容</th>
-                <th>完成情况</th>
-            </tr>
-            </tbody>
-        </table>
     </div>
-    <div class="jumbotron">
-        <h2>修改未完成的选择指令</h2><br />
-
-        <button type="button" class="btn btn-dark" id="addInsideSelcet" onclick="addinsideSelect()"
-                style="right: 20px;text-align: center;margin-left: 1010px">
-            增加一个选择指令
-        </button>
-
-        <form id="insideSelectForm" >
-            <br>
-            <div style="border: black;border-style: dotted;border-width: 2px;">
-                <br />
-                <h4>
-                    <div class="insideSelect">&nbsp;&nbsp;&nbsp;&nbsp;第1个</div>
-                </h4>
-                <br />
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;选择指令Id:</span><input type="text" name="selectId">
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;分支1Id:</span><input type="text" name="branch1Id"><span>&nbsp;&nbsp;</span>
-                &nbsp;&nbsp;&nbsp;&nbsp;<span>                   分支2Id:</span><input type="text" name="branch2Id"><span>&nbsp;&nbsp;&nbsp;</span>
-                <br /><br />
-            </div>
-            <div id="theAddedInsideSelectAfter">
-                <br />
-            </div>
-
-            <button type="button" class="btn btn-info" style="margin-left: 910px" onclick="submitInsideSelect()">
-                提交
+    <div class="jumbotron" style="width:1200px;margin-left:100px;">
+        <div class="table-wrapper">
+            <h1 class="text-center">
+                <b>
+                    <svg class="bi bi-arrows-fullscreen" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M1.464 10.536a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3.5a.5.5 0 0 1-.5-.5v-3.5a.5.5 0 0 1 .5-.5z"/>
+                        <path fill-rule="evenodd" d="M5.964 10a.5.5 0 0 1 0 .707l-4.146 4.147a.5.5 0 0 1-.707-.708L5.257 10a.5.5 0 0 1 .707 0zm8.854-8.854a.5.5 0 0 1 0 .708L10.672 6a.5.5 0 0 1-.708-.707l4.147-4.147a.5.5 0 0 1 .707 0z"/>
+                        <path fill-rule="evenodd" d="M10.5 1.5A.5.5 0 0 1 11 1h3.5a.5.5 0 0 1 .5.5V5a.5.5 0 0 1-1 0V2h-3a.5.5 0 0 1-.5-.5zm4 9a.5.5 0 0 0-.5.5v3h-3a.5.5 0 0 0 0 1h3.5a.5.5 0 0 0 .5-.5V11a.5.5 0 0 0-.5-.5z"/>
+                        <path fill-rule="evenodd" d="M10 9.964a.5.5 0 0 0 0 .708l4.146 4.146a.5.5 0 0 0 .708-.707l-4.147-4.147a.5.5 0 0 0-.707 0zM1.182 1.146a.5.5 0 0 0 0 .708L5.328 6a.5.5 0 0 0 .708-.707L1.889 1.146a.5.5 0 0 0-.707 0z"/>
+                        <path fill-rule="evenodd" d="M5.5 1.5A.5.5 0 0 0 5 1H1.5a.5.5 0 0 0-.5.5V5a.5.5 0 0 0 1 0V2h3a.5.5 0 0 0 .5-.5z"/>
+                    </svg>
+                    未完成的选择指令
+                </b>
+            </h1>
+            <button type="button" class="btn btn-lg btn-outline-info" onclick="chaInsideSelect()">
+                <svg class="bi bi-search" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
+                    <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+                </svg>
+                查询
             </button>
-        </form>
-    </div>
-
-    <div>
-        <div class="jumbotron">
-            <h3>如果存在外部事件，需要设置外部事件概率，点击设置</h3>
-            <br />
-            <button type="button" class="btn btn-outline-danger"
-                    onclick="showExternal()" style="margin-left: 1010px">
-                显示外部事件
-            </button>
+            <br /><br />
+            <table id="insideSelectTable" class="table price-table">
+                <tbody>
+                <tr class="table-header">
+                    <th>选择指令Id</th>
+                    <th>分支1内容</th>
+                    <th>分支2内容</th>
+                    <th>完成情况</th>
+                </tr>
+                </tbody>
+            </table>
         </div>
+        <div>
+            <hr />
 
-    <div id="inner3" style="display: none">
-        <div class="jumbotron">
-            <h2>外部事件</h2>
-            <br />
-            <form action="/post/queryexternal">
-                <button  class="btn btn-border">查询</button>
-            </form>
-            <div th:if="${interactions!=null}">
+            <h2>
+                <svg class="bi bi-info-circle" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+                    <circle cx="8" cy="4.5" r="1"/>
+                </svg>
+                修改未完成的指令
+            </h2><br />
 
-                <table  class="table table-striped table-primary">
-                    <thead>
-                    <tr>
-                        <th scope="col">外部事件Id</th>
-                        <th scope="col">外部事件名称</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="interaction:${interactions}">
-                        <td  th:text="${interaction.interactionId}" ></td>
-                        <td th:text="${interaction.interactionName}" ></td>
-                        <td th:text="${interaction.interactionName}" ></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="jumbotron">
-            <h2>设置外部事件的概率</h2><br />
-            <button type="button" class="btn btn-dark" id="addExternal"
-                    style="right: 20px;text-align: center;margin-left: 1010px">
-                再设置一个
+            <button type="button" class="btn btn-dark" id="addInsideSelcet" onclick="addinsideSelect()"
+                    style="text-align: center;margin-left:1010px">
+                <svg class="bi bi-plus-circle" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 3.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H4a.5.5 0 0 1 0-1h3.5V4a.5.5 0 0 1 .5-.5z"/>
+                    <path fill-rule="evenodd" d="M7.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0V8z"/>
+                    <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                </svg>
+                选择指令
             </button>
 
-            <form id="externalForm" >
+            <form id="insideSelectForm" >
                 <br>
-                <div style="border: black;border-style: dotted;border-width: 2px;">
+                <div style="border: black;border-style: dotted;border-width: 1px;">
                     <br />
-                    <h4>
-                        <div class="insideSelect">&nbsp;&nbsp;&nbsp;&nbsp;第1个</div>
+                    <h4 style="text-align: center">
+                        <div class="insideSelect">&nbsp;&nbsp;&nbsp;&nbsp;第1个选择指令</div>
                     </h4>
                     <br />
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;外部事件对应的任务Id</span><input type="text" name="externalId">
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;外部事件概率:</span><input type="text" name="probable"><span>分之一</span>
+                    <div style="margin-left: 100px;width: 900px">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">选择指令Id</span>
+                            </div>
+                            <input type="text" name="selectId" class="form-control" placeholder="selectId" aria-describedby="basic-addon1">
+                        </div>
+                        <div class="input-group mb-3" >
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">分支1Id</span>
+                            </div>
+                            <input type="text" name="branch1Id" class="form-control" placeholder="branch1Id" aria-describedby="basic-addon1">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">分支2Id</span>
+                            </div>
+                            <input type="text" name="branch2Id" class="form-control" placeholder="branch2Id" aria-describedby="basic-addon1">
+                        </div>
+                    </div>
                 </div>
-                <div id="theAddedExternalAfter">
+                <div id="theAddedInsideSelectAfter">
                     <br />
                 </div>
-
-                <button type="button" class="btn btn-info" style="margin-left: 910px" onclick="submitExternal()">
+                <button type="button" class="btn btn-outline-success btn-lg" style="margin-left: 1030px" onclick="submitInsideSelect()">
+                    <svg class="bi bi-text-indent-left" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M2 3.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm.646 2.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L4.293 8 2.646 6.354a.5.5 0 0 1 0-.708zM7 6.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm-5 3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+                    </svg>
                     提交
                 </button>
             </form>
+            <hr />
+        </div>
+        <div>
+            <div>
+                <h3>
+                    <svg class="bi bi-card-checklist" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M14.5 3h-13a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
+                        <path fill-rule="evenodd" d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0zM7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0z"/>
+                    </svg>
+                    存在外部事件，需要设置外部事件概率
+                </h3>
+                <br />
+                <button type="button" class="btn btn-outline-danger"
+                        onclick="showExternal()" style="margin-left: 1010px">
+                    显示外部事件
+                </button>
+                <hr />
+            </div>
+        </div>
+        <div id="inner3" style="display: none">
+            <div>
+                <h2>
+                    <svg class="bi bi-file-richtext" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M4 1h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H4z"/>
+                        <path fill-rule="evenodd" d="M4.5 11.5A.5.5 0 0 1 5 11h3a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm0-2A.5.5 0 0 1 5 9h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm1.639-3.708l1.33.886 1.854-1.855a.25.25 0 0 1 .289-.047l1.888.974V7.5a.5.5 0 0 1-.5.5H5a.5.5 0 0 1-.5-.5V7s1.54-1.274 1.639-1.208zM6.25 5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5z"/>
+                    </svg>
+                    外部事件
+                </h2>
+                <br />
+                <form action="/post/queryexternal">
+                    <button class="btn btn-lg btn-outline-primary">查询</button>
+                </form>
+                <br />
+                <div th:if="${interactions!=null}">
+
+                    <table  class="table table-striped table-primary">
+                        <thead>
+                        <tr>
+                            <th scope="col">外部事件Id</th>
+                            <th scope="col">外部事件名称</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="interaction:${interactions}">
+                            <td  th:text="${interaction.interactionId}" ></td>
+                            <td th:text="${interaction.interactionName}" ></td>
+                            <td th:text="${interaction.interactionName}" ></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div>
+                <hr />
+                <h2>
+                    <svg class="bi bi-newspaper" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M0 2A1.5 1.5 0 0 1 1.5.5h11A1.5 1.5 0 0 1 14 2v12a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 0 14V2zm1.5-.5A.5.5 0 0 0 1 2v12a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5h-11z"/>
+                        <path fill-rule="evenodd" d="M15.5 3a.5.5 0 0 1 .5.5V14a1.5 1.5 0 0 1-1.5 1.5h-3v-1h3a.5.5 0 0 0 .5-.5V3.5a.5.5 0 0 1 .5-.5z"/>
+                        <path d="M2 3h10v2H2V3zm0 3h4v3H2V6zm0 4h4v1H2v-1zm0 2h4v1H2v-1zm5-6h2v1H7V6zm3 0h2v1h-2V6zM7 8h2v1H7V8zm3 0h2v1h-2V8zm-3 2h2v1H7v-1zm3 0h2v1h-2v-1zm-3 2h2v1H7v-1zm3 0h2v1h-2v-1z"/>
+                    </svg>
+                    设置外部事件的概率
+                </h2><br />
+
+                <div style="border-width: 1px;border-color: black;border-style: dashed">
+                    <br />
+                    <button type="button" class="btn btn-dark" id="addExternal"
+                            style="right: 20px;text-align: center;margin-left: 910px">
+                        增设一个
+                    </button>
+                    <form id="externalForm" >
+                        <div style="width: 900px;margin-left: 100px">
+                            <br />
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">第1个外部事件对应的任务ID</span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="externalId" aria-label="externalId" aria-describedby="basic-addon1">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">外部事件概率</span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="probable" aria-label="probable" aria-describedby="basic-addon1">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">分之一</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="theAddedExternalAfter">
+                        </div>
+
+                        <button type="button" class="btn btn-outline-info btn-lg" style="margin-left: 910px" onclick="submitExternal()">
+                            提交
+                        </button>
+                    </form>
+                    <br />
+                </div>
+            </div>
         </div>
     </div>
-</div>
-</div>
-
-    <script src="../js/plugins/jquery.js"></script>
-    <script src="../js/plugins/bootstrap.min.js"></script>
-    <script src="../js/plugins/slick.min.js"></script>
-    <script src="../js/plugins/jquery.form.js"></script>
-    <script src="../js/plugins/jquery.validate.min.js"></script>
     <script language="JavaScript">
     function showExternal(){
         var innerElement = document.getElementById("inner3");
@@ -194,47 +261,69 @@
                     }
                 } else
                 // 查询失败,错误信息在data.msg里面（未填写个人信息，请完善个人信息）
-                    alert("错误信息：" + data.msg)
-
+                    alert("错误信息：" + data.msg);
             }
         })
     }
-    //变量
+
     var countOfExtrtnal =2;
     var addExternal = document.getElementById("addExternal");
     addExternal.onclick = function() {
-        var html=" <div style=\"border: black;border-style: dotted;border-width: 2px;\">\n" +
-            "                    <br />\n" +
-            "                    <h4>\n" +
-            "                        <div class=\"insideSelect\">&nbsp;&nbsp;&nbsp;&nbsp;第"+countOfExtrtnal+"个</div>\n" +
-            "                    </h4>\n" +
-            "                    <br />\n" +
-            "                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;外部事件对应的任务Id</span><input type=\"text\" name=\"externalId\">\n" +
-            "                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;外部事件概率:</span><input type=\"text\" name=\"probable\"><span>分之一</span>\n" +
-            "                </div>";
+        var html="<div style=\"width: 900px;margin-left: 100px\">\n" +
+            "                        <br />\n" +
+            "                        <div class=\"input-group mb-3\">\n" +
+            "                            <div class=\"input-group-prepend\">\n" +
+            "                                <span class=\"input-group-text\">第"+countOfExtrtnal+"个外部事件对应的任务ID</span>\n" +
+            "                            </div>\n" +
+            "                            <input type=\"text\" class=\"form-control\" placeholder=\"externalId\" aria-label=\"externalId\" aria-describedby=\"basic-addon1\">\n" +
+            "                            <div class=\"input-group-prepend\">\n" +
+            "                                <span class=\"input-group-text\">外部事件概率</span>\n" +
+            "                            </div>\n" +
+            "                            <input type=\"text\" class=\"form-control\" placeholder=\"probable\" aria-label=\"probable\" aria-describedby=\"basic-addon1\">\n" +
+            "                            <div class=\"input-group-prepend\">\n" +
+            "                                <span class=\"input-group-text\">分之一</span>\n" +
+            "                            </div>\n" +
+            "                        </div>\n" +
+            "                    </div>";
         var theAddedExternalAfter = document.getElementById("theAddedExternalAfter");
         theAddedExternalAfter.insertAdjacentHTML("beforebegin",html);
         countOfExtrtnal++;
     }
-    //变量
+
+
     var countOfInsideSelect =2;
     var addInsideSelcet = document.getElementById("addInsideSelcet");
     addInsideSelcet.onclick = function() {
-        var html="<div style=\"border: black;border-style: dotted;border-width: 2px;\">\n" +
-            "            <br />\n" +
-            "            <h4>\n" +
-            "                <div class=\"insideSelect\">&nbsp;&nbsp;&nbsp;&nbsp;第"+countOfInsideSelect+"个</div>\n" +
-            "            </h4>\n" +
-            "            <br />\n" +
-            "            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;选择指令Id:</span><input type=\"text\" name=\"selectId\">\n" +
-            "            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;分支1Id:</span><input type=\"text\" name=\"branch1Id\"><span>&nbsp;&nbsp;</span>\n" +
-            "            &nbsp;&nbsp;&nbsp;&nbsp;<span>                   分支2Id:</span><input type=\"text\" name=\"branch2Id\"><span>&nbsp;&nbsp;&nbsp;</span>\n" +
-            "            <br /><br />\n" +
-            "        </div>";
+        var html="<br /><div style=\"border: black;border-style: dotted;border-width: 1px;\">\n" +
+            "                    <br />\n" +
+            "                    <h4 style=\"text-align: center\">\n" +
+            "                        <div class=\"insideSelect\">&nbsp;&nbsp;&nbsp;&nbsp;第"+countOfInsideSelect+"个选择指令</div>\n" +
+            "                    </h4>\n" +
+            "                    <br />\n" +
+            "                    <div style=\"margin-left: 100px;width: 900px\">\n" +
+            "                        <div class=\"input-group mb-3\">\n" +
+            "                            <div class=\"input-group-prepend\">\n" +
+            "                                <span class=\"input-group-text\">选择指令Id</span>\n" +
+            "                            </div>\n" +
+            "                            <input type=\"text\" name=\"selectId\" class=\"form-control\" placeholder=\"selectId\" aria-describedby=\"basic-addon1\">\n" +
+            "                        </div>\n" +
+            "                        <div class=\"input-group mb-3\" >\n" +
+            "                            <div class=\"input-group-prepend\">\n" +
+            "                                <span class=\"input-group-text\">分支1Id</span>\n" +
+            "                            </div>\n" +
+            "                            <input type=\"text\" name=\"branch1Id\" class=\"form-control\" placeholder=\"branch1Id\" aria-describedby=\"basic-addon1\">\n" +
+            "                            <div class=\"input-group-prepend\">\n" +
+            "                                <span class=\"input-group-text\">分支2Id</span>\n" +
+            "                            </div>\n" +
+            "                            <input type=\"text\" name=\"branch2Id\" class=\"form-control\" placeholder=\"branch2Id\" aria-describedby=\"basic-addon1\">\n" +
+            "                        </div>\n" +
+            "                    </div>\n" +
+            "                </div>";
         var theAddedInsideSelectAfter = document.getElementById("theAddedInsideSelectAfter");
         theAddedInsideSelectAfter.insertAdjacentHTML("beforebegin",html);
         countOfInsideSelect++;
     }
+
     function submitExternal() {
         var formId = "#externalForm";
         var variableData = $(formId).serializeArray();
@@ -248,10 +337,6 @@
             }
         });
     }
-
-
-
-
     function submitInsideSelect() {
         var formId = "#insideSelectForm";
         var variableData = $(formId).serializeArray();
@@ -265,10 +350,6 @@
             }
         });
     }
-
-
-
-
     </script>
 </body>
 </html>

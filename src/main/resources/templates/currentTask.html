@@ -59,10 +59,13 @@
     <script language="JavaScript">
         function addInstruction() {
             let inst_count = document.getElementsByClassName("instruction").length;
-            let html = " <div id=\"instruction_"+inst_count+"\" class=\"instruction\" style=\"border: black;border-width: 2px;border-style: dotted\">\n" +
+            let html = " <div id=\"instruction_"+inst_count+"\" class=\"instruction\" style=\"border: black;border-width: 1px;border-style: dotted\">\n" +
                 "          <br />\n" +
                 "          <span class=\"dropdown\">\n" +
-                "              <button class=\"btn btn-secondary dropdown-toggle\" type=\"button\" id=\"dropdownMenu2\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n" +
+                "              <button class=\"btn btn-secondary dropdown-toggle\" type=\"button\" style='margin-left: 10px' data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n" +
+                    "<svg class=\"bi bi-option\" width=\"1em\" height=\"1em\" viewBox=\"0 0 16 16\" fill=\"currentColor\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                "                              <path fill-rule=\"evenodd\" d=\"M1 2.5a.5.5 0 0 1 .5-.5h3.797a.5.5 0 0 1 .439.26L11 13h3.5a.5.5 0 0 1 0 1h-3.797a.5.5 0 0 1-.439-.26L5 3H1.5a.5.5 0 0 1-.5-.5zm10 0a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5z\"/>\n" +
+                "                            </svg>"+
                 "                  请选择要插入的操作命令\n" +
                 "              </button>\n" +
                 "              <span class=\"dropdown-menu\" aria-labelledby=\"dropdownMenu2\">\n" +
@@ -88,7 +91,13 @@
                 "              </span>\n" +
                 "          </span>\n" +
                 "          <span>\n" +
-                "            <button type=\"button\" class=\"btn btn-outline-warning\" id=\"hideButton\" onclick=\"HideDetails(this)\">隐藏指令细节</button>\n" +
+                "            <button type=\"button\" class=\"btn btn-warning\" id=\"hideButton\" onclick=\"HideDetails(this)\">" +
+                    "<svg class=\"bi bi-display-fill\" width=\"1em\" height=\"1em\" viewBox=\"0 0 16 16\" fill=\"currentColor\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                "                              <path d=\"M5.75 13.5c.167-.333.25-.833.25-1.5h4c0 .667.083 1.167.25 1.5H11a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1h.75z\"/>\n" +
+                "                              <path fill-rule=\"evenodd\" d=\"M13.991 3H2c-.325 0-.502.078-.602.145a.758.758 0 0 0-.254.302A1.46 1.46 0 0 0 1 4.01V10c0 .325.078.502.145.602.07.105.17.188.302.254a1.464 1.464 0 0 0 .538.143L2.01 11H14c.325 0 .502-.078.602-.145a.758.758 0 0 0 .254-.302 1.464 1.464 0 0 0 .143-.538L15 9.99V4c0-.325-.078-.502-.145-.602a.757.757 0 0 0-.302-.254A1.46 1.46 0 0 0 13.99 3zM14 2H2C0 2 0 4 0 4v6c0 2 2 2 2 2h12c2 0 2-2 2-2V4c0-2-2-2-2-2z\"/>\n" +
+                "                              <path d=\"M2 4h12v6H2z\"/>\n" +
+                "                            </svg>"+
+                "隐藏指令细节</button>\n" +
                 "          </span>\n" +
                 "          <br /><br />\n" +
                 "          <!--在这里插入一条指令的具体内容-->\n" +
@@ -145,253 +154,261 @@
                 }
             });
         }
-
     </script>
 
 </head>
 <body>
     <div>
-            <!--导航栏-->
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="/">BPMN SIMU</a>
+        <!--导航栏-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/">BPMN SIMU</a>
 
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="/">上传BPMN<span class="sr-only">(current)</span></a>
-                        </li>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">上传BPMN<span class="sr-only">(current)</span></a>
+                    </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="/cleanActivitiData">数据清理</a>
-                        </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/cleanActivitiData">数据清理</a>
+                    </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="/states">所有联邦成员状态图</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-
-            <!--流程图展示-->
-            <div style="width: 1200px;margin-left: 100px;">
-                <br />
-                <h2>
-                    本联邦成员的状态图表示如下
-                </h2>
-                <br />
+                    <li class="nav-item">
+                        <a class="nav-link" href="/states">所有联邦成员状态图</a>
+                    </li>
+                </ul>
             </div>
-            <div id="canvas"></div>
+        </nav>
+        <!--流程图展示-->
+        <div style="width: 1200px;margin-left: 100px;">
             <br />
-
-            <!--其他信息的栏目-->
-            <div style="width: 1200px;height: 600px;margin-left: 100px;">
-                <!--辅助信息-->
-                <div class="jumbotron">
-                    <h2>组织指令设计任务的流程</h2>
-                    <br /><hr><br />
-                    <table class="table">
-                        <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">任务描述</th>
-                            <th scope="col">任务ID</th>
-                            <th scope="col">收到的交互类</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td th:text="${taskdto.getTaskName()}"></td>
-                            <td th:text="${taskdto.getTaskId()}"></td>
-                            <td th:text="${taskdto.getInteraction()}"></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <br /><hr><br />
-                    <h3>辅助信息</h3>
-                    <br /><br />
-                    <div id="interactionInfoTable">
-                        <h5 th:text="'收到的的交互类（'+${taskdto.getTaskName()}+'）中的参数表'"></h5>
-                        <table class="table table-hover table-danger">
-                            <thead>
-                            <tr>
-                                <th scope="col">交互类中的参数</th>
-                                <th scope="col">参数对应的类型</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>id</td>
-                                <td>int</td>
-                            </tr>
-                            <tr>
-                                <td>name</td>
-                                <td>String</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <br />
-
-
-
-                <!-- Modal -->
-                <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="staticBackdropLabel">查询未完成的选择指令</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="table-wrapper">
-                                    <table id="insideSelectTable" class="table price-table">
-                                        <thead>
-                                            <tr class="table-header">
-                                                <th>选择指令Id</th>
-                                                <th>分支1内容</th>
-                                                <th>分支2内容</th>
-                                                <th>完成情况</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>123</th>
-                                                <td>aaa</td>
-                                                <td>bbb</td>
-                                                <td>ccc</td>
-                                            </tr>
-                                            <tr>
-                                                <td>234</th>
-                                                <td>bbb</td>
-                                                <td>eee</td>
-                                                <td>rrr</td>
-                                            </tr>
-                                            <tr>
-                                                <td>345</th>
-                                                <td>ooo</td>
-                                                <td>ppp</td>
-                                                <td>qqq</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <h2>
+                <span>
+                    <svg class="bi bi-terminal" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" d="M14 2H2a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1zM2 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H2z"/>
+                      <path fill-rule="evenodd" d="M6 9a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3A.5.5 0 0 1 6 9zM3.146 4.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 1 1-.708-.708L4.793 6.5 3.146 4.854a.5.5 0 0 1 0-.708z"/>
+                    </svg>
+                </span>
+                <span th:text="'Federate（'+${processDefineKey}+'）的状态图'"></span>
+            </h2>
+            <br />
+        </div>
+        <div id="canvas"></div>
+        <br />
+        <!--其他信息的栏目-->
+        <div style="width: 1200px;height: 600px;margin-left: 100px;">
+            <!--辅助信息-->
+            <div class="jumbotron">
+                <h2>
+                    <svg class="bi bi-intersect" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M12 4v6.5a1.5 1.5 0 0 1-1.5 1.5H4V5.5A1.5 1.5 0 0 1 5.5 4H12z"/>
+                        <path fill-rule="evenodd" d="M14.5 5h-9a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5zm-9-1A1.5 1.5 0 0 0 4 5.5v9A1.5 1.5 0 0 0 5.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 4h-9z"/>
+                        <path fill-rule="evenodd" d="M10.5 1h-9a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5zm-9-1A1.5 1.5 0 0 0 0 1.5v9A1.5 1.5 0 0 0 1.5 12h9a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 10.5 0h-9z"/>
+                    </svg>
+                    组织指令完成任务
+                </h2>
+                <br /><hr><br />
+                <table class="table">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">任务描述</th>
+                        <th scope="col">任务ID</th>
+                        <th scope="col">收到的交互类</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td th:text="${taskdto.getTaskName()}"></td>
+                        <td th:text="${taskdto.getTaskId()}"></td>
+                        <td th:text="${taskdto.getInteraction()}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <br /><hr><br />
 
                 <!--指令的编辑-->
-                <div id="instruction_0" class="instruction" style="border: black;border-width: 2px;border-style: dotted">
+                <div id="instruction_0" class="instruction" style="border: black;border-width: 1px;border-style: dotted">
                     <br />
                     <span class="dropdown">
-                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      请选择要插入的操作命令
-                  </button>
-                  <span class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                      <button class="dropdown-item" type="button" onclick="CreateInstruction(this)">创建对象</button>
-                      <button class="dropdown-item" type="button" onclick="DelayInstruction(this)">延时</button>
-                      <button class="dropdown-item" type="button" onclick="ExpressionInstruction(this)">表达式</button>
-                      <button class="dropdown-item" type="button" onclick="ListAddInstruction(this)">列表加入</button>
-                      <button class="dropdown-item" type="button" onclick="ListSizeInstruction(this)">列表大小</button>
-                      <button class="dropdown-item" type="button" onclick="ListClearInstruction(this)">列表清空</button>
-                      <button class="dropdown-item" type="button" onclick="ListRemoveInstruction(this)">列表移除</button>
-                      <button class="dropdown-item" type="button" onclick="ListGetInstruction(this)">列表获得一个对象（按名字）</button>
-                      <button class="dropdown-item" type="button" onclick="ListGetIndexInstruction(this)">列表获得一个对象（按下标）</button>
-                      <button class="dropdown-item" type="button" onclick="ObjectGetInstruction(this)">获得一个对象</button>
-                      <button class="dropdown-item" type="button" onclick="ObjectSetInstruction(this)">设置一个对象</button>
-                      <button class="dropdown-item" type="button" onclick="SendInstruction(this)">发送一个交互类</button>
-                      <button class="dropdown-item" type="button" onclick="TypeConversionInstruction(this)">强制转换</button>
-                      <button class="dropdown-item" type="button" onclick="UpdateTimePeriodInstruction(this)">生命周期更新</button>
-                      <button class="dropdown-item" type="button" onclick="MathAbsInstruction(this)">绝对值</button>
-                      <button class="dropdown-item" type="button" onclick="RandomIntInstruction(this)">产生一个随机数</button>
-                      <button class="dropdown-item" type="button" onclick="SelectInstruction(this)">选择</button>
-                      <button class="dropdown-item" type="button" onclick="ForeachInstruction(this)">foreach</button>
-                      <button class="dropdown-item" type="button" onclick="FornumberInstruction(this)">fornumber</button>
-                  </span>
-              </span>
+
+                        <button class="btn btn-secondary dropdown-toggle" type="button"
+                                style="margin-left: 10px" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <svg class="bi bi-option" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                              <path fill-rule="evenodd" d="M1 2.5a.5.5 0 0 1 .5-.5h3.797a.5.5 0 0 1 .439.26L11 13h3.5a.5.5 0 0 1 0 1h-3.797a.5.5 0 0 1-.439-.26L5 3H1.5a.5.5 0 0 1-.5-.5zm10 0a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5z"/>
+                            </svg>
+                            请选择要插入的操作命令
+                        </button>
+
+                        <span class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                          <button class="dropdown-item" type="button" onclick="CreateInstruction(this)">创建对象</button>
+                          <button class="dropdown-item" type="button" onclick="DelayInstruction(this)">延时</button>
+                          <button class="dropdown-item" type="button" onclick="ExpressionInstruction(this)">表达式</button>
+                          <button class="dropdown-item" type="button" onclick="ListAddInstruction(this)">列表加入</button>
+                          <button class="dropdown-item" type="button" onclick="ListSizeInstruction(this)">列表大小</button>
+                          <button class="dropdown-item" type="button" onclick="ListClearInstruction(this)">列表清空</button>
+                          <button class="dropdown-item" type="button" onclick="ListRemoveInstruction(this)">列表移除</button>
+                          <button class="dropdown-item" type="button" onclick="ListGetInstruction(this)">列表获得一个对象（按名字）</button>
+                          <button class="dropdown-item" type="button" onclick="ListGetIndexInstruction(this)">列表获得一个对象（按下标）</button>
+                          <button class="dropdown-item" type="button" onclick="ObjectGetInstruction(this)">获得一个对象</button>
+                          <button class="dropdown-item" type="button" onclick="ObjectSetInstruction(this)">设置一个对象</button>
+                          <button class="dropdown-item" type="button" onclick="SendInstruction(this)">发送一个交互类</button>
+                          <button class="dropdown-item" type="button" onclick="TypeConversionInstruction(this)">强制转换</button>
+                          <button class="dropdown-item" type="button" onclick="UpdateTimePeriodInstruction(this)">生命周期更新</button>
+                          <button class="dropdown-item" type="button" onclick="MathAbsInstruction(this)">绝对值</button>
+                          <button class="dropdown-item" type="button" onclick="RandomIntInstruction(this)">产生一个随机数</button>
+                          <button class="dropdown-item" type="button" onclick="SelectInstruction(this)">选择</button>
+                          <button class="dropdown-item" type="button" onclick="ForeachInstruction(this)">foreach</button>
+                          <button class="dropdown-item" type="button" onclick="FornumberInstruction(this)">fornumber</button>
+                        </span>
+                    </span>
+
                     <span>
-                <button type="button" class="btn btn-outline-warning" id="hideButton" onclick="HideDetails(this)">隐藏指令细节</button>
-              </span>
+                        <button type="button" class="btn btn-warning" id="hideButton" onclick="HideDetails(this)">
+                            <svg class="bi bi-display-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M5.75 13.5c.167-.333.25-.833.25-1.5h4c0 .667.083 1.167.25 1.5H11a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1h.75z"/>
+                              <path fill-rule="evenodd" d="M13.991 3H2c-.325 0-.502.078-.602.145a.758.758 0 0 0-.254.302A1.46 1.46 0 0 0 1 4.01V10c0 .325.078.502.145.602.07.105.17.188.302.254a1.464 1.464 0 0 0 .538.143L2.01 11H14c.325 0 .502-.078.602-.145a.758.758 0 0 0 .254-.302 1.464 1.464 0 0 0 .143-.538L15 9.99V4c0-.325-.078-.502-.145-.602a.757.757 0 0 0-.302-.254A1.46 1.46 0 0 0 13.99 3zM14 2H2C0 2 0 4 0 4v6c0 2 2 2 2 2h12c2 0 2-2 2-2V4c0-2-2-2-2-2z"/>
+                              <path d="M2 4h12v6H2z"/>
+                            </svg>
+                            隐藏指令细节
+                        </button>
+                    </span>
                     <br /><br />
-                    <!--在这里插入一条指令的具体内容-->
                 </div><br />
 
                 <!--在这里之前插入一条指令的div-->
                 <div id="addInstruction">
-                    <br />
                 </div>
 
                 <!--添加一条指令编辑的按钮-->
                 <button type="button" class="btn btn-dark"
-                        style="margin-left: 1070px"
+                        style="margin-left: 1040px"
                         onclick="addInstruction()">
-                    增加一个命令
+                    <svg class="bi bi-plus-square" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M8 3.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H4a.5.5 0 0 1 0-1h3.5V4a.5.5 0 0 1 .5-.5z"/>
+                        <path fill-rule="evenodd" d="M7.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0V8z"/>
+                        <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                    </svg>
+                    命令
                 </button>
+                <hr />
+                <h3 style="color: cornflowerblue">
+                    <svg class="bi bi-info-square" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                        <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+                        <circle cx="8" cy="4.5" r="1"/>
+                    </svg>
+                    辅助信息
+                </h3>
+                <hr />
+
+                <!--辅助的信息-->
+                <div id="interactionInfoTable">
+                    <h5 th:text="'收到的的交互类（'+${taskdto.getTaskName()}+'）中的参数表'"></h5>
+                    <table class="table table-hover table-danger">
+                        <thead>
+                        <tr>
+                            <th scope="col">交互类中的参数</th>
+                            <th scope="col">参数对应的类型</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>id</td>
+                            <td>int</td>
+                        </tr>
+                        <tr>
+                            <td>name</td>
+                            <td>String</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
 
                 <!--内部任务-->
                 <div id="inner" style="display: none">
-                        <div class="jumbotron">
-                            <h2>内部任务</h2>
-                            <button type="button" class="btn btn-primary" onclick="addInsideTask()"
-                                    style="right: 20px;text-align: center;margin-left: 970px">
-                                增加一个内部任务
-                            </button>
-                            <br />
-                            <br />
-                            <div style="border: black;border-style: dotted;border-width: 1px">
-                                <form id="insidetaskForm">
-                                    <div>
-                                        <br>
-                                        <span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp内部任务Id:</span><input type="text" name="insidetaskId"><span>&nbsp&nbsp&nbsp</span>
-                                        <span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp任务内容:</span><input type="text" name="information"><span>&nbsp&nbsp&nbsp</span>
-                                        <span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp是否完成(请填写no):</span><input type="text" name="iscomplete"><span>&nbsp&nbsp&nbsp</span>
-                                        <br />
-                                    </div><br/>
-                                    <button id="insideTaskAfter" type="button" class="btn btn-success" style="margin-left: 1000px" onclick="submitInsideTask()">
-                                        提交内部任务
-                                    </button>
-                                </form>
-                            </div>
+                    <div>
+                        <hr />
+                        <h3 style="color: cornflowerblue">
+                            <svg class="bi bi-box-arrow-in-down-right" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M14.5 13a1.5 1.5 0 0 1-1.5 1.5H3A1.5 1.5 0 0 1 1.5 13V8a.5.5 0 0 1 1 0v5a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V3a.5.5 0 0 0-.5-.5H9a.5.5 0 0 1 0-1h4A1.5 1.5 0 0 1 14.5 3v10z"/>
+                                <path fill-rule="evenodd" d="M4.5 10a.5.5 0 0 0 .5.5h5a.5.5 0 0 0 .5-.5V5a.5.5 0 0 0-1 0v4.5H5a.5.5 0 0 0-.5.5z"/>
+                                <path fill-rule="evenodd" d="M10.354 10.354a.5.5 0 0 0 0-.708l-8-8a.5.5 0 1 0-.708.708l8 8a.5.5 0 0 0 .708 0z"/>
+                            </svg>
+                            内部任务
+                        </h3>
+                        <button type="button" class="btn btn-primary" onclick="addInsideTask()"
+                                style="right: 20px;text-align: center;margin-left: 1020px">
+                            <svg class="bi bi-plus-square" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M8 3.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H4a.5.5 0 0 1 0-1h3.5V4a.5.5 0 0 1 .5-.5z"/>
+                                <path fill-rule="evenodd" d="M7.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0V8z"/>
+                                <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                            </svg>
+                            内部任务
+                        </button>
+                        <br />
+                        <br />
+                        <div style="border: black;border-style: dotted;border-width: 1px">
+                            <form id="insidetaskForm">
+                                <div>
+                                    <br>
+                                    <span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp内部任务Id:</span><input type="text" name="insidetaskId"><span>&nbsp&nbsp&nbsp</span>
+                                    <span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp任务内容:</span><input type="text" name="information"><span>&nbsp&nbsp&nbsp</span>
+                                    <span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp是否完成(请填写no):</span><input type="text" name="iscomplete"><span>&nbsp&nbsp&nbsp</span>
+                                    <br />
+                                </div><br/>
+                                <button id="insideTaskAfter" type="button" class="btn btn-success" style="margin-left: 1000px" onclick="submitInsideTask()">
+                                    提交内部任务
+                                </button>
+                            </form>
                         </div>
                     </div>
+                </div>
 
                 <!--是否显示内部任务，以及进入下一个流程-->
-                <div class="jumbotron" style="text-align: center">
-                        <h3>如果当前的指令，需要内部任务的执行，点击创建内部任务</h3>
-                        <br />
-                        <button type="button" class="btn btn-outline-danger"
-                                onclick="showInnerTask()" style="margin-left: 1010px">
-                            显示内部任务
-                        </button>
+                <div style="text-align: center">
+                    <br /><hr /><br />
+                    <h3>
+                        <svg class="bi bi-clipboard-data" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                            <path fill-rule="evenodd" d="M9.5 1h-3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+                            <path d="M4 11a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0v-1zm6-4a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0V7zM7 9a1 1 0 0 1 2 0v3a1 1 0 1 1-2 0V9z"/>
+                        </svg>
+                        如果当前的指令，需要内部任务，创建内部任务
+                    </h3>
+                    <br />
+                    <button type="button" class="btn btn-outline-danger"
+                            onclick="showInnerTask()" style="margin-left: 1010px">
+                        创建内部任务
+                    </button>
 
-                        <br />
-                        <hr />
-                        <br />
-                        <h3>
-                            当前Task的指令编辑添加完毕，查询当前这个任务的指令序列
-                        </h3>
-                        <br />
+                    <br />
+                    <hr />
+                    <br />
+                    <h3>
+                        <svg class="bi bi-clipboard-data" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                            <path fill-rule="evenodd" d="M9.5 1h-3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+                            <path d="M4 11a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0v-1zm6-4a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0V7zM7 9a1 1 0 0 1 2 0v3a1 1 0 1 1-2 0V9z"/>
+                        </svg>
+                        当前Task的指令编辑添加完毕，查询当前这个任务的指令序列
+                    </h3>
+                    <br />
                     <a th:href="'/taskInfo/' + ${taskdto.getTaskId()}"
                        class="btn btn-primary btn-lg active" role="button" aria-pressed="true">
                         查询当前指令命令序列
                     </a>
 
-                    </div>
-                
+                </div>
+
             </div>
+            <br />
         </div>
     </div>
-
     <script th:inline="javascript">
         // modeler instance
         var bpmnModeler = new BpmnJS({
@@ -426,8 +443,8 @@
             });
         }
     </script>
-
     <script language="JavaScript">
+
         //create指令
         function CreateInstruction(obj){
             let AncestorDiv = obj.parentElement.parentElement.parentElement;
@@ -466,8 +483,8 @@
                 "          <input type=\"text\" name=\"actualInformation\" class=\"form-control\" placeholder=\"用逗号隔开\">\n" +
                 "        </div>\n" +
                 "      </div>\n" +
-                "      <button type=\"button\" class=\"btn btn-success\" style=\"margin-left: 1070px\" onclick=\"submitCreateInstruction(this)\">提交这条命令</button>\n" +
-                "      <p style=\"margin-left: 700px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
+                "      <button type=\"button\" class=\"btn btn-outline-success\" style=\"margin-left: 1000px\" onclick=\"submitCreateInstruction(this)\">提交这条命令</button>\n" +
+                "      <p style=\"margin-left: 630px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
                 "    </form>\n" +
                 "  </div>";
             AncestorDiv.insertAdjacentHTML("beforeend",html);
@@ -514,8 +531,8 @@
                 "          <input type=\"text\" name=\"logInformation\" class=\"form-control\" placeholder=\"打印的提示信息\">\n" +
                 "        </div>\n" +
                 "      </div>\n" +
-                "      <button type=\"button\" class=\"btn btn-success\" style=\"margin-left: 1070px\" onclick=\"submitDelayInstruction(this)\">提交这条命令</button>\n" +
-                "      <p style=\"margin-left: 700px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
+                "      <button type=\"button\" class=\"btn btn-outline-success\" style=\"margin-left: 1000px\" onclick=\"submitDelayInstruction(this)\">提交这条命令</button>\n" +
+                "      <p style=\"margin-left: 630px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
                 "    </form>\n" +
                 "  </div>";
             AncestorDiv.insertAdjacentHTML("beforeend",html);
@@ -582,8 +599,8 @@
                 "          <input type=\"text\" name=\"outName\" class=\"form-control\" placeholder=\"UNKNOWN\">\n" +
                 "        </div>\n" +
                 "      </div>\n" +
-                "      <button type=\"button\" class=\"btn btn-success\" style=\"margin-left: 1070px\" onclick=\"submitExpressionInstruction(this)\">提交这条命令</button>\n" +
-                "      <p style=\"margin-left: 700px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
+                "      <button type=\"button\" class=\"btn btn-outline-success\" style=\"margin-left: 1000px\" onclick=\"submitExpressionInstruction(this)\">提交这条命令</button>\n" +
+                "      <p style=\"margin-left: 630px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
                 "    </form>\n" +
                 "  </div>"
             AncestorDiv.insertAdjacentHTML("beforeend",html);
@@ -629,8 +646,8 @@
                 "        </div>\n" +
                 "\n" +
                 "      </div>\n" +
-                "      <button type=\"button\" class=\"btn btn-success\" style=\"margin-left: 1070px\" onclick=\"submitListaddInstruction(this)\">提交这条命令</button>\n" +
-                "      <p style=\"margin-left: 700px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
+                "      <button type=\"button\" class=\"btn btn-outline-success\" style=\"margin-left: 1000px\" onclick=\"submitListaddInstruction(this)\">提交这条命令</button>\n" +
+                "      <p style=\"margin-left: 630px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
                 "    </form>\n" +
                 "  </div>";
             AncestorDiv.insertAdjacentHTML("beforeend",html);
@@ -676,8 +693,8 @@
                 "        </div>\n" +
                 "\n" +
                 "      </div>\n" +
-                "      <button type=\"button\" class=\"btn btn-success\" style=\"margin-left: 1070px\" onclick=\"submitListsizeInstruction(this)\">提交这条命令</button>\n" +
-                "      <p style=\"margin-left: 700px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
+                "      <button type=\"button\" class=\"btn btn-outline-success\" style=\"margin-left: 1000px\" onclick=\"submitListsizeInstruction(this)\">提交这条命令</button>\n" +
+                "      <p style=\"margin-left: 630px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
                 "    </form>\n" +
                 "  </div>";
             AncestorDiv.insertAdjacentHTML("beforeend",html);
@@ -716,8 +733,8 @@
                 "        </div>\n" +
                 "\n" +
                 "      </div>\n" +
-                "      <button type=\"button\" class=\"btn btn-success\" style=\"margin-left: 1070px\" onclick=\"submitListclearInstruction(this)\">提交这条命令</button>\n" +
-                "      <p style=\"margin-left: 700px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
+                "      <button type=\"button\" class=\"btn btn-outline-success\" style=\"margin-left: 1000px\" onclick=\"submitListclearInstruction(this)\">提交这条命令</button>\n" +
+                "      <p style=\"margin-left: 630px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
                 "    </form>\n" +
                 "  </div>";
             AncestorDiv.insertAdjacentHTML("beforeend",html);
@@ -777,8 +794,8 @@
                 "        </div>\n" +
                 "\n" +
                 "      </div>\n" +
-                "      <button type=\"button\" class=\"btn btn-success\" style=\"margin-left: 1070px\" onclick=\"submitListremoveInstruction(this)\">提交这条命令</button>\n" +
-                "      <p style=\"margin-left: 700px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
+                "      <button type=\"button\" class=\"btn btn-outline-success\" style=\"margin-left: 1000px\" onclick=\"submitListremoveInstruction(this)\">提交这条命令</button>\n" +
+                "      <p style=\"margin-left: 630px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
                 "    </form>\n" +
                 "  </div>";
             AncestorDiv.insertAdjacentHTML("beforeend",html);
@@ -824,8 +841,8 @@
                 "        </div>\n" +
                 "\n" +
                 "      </div>\n" +
-                "      <button type=\"button\" class=\"btn btn-success\" style=\"margin-left: 1070px\" onclick=\"submitFornumberInstruction(this)\">提交这条命令</button>\n" +
-                "      <p style=\"margin-left: 700px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
+                "      <button type=\"button\" class=\"btn btn-outline-success\" style=\"margin-left: 1000px\" onclick=\"submitFornumberInstruction(this)\">提交这条命令</button>\n" +
+                "      <p style=\"margin-left: 630px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
                 "    </form>\n" +
                 "  </div>";
             AncestorDiv.insertAdjacentHTML("beforeend",html);
@@ -885,8 +902,8 @@
                 "        </div>\n" +
                 "\n" +
                 "      </div>\n" +
-                "      <button type=\"button\" class=\"btn btn-success\" style=\"margin-left: 1070px\" onclick=\"submitForeachInstruction(this)\">提交这条命令</button>\n" +
-                "      <p style=\"margin-left: 700px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
+                "      <button type=\"button\" class=\"btn btn-outline-success\" style=\"margin-left: 1000px\" onclick=\"submitForeachInstruction(this)\">提交这条命令</button>\n" +
+                "      <p style=\"margin-left: 630px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
                 "    </form>\n" +
                 "  </div>";
             AncestorDiv.insertAdjacentHTML("beforeend",html);
@@ -944,8 +961,8 @@
                 "        查询未完成的指令\n" +
                 "      </button>\n" +
                 "      <br /><br />\n" +
-                "      <button type=\"button\" class=\"btn btn-success\" style=\"margin-left: 1070px\" onclick=\"submitSelectInstruction(this)\">提交这条命令</button>\n" +
-                "      <p style=\"margin-left: 700px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
+                "      <button type=\"button\" class=\"btn btn-outline-success\" style=\"margin-left: 1000px\" onclick=\"submitSelectInstruction(this)\">提交这条命令</button>\n" +
+                "      <p style=\"margin-left: 630px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
                 "    </form>\n" +
                 "  </div>";
             AncestorDiv.insertAdjacentHTML("beforeend",html);
@@ -991,8 +1008,8 @@
                 "        </div>\n" +
                 "\n" +
                 "      </div>\n" +
-                "      <button type=\"button\" class=\"btn btn-success\" style=\"margin-left: 1070px\" onclick=\"submitRandomintInstruction(this)\">提交这条命令</button>\n" +
-                "      <p style=\"margin-left: 700px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
+                "      <button type=\"button\" class=\"btn btn-outline-success\" style=\"margin-left: 1000px\" onclick=\"submitRandomintInstruction(this)\">提交这条命令</button>\n" +
+                "      <p style=\"margin-left: 630px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
                 "    </form>\n" +
                 "  </div>";
             AncestorDiv.insertAdjacentHTML("beforeend",html);
@@ -1038,8 +1055,8 @@
                 "        </div>\n" +
                 "\n" +
                 "      </div>\n" +
-                "      <button type=\"button\" class=\"btn btn-success\" style=\"margin-left: 1070px\" onclick=\"submitMathabsInstruction(this)\">提交这条命令</button>\n" +
-                "      <p style=\"margin-left: 700px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
+                "      <button type=\"button\" class=\"btn btn-outline-success\" style=\"margin-left: 1000px\" onclick=\"submitMathabsInstruction(this)\">提交这条命令</button>\n" +
+                "      <p style=\"margin-left: 630px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
                 "    </form>\n" +
                 "  </div>";
             AncestorDiv.insertAdjacentHTML("beforeend",html);
@@ -1092,8 +1109,8 @@
                 "        </div>\n" +
                 "\n" +
                 "      </div>\n" +
-                "      <button type=\"button\" class=\"btn btn-success\" style=\"margin-left: 1070px\" onclick=\"submitUpdatetimeperiodInstruction(this)\">提交这条命令</button>\n" +
-                "      <p style=\"margin-left: 700px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
+                "      <button type=\"button\" class=\"btn btn-outline-success\" style=\"margin-left: 1000px\" onclick=\"submitUpdatetimeperiodInstruction(this)\">提交这条命令</button>\n" +
+                "      <p style=\"margin-left: 630px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
                 "    </form>\n" +
                 "  </div>";
             AncestorDiv.insertAdjacentHTML("beforeend",html);
@@ -1146,10 +1163,10 @@
                 "        </div>\n" +
                 "\n" +
                 "      </div>\n" +
-                "      <button type=\"button\" class=\"btn btn-success\" style=\"margin-left: 1070px\" onclick=\"submitTypeconversionInstruction(this)\">\n" +
+                "      <button type=\"button\" class=\"btn btn-outline-success\" style=\"margin-left: 1000px\" onclick=\"submitTypeconversionInstruction(this)\">\n" +
                 "        提交这条命令\n" +
                 "      </button>\n" +
-                "      <p style=\"margin-left: 700px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
+                "      <p style=\"margin-left: 630px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
                 "    </form>\n" +
                 "  </div>";
             AncestorDiv.insertAdjacentHTML("beforeend",html);
@@ -1202,10 +1219,10 @@
                 "        </div>\n" +
                 "\n" +
                 "      </div>\n" +
-                "      <button type=\"button\" class=\"btn btn-success\" style=\"margin-left: 1070px\" onclick=\"submitSendInstruction(this)\">\n" +
+                "      <button type=\"button\" class=\"btn btn-outline-success\" style=\"margin-left: 1000px\" onclick=\"submitSendInstruction(this)\">\n" +
                 "        提交这条命令\n" +
                 "      </button>\n" +
-                "      <p style=\"margin-left: 700px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
+                "      <p style=\"margin-left: 630px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
                 "    </form>\n" +
                 "  </div>";
             AncestorDiv.insertAdjacentHTML("beforeend",html);
@@ -1265,10 +1282,10 @@
                 "        </div>\n" +
                 "\n" +
                 "      </div>\n" +
-                "      <button type=\"button\" class=\"btn btn-success\" style=\"margin-left: 1070px\" onclick=\"submitObjectsetInstruction(this)\">\n" +
+                "      <button type=\"button\" class=\"btn btn-outline-success\" style=\"margin-left: 1000px\" onclick=\"submitObjectsetInstruction(this)\">\n" +
                 "        提交这条命令\n" +
                 "      </button>\n" +
-                "      <p style=\"margin-left: 700px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
+                "      <p style=\"margin-left: 630px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
                 "    </form>\n" +
                 "  </div>";
             AncestorDiv.insertAdjacentHTML("beforeend",html);
@@ -1328,10 +1345,10 @@
                 "        </div>\n" +
                 "\n" +
                 "      </div>\n" +
-                "      <button type=\"button\" class=\"btn btn-success\" style=\"margin-left: 1070px\" onclick=\"submitObjectgetInstruction(this)\">\n" +
+                "      <button type=\"button\" class=\"btn btn-outline-success\" style=\"margin-left: 1000px\" onclick=\"submitObjectgetInstruction(this)\">\n" +
                 "        提交这条命令\n" +
                 "      </button>\n" +
-                "      <p style=\"margin-left: 700px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
+                "      <p style=\"margin-left: 630px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
                 "    </form>\n" +
                 "  </div>";
             AncestorDiv.insertAdjacentHTML("beforeend",html);
@@ -1391,10 +1408,10 @@
                 "        </div>\n" +
                 "\n" +
                 "      </div>\n" +
-                "      <button type=\"button\" class=\"btn btn-success\" style=\"margin-left: 1070px\" onclick=\"submitListgetindexInstruction(this)\">\n" +
+                "      <button type=\"button\" class=\"btn btn-outline-success\" style=\"margin-left: 1000px\" onclick=\"submitListgetindexInstruction(this)\">\n" +
                 "        提交这条命令\n" +
                 "      </button>\n" +
-                "      <p style=\"margin-left: 700px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
+                "      <p style=\"margin-left: 630px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
                 "    </form>\n" +
                 "  </div>";
             AncestorDiv.insertAdjacentHTML("beforeend",html);
@@ -1468,10 +1485,10 @@
                 "        </div>\n" +
                 "\n" +
                 "      </div>\n" +
-                "      <button type=\"button\" class=\"btn btn-success\" style=\"margin-left: 1070px\" onclick=\"submitListgetInstruction(this)\">\n" +
+                "      <button type=\"button\" class=\"btn btn-outline-success\" style=\"margin-left: 1000px\" onclick=\"submitListgetInstruction(this)\">\n" +
                 "        提交这条命令\n" +
                 "      </button>\n" +
-                "      <p style=\"margin-left: 700px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
+                "      <p style=\"margin-left: 630px;color: red\">当错误选择指令时，不要点击提交按钮，选择增加一个新的命令即可</p>\n" +
                 "    </form>\n" +
                 "  </div>";
             AncestorDiv.insertAdjacentHTML("beforeend",html);
@@ -1490,6 +1507,7 @@
                 }
             });
         }
+
     </script>
 </body>
 

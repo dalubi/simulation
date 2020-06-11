@@ -45,138 +45,138 @@
     </div>
 
     <div>
-        <div id="allStateGraphs">
-            <div class="jumbotron" style="width:1200px;margin-left:100px;">
-                <h2>BPMN经解析后，生成的所有状态图</h2><br />
-                <h3>&nbsp;&nbsp;&nbsp;&nbsp;Step1.如果是初次得到所有联邦成员的状态图，完成设计仿真系统时必要信息的填写</h3>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（如果已经初始化了，直接进入Step2）</p>
-                <h3>&nbsp;&nbsp;&nbsp;&nbsp;Step2.进入每个仿真系统的状态图进行仿真必要信息编辑</h3>
+        <div class="jumbotron" style="width:1200px;margin-left:100px;">
+            <div>
+                <h2>
+                    <span style="color: crimson">FEDERATION</span>
+                    的BPMN经解析，生成所有
+                    <span style="color: crimson">FEDERATE</span>
+                    状态图
+                </h2><br />
+                <h3>
+                    <span style="color: cornflowerblue">
+                        Step1
+                        <svg class="bi bi-bookmarks-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" d="M2 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v12l-5-3-5 3V4z"/>
+                          <path d="M14 14l-1-.6V2a1 1 0 0 0-1-1H4.268A2 2 0 0 1 6 0h6a2 2 0 0 1 2 2v12z"/>
+                        </svg>
+                    </span>
+                    初次得到所有联邦成员的状态图，设计仿真系统必要信息</h3>
+                <p style="margin-left: 100px">（如果已经初始化了，直接进入Step2）</p>
+            </div>
 
-                <br />
-
-                <div style="width:1000px;margin-left: 50px">
-                    <h4>所有联邦成员的编辑与运行</h4>
-                    <br /><hr />
-                    <div>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-outline-primary btn-sm" style="margin-right: 160px">***.bpmn</button>可以对联邦成员的内部进行编辑
-                    </div>
-                    <hr/>
-                    <div>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-outline-success btn-sm" style="margin-right: 110px">Run *** federate</button>在已有生成代码的基础上，
-                        可以运行仿真的这个联邦成员
-                    </div>
-                    <hr/>
-                    <div>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-outline-info btn-sm" style="margin-right: 100px">DOWNLOAD LOG</button>可以下载当前联邦成员运行过程中的日志信息
-                    </div>
-                    <hr /><br/>
-
-
-                    <div>
-                        <button type="button" style="position:absolute; right:260px" onclick="submitGenerateCode()"
-                                class="btn btn-outline-secondary btn-lg" >GENERATE SIMULATION CODE！
-                        </button>
-                        <br /><br />
-                        <div style="margin-left: 680px">
-                            <small>只有全部的联邦成员都编辑完毕，才能点击生成代码，等待服务响应代码是否成功生成</small>
-                        </div>
-                    </div>
-                    <br />
-
-
-                    <ul class="list-group" th:each="bpmn:${bpmnDTOs}">
-                        <li class="list-group-item">
-                            <button class="btn btn-outline-primary btn-lg">
-                                <a class="bpmnClass" th:text="${bpmn.getBpmnFileName()}" href="" ></a>
-                            </button>
-                            <button class="btn btn-outline-success btn-lg" style="margin-left: 150px"
-                                    onclick="runFederate(this)" th:value="${bpmn.getBpmnName()}" th:text="'Run ' + ${bpmn.getBpmnName()} + ' Federate!' ">
-                            </button>
-                            <button class="btn btn-outline-info btn-lg" th:value="${bpmn.getBpmnName()}"
-                                    style="margin-left: 150px" onclick="downloadSimuLog(this)">
-                                DOWNLOAD LOG
-                            </button>
-                        </li>
-                    </ul>
-
-                </div>
-                <br /><hr ><br />
+            <div>
+                <hr >
                 <button type="button" class="btn btn-danger btn-lg" onclick="showDIV(this)" value="parameterDIV">
+                    <svg class="bi bi-pen" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M5.707 13.707a1 1 0 0 1-.39.242l-3 1a1 1 0 0 1-1.266-1.265l1-3a1 1 0 0 1 .242-.391L10.086 2.5a2 2 0 0 1 2.828 0l.586.586a2 2 0 0 1 0 2.828l-7.793 7.793zM3 11l7.793-7.793a1 1 0 0 1 1.414 0l.586.586a1 1 0 0 1 0 1.414L5 13l-3 1 1-3z"/>
+                        <path fill-rule="evenodd" d="M9.854 2.56a.5.5 0 0 0-.708 0L5.854 5.855a.5.5 0 0 1-.708-.708L8.44 1.854a1.5 1.5 0 0 1 2.122 0l.293.292a.5.5 0 0 1-.707.708l-.293-.293z"/>
+                        <path d="M13.293 1.207a1 1 0 0 1 1.414 0l.03.03a1 1 0 0 1 .03 1.383L13.5 4 12 2.5l1.293-1.293z"/>
+                    </svg>
                     编辑仿真交互类需要的参数
                 </button>
 
                 <button type="button" class="btn btn-primary btn-lg" onclick="showDIV(this)" value="interactionDIV">
+                    <svg class="bi bi-pen" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M5.707 13.707a1 1 0 0 1-.39.242l-3 1a1 1 0 0 1-1.266-1.265l1-3a1 1 0 0 1 .242-.391L10.086 2.5a2 2 0 0 1 2.828 0l.586.586a2 2 0 0 1 0 2.828l-7.793 7.793zM3 11l7.793-7.793a1 1 0 0 1 1.414 0l.586.586a1 1 0 0 1 0 1.414L5 13l-3 1 1-3z"/>
+                        <path fill-rule="evenodd" d="M9.854 2.56a.5.5 0 0 0-.708 0L5.854 5.855a.5.5 0 0 1-.708-.708L8.44 1.854a1.5 1.5 0 0 1 2.122 0l.293.292a.5.5 0 0 1-.707.708l-.293-.293z"/>
+                        <path d="M13.293 1.207a1 1 0 0 1 1.414 0l.03.03a1 1 0 0 1 .03 1.383L13.5 4 12 2.5l1.293-1.293z"/>
+                    </svg>
                     编辑仿真交互类
                 </button>
-            </div>
-
-            <div style="width:1200px;margin-left:100px;">
-                <div id="otherInfo">
-                    <div id="parameterDIV" style="display: none">
-                        <br />
-                        <div class="jumbotron">
-                            <h2>添加这个联邦所需的交互类的各个参数必要信息！</h2><br />
-                            <button type="button" class="btn btn-dark" id="addParameter" onclick="addParameter()"
-                                    style="text-align: center;margin-left: 1000px">
-                                增加一个参数
-                            </button>
-                            <form id="parameterForm" action="/post/parameter" method="get">
-                                <br />
-                                <div style="border: black;border-style:dotted;border-width: 2px;">
+                <hr />
+                <div>
+                    <div id="otherInfo">
+                        <div id="parameterDIV" style="display: none">
+                            <div class="jumbotron">
+                                <h2>
+                                    <svg class="bi bi-file-text" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M4 1h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H4z"/>
+                                        <path fill-rule="evenodd" d="M4.5 10.5A.5.5 0 0 1 5 10h3a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm0-2A.5.5 0 0 1 5 8h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm0-2A.5.5 0 0 1 5 6h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm0-2A.5.5 0 0 1 5 4h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5z"/>
+                                    </svg>
+                                    添加这个联邦所需的交互类的各个参数必要信息！
+                                    <div class="progress">
+                                        <label>当前进度：</label>
+                                        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                                    </div>
+                                </h2><br />
+                                <button type="button" class="btn btn-primary" id="addParameter" onclick="addParameter()"
+                                        style="text-align: center;margin-left: 920px">
+                                    <svg class="bi bi-plus-square" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M8 3.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H4a.5.5 0 0 1 0-1h3.5V4a.5.5 0 0 1 .5-.5z"/>
+                                        <path fill-rule="evenodd" d="M7.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0V8z"/>
+                                        <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                    </svg>
+                                    增加一个参数
+                                </button>
+                                <form id="parameterForm" action="/post/parameter" method="get">
                                     <br />
-                                    <h4>
-                                        <div class="parameter">&nbsp;&nbsp;&nbsp;&nbsp;第1个联邦参数</div>
-                                    </h4>
-                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;参数名称:</span><input type="text" name="parameterName"><span>&nbsp;&nbsp;&nbsp;</span>
-                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;参数类型:</span>
-                                    <select name="parameterType">
-                                        <option value="String">字符串</option>
-                                        <option value="int">整数</option>
-                                        <option value="double">浮点数</option>
-                                    </select>
-                                    <br />
-                                    <br />
-                                </div>
+                                    <div style="border: black;border-style:dotted;border-width: 2px;">
+                                        <br />
+                                        <h4>
+                                            <div class="parameter">&nbsp;&nbsp;&nbsp;&nbsp;第1个联邦参数</div>
+                                        </h4>
+                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;参数名称:</span><input type="text" name="parameterName"><span>&nbsp;&nbsp;&nbsp;</span>
+                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;参数类型:</span>
+                                        <select name="parameterType">
+                                            <option value="String">字符串</option>
+                                            <option value="int">整数</option>
+                                            <option value="double">浮点数</option>
+                                        </select>
+                                        <br />
+                                        <br />
+                                    </div>
 
-                                <div id="theAddedParameterAfter">
-                                    <br />
-                                </div>
+                                    <div id="theAddedParameterAfter">
+                                        <br />
+                                    </div>
 
-                                <input type="submit" class="btn btn-danger" style="margin-left: 860px" value="提交这个联邦的所有参数">
-                            </form>
-                        </div>
-                    </div>
-                    <div id="interactionDIV" style="display: none">
-                        <div class="jumbotron" >
-                            <h2>设计这个联邦成员发布的交互类信息</h2>
-
-                            <br /><hr><br/>
-                            <div>
-                                <h4>已有联邦参数信息</h4>
-
-                                <table class="table table-striped table-primary">
-                                    <thead>
-                                    <tr>
-                                        <th scope="col">参数id</th>
-                                        <th scope="col">参数名称</th>
-                                        <th scope="col">参数类型</th>
-                                    </tr>
-                                    </thead>
-
-                                    <tbody>
-                                    <tr th:each="parameter:${parameters}">
-                                        <td th:text="${parameter.getParameterId()}"></td>
-                                        <td th:text="${parameter.getParameterName()}"></td>
-                                        <td th:text="${parameter.getParameterType()}"></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                                    <input type="submit" class="btn btn-danger" style="margin-left: 770px" value="提交这个联邦的所有参数">
+                                </form>
+                                <hr />
                             </div>
+                        </div>
+                        <div id="interactionDIV" style="display: none">
+                            <div class="jumbotron" >
+                                <h2>
+                                    <svg class="bi bi-file-text" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M4 1h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H4z"/>
+                                        <path fill-rule="evenodd" d="M4.5 10.5A.5.5 0 0 1 5 10h3a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm0-2A.5.5 0 0 1 5 8h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm0-2A.5.5 0 0 1 5 6h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm0-2A.5.5 0 0 1 5 4h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5z"/>
+                                    </svg>
+                                    设计这个联邦成员发布的交互类信息
+                                    <div class="progress">
+                                        <label>当前进度：</label>
+                                        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                                    </div>
+                                </h2>
 
-                            <br /><hr><br/>
+                                <br /><hr><br/>
+                                <div>
+                                    <h4>已有联邦参数信息</h4>
 
-                            <form id="InteractionParamsForm" action="/post/fillInteractionWithParams">
-                                <div class="input-group flex-nowrap" th:each="interaction:${interactionDTOs}">
+                                    <table class="table table-striped table-primary">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">参数id</th>
+                                            <th scope="col">参数名称</th>
+                                            <th scope="col">参数类型</th>
+                                        </tr>
+                                        </thead>
+
+                                        <tbody>
+                                        <tr th:each="parameter:${parameters}">
+                                            <td th:text="${parameter.getParameterId()}"></td>
+                                            <td th:text="${parameter.getParameterName()}"></td>
+                                            <td th:text="${parameter.getParameterType()}"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <br /><hr><br/>
+
+                                <form id="InteractionParamsForm" action="/post/fillInteractionWithParams">
+                                    <div class="input-group flex-nowrap" th:each="interaction:${interactionDTOs}">
 
                                     <span class="input-group-prepend" style="width: 220px">
                                         <span class="input-group-text" th:text="${interaction.getInteractionName()}" style="width: 220px"></span>
@@ -185,18 +185,131 @@
 
                                     <span class="input-group-prepend"><span class="input-group-text">交互类订阅的参数的ID</span></span>
                                     <input type="text" class="form-control" placeholder="交互类所含的参数的ID，用';'分开" name="parameters">
-                                </div>
-                                <br />
-                                <button  type="button" class="btn btn-danger" style="margin-left: 860px"
-                                         onclick="submitInteractionParams()">完善这个联邦成员包含的参数信息
-                                </button>
-                            </form>
+                                    </div>
+                                    <br />
+                                    <button  type="button" class="btn btn-danger" style="margin-left: 860px"
+                                             onclick="submitInteractionParams()">完善所有交互类参数信息
+                                    </button>
+                                </form>
+                            </div>
+                            <hr />
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
+            <div>
+                <h3>
+                    <span style="color: cornflowerblue">
+                        Step2
+                        <svg class="bi bi-bookmarks-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" d="M2 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v12l-5-3-5 3V4z"/>
+                          <path d="M14 14l-1-.6V2a1 1 0 0 0-1-1H4.268A2 2 0 0 1 6 0h6a2 2 0 0 1 2 2v12z"/>
+                        </svg>
+                    </span>
+                    进入每个
+                    <span style="color: crimson">
+                        FEDERATE
+                    </span>
+                    的状态图进行流程信息编辑
+                </h3>
+                <hr/>
+                <h4>
+                    <svg class="bi bi-layout-wtf" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M5 1H1v8h4V1zM1 0a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1H1zm13 2H9v5h5V2zM9 1a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9zM5 13H3v2h2v-2zm-2-1a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1H3zm12-1H9v2h6v-2zm-6-1a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1H9z"/>
+                    </svg>
+                    仿真系统按钮的介绍
+                </h4>
+                <br />
+
+                <table class="table table-striped table-dark" style="text-align: center">
+                    <thead>
+                    <tr>
+                        <th scope="col">按钮样式</th>
+                        <th scope="col">按钮解释</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <button class="btn btn-primary btn-sm" style="margin-right: 160px">***.bpmn</button>
+                        </td>
+                        <td>对联邦成员的流程进行编辑</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="btn btn-success btn-sm" style="margin-right: 110px">Run *** federate</button>
+                        </td>
+                        <td>
+                            生成代码之后，可以运行这个联邦成员
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="btn btn-info btn-sm" style="margin-right: 100px">DOWNLOAD LOG</button>
+                        </td>
+                        <td>
+                            可以下载当前联邦成员运行过程中的日志信息
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <div>
+                    <button type="button" style="position:absolute; right:200px"
+                            onclick="submitGenerateCode()"
+                            class="btn btn-outline-secondary btn-lg" >
+                        <svg class="bi bi-newspaper" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M0 2A1.5 1.5 0 0 1 1.5.5h11A1.5 1.5 0 0 1 14 2v12a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 0 14V2zm1.5-.5A.5.5 0 0 0 1 2v12a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5h-11z"/>
+                            <path fill-rule="evenodd" d="M15.5 3a.5.5 0 0 1 .5.5V14a1.5 1.5 0 0 1-1.5 1.5h-3v-1h3a.5.5 0 0 0 .5-.5V3.5a.5.5 0 0 1 .5-.5z"/>
+                            <path d="M2 3h10v2H2V3zm0 3h4v3H2V6zm0 4h4v1H2v-1zm0 2h4v1H2v-1zm5-6h2v1H7V6zm3 0h2v1h-2V6zM7 8h2v1H7V8zm3 0h2v1h-2V8zm-3 2h2v1H7v-1zm3 0h2v1h-2v-1zm-3 2h2v1H7v-1zm3 0h2v1h-2v-1z"/>
+                        </svg>
+                        生成FEDERATION代码
+                    </button>
+                    <br /><br />
+                    <div style="margin-left: 800px">
+                        <small style="color: blue">只有全部的联邦成员都编辑完毕，才能点击生成代码，等待响应</small>
+                    </div>
+                </div>
+                <br />
+
+                <ul class="list-group" th:each="bpmn:${bpmnDTOs}" style="margin-left: 10px">
+                    <li class="list-group-item">
+
+                        <button class="btn btn-outline-primary btn-lg">
+                            <svg class="bi bi-pencil-square" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                            </svg>
+                            <a class="bpmnClass" th:text="${bpmn.getBpmnFileName()}" href="" ></a>
+                        </button>
+
+                        <button class="btn btn-outline-success btn-lg" style="margin-left: 120px"
+                                onclick="runFederate(this)" th:value="${bpmn.getBpmnName()}">
+                            <svg class="bi bi-hammer" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.812 1.952a.5.5 0 0 1-.312.89c-1.671 0-2.852.596-3.616 1.185L4.857 5.073V6.21a.5.5 0 0 1-.146.354L3.425 7.853a.5.5 0 0 1-.708 0L.146 5.274a.5.5 0 0 1 0-.706l1.286-1.29a.5.5 0 0 1 .354-.146H2.84C4.505 1.228 6.216.862 7.557 1.04a5.009 5.009 0 0 1 2.077.782l.178.129z"/>
+                                <path fill-rule="evenodd" d="M6.012 3.5a.5.5 0 0 1 .359.165l9.146 8.646A.5.5 0 0 1 15.5 13L14 14.5a.5.5 0 0 1-.756-.056L4.598 5.297a.5.5 0 0 1 .048-.65l1-1a.5.5 0 0 1 .366-.147z"/>
+                            </svg>
+                            <span  th:text=" 'Run ' + ${bpmn.getBpmnName()} + ' Federate!'"></span>
+                        </button>
+
+                        <button class="btn btn-outline-info btn-lg" th:value="${bpmn.getBpmnName()}"
+                                style="margin-left: 120px" onclick="downloadSimuLog(this)">
+                            <svg class="bi bi-file-earmark-arrow-down" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4 1h5v1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V6h1v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2z"/>
+                                <path d="M9 4.5V1l5 5h-3.5A1.5 1.5 0 0 1 9 4.5z"/>
+                                <path fill-rule="evenodd" d="M5.646 9.146a.5.5 0 0 1 .708 0L8 10.793l1.646-1.647a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 0-.708z"/>
+                                <path fill-rule="evenodd" d="M8 6a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0v-4A.5.5 0 0 1 8 6z"/>
+                            </svg>
+                            DOWNLOAD LOG
+                        </button>
+
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
     </div>
 
 </body>
