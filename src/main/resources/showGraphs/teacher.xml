@@ -1,176 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:tns="http://www.activiti.org/test" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="m1586786943177" name="" targetNamespace="http://www.activiti.org/test" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="6.5.1">
-  <process id="teacher" name="teacher" processType="None" isClosed="false" isExecutable="true">
-    <startEvent id="StartEvent_1i752en" />
-    <sequenceFlow id="secc088f3-4feb-4551-89d7-083a05613510" sourceRef="StartEvent_1i752en" targetRef="Activity_1dolpbh" />
-    <parallelGateway id="Gateway_0lu80mn" />
-    <sequenceFlow id="s00244cfb-8366-485a-8fc2-28ee9f9086b5" sourceRef="Gateway_0lu80mn" targetRef="Activity_0papqnu" />
-    <sequenceFlow id="s54a885f6-80ae-41e1-999d-018090df9e9f" sourceRef="Gateway_0lu80mn" targetRef="Activity_1djdv13" />
-    <endEvent id="Event_17tyocj" />
-    <userTask id="Activity_1dolpbh" name="发布作业" activiti:exclusive="true">
-      <documentation id="scefbd150-e19d-43ad-8ac2-c4b3da1af4c0">null</documentation>
-    </userTask>
-    <parallelGateway id="safb785d1-56fe-47eb-b898-a94ad421a164" />
-    <sequenceFlow id="s67348248-0452-4493-bac0-99e260661aa0" sourceRef="Activity_1dolpbh" targetRef="safb785d1-56fe-47eb-b898-a94ad421a164" />
-    <sequenceFlow id="se2897a4e-3486-42aa-a5f6-e7ae02d21082" sourceRef="safb785d1-56fe-47eb-b898-a94ad421a164" targetRef="Activity_0e63owg" />
-    <sequenceFlow id="sa5c71623-7d63-4091-9ab3-a80bf9777295" sourceRef="safb785d1-56fe-47eb-b898-a94ad421a164" targetRef="Activity_12kfcby" />
-    <userTask id="Activity_0e63owg" name="发现学生未收到，重发" activiti:exclusive="true">
-      <documentation id="sd384e29a-2a71-48b5-9e31-1964fcb985cc">homework_not_receive</documentation>
-    </userTask>
-    <userTask id="Activity_12kfcby" name="判断作业是否合格" activiti:exclusive="true">
-      <documentation id="s3e3998d2-cbe6-41a8-90a1-1cce69822759">submit_homework</documentation>
-    </userTask>
-    <sequenceFlow id="seb3b6fce-4ced-4cc6-993e-16ee3f4963c3" sourceRef="Activity_12kfcby" targetRef="Gateway_0lu80mn" />
-    <userTask id="Activity_0papqnu" name="合格，记录成绩" activiti:exclusive="true">
-      <documentation id="s691bc13f-2c63-4837-94ed-231cee46ea3f">null</documentation>
-    </userTask>
-    <endEvent id="seea301de-1c5d-4e00-af88-055ffc7a9e63" />
-    <sequenceFlow id="s16cfbd4e-f6d9-4c6d-b2b0-ab2a427a1c8c" sourceRef="Activity_0papqnu" targetRef="seea301de-1c5d-4e00-af88-055ffc7a9e63" />
-    <userTask id="Activity_1djdv13" name="不合格，让学生修改" activiti:exclusive="true">
-      <documentation id="s34208b43-14bc-4d3c-98d4-3ceac72b04a2">null</documentation>
-    </userTask>
-    <sequenceFlow id="s6bdddca3-07ef-47a7-99ba-60479ea5f22c" sourceRef="Activity_1djdv13" targetRef="Event_17tyocj" />
-    <endEvent id="_2" />
-    <sequenceFlow id="_3" sourceRef="Activity_0e63owg" targetRef="_2" />
-  </process>
-  <bpmndi:BPMNDiagram id="Diagram-_1" name="New Diagram" documentation="background=#FFFFFF;count=1;horizontalcount=1;orientation=0;width=842.4;height=1195.2;imageableWidth=832.4;imageableHeight=1185.2;imageableX=5.0;imageableY=5.0">
-    <bpmndi:BPMNPlane bpmnElement="teacher">
-      <bpmndi:BPMNEdge id="BPMNEdge__3" bpmnElement="_3" sourceElement="Shape-Activity_0e63owg" targetElement="Shape-_2">
-        <omgdi:waypoint x="574" y="110.33333333333334" />
-        <omgdi:waypoint x="630" y="106" />
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="0" y="0" width="0" height="0" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_s6bdddca3-07ef-47a7-99ba-60479ea5f22c" bpmnElement="s6bdddca3-07ef-47a7-99ba-60479ea5f22c" sourceElement="Shape-Activity_1djdv13" targetElement="Shape-Event_17tyocj">
-        <omgdi:waypoint x="811" y="269.1666666666667" />
-        <omgdi:waypoint x="871.0008680791043" y="269.1666666666667" />
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="-1" y="-1" width="-1" height="-1" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_s16cfbd4e-f6d9-4c6d-b2b0-ab2a427a1c8c" bpmnElement="s16cfbd4e-f6d9-4c6d-b2b0-ab2a427a1c8c" sourceElement="Shape-Activity_0papqnu" targetElement="Shape-seea301de-1c5d-4e00-af88-055ffc7a9e63">
-        <omgdi:waypoint x="811" y="174.16666666666669" />
-        <omgdi:waypoint x="871.0008680791043" y="174.16666666666669" />
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="-1" y="-1" width="-1" height="-1" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_seb3b6fce-4ced-4cc6-993e-16ee3f4963c3" bpmnElement="seb3b6fce-4ced-4cc6-993e-16ee3f4963c3" sourceElement="Shape-Activity_12kfcby" targetElement="Shape-Gateway_0lu80mn">
-        <omgdi:waypoint x="574" y="221.66666666666669" />
-        <omgdi:waypoint x="634.3333333333333" y="221.66666666666669" />
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="-1" y="-1" width="-1" height="-1" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_sa5c71623-7d63-4091-9ab3-a80bf9777295" bpmnElement="sa5c71623-7d63-4091-9ab3-a80bf9777295" sourceElement="Shape-safb785d1-56fe-47eb-b898-a94ad421a164" targetElement="Shape-Activity_12kfcby">
-        <omgdi:waypoint x="429" y="166" />
-        <omgdi:waypoint x="489" y="221.66666666666669" />
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="-1" y="-1" width="-1" height="-1" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_se2897a4e-3486-42aa-a5f6-e7ae02d21082" bpmnElement="se2897a4e-3486-42aa-a5f6-e7ae02d21082" sourceElement="Shape-safb785d1-56fe-47eb-b898-a94ad421a164" targetElement="Shape-Activity_0e63owg">
-        <omgdi:waypoint x="429" y="166" />
-        <omgdi:waypoint x="489" y="110.33333333333334" />
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="-1" y="-1" width="-1" height="-1" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_s67348248-0452-4493-bac0-99e260661aa0" bpmnElement="s67348248-0452-4493-bac0-99e260661aa0" sourceElement="Shape-Activity_1dolpbh" targetElement="Shape-safb785d1-56fe-47eb-b898-a94ad421a164">
-        <omgdi:waypoint x="337" y="166" />
-        <omgdi:waypoint x="397" y="166" />
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="-1" y="-1" width="-1" height="-1" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_s54a885f6-80ae-41e1-999d-018090df9e9f" bpmnElement="s54a885f6-80ae-41e1-999d-018090df9e9f" sourceElement="Shape-Gateway_0lu80mn" targetElement="Shape-Activity_1djdv13">
-        <omgdi:waypoint x="665.6666666666667" y="221.66666666666669" />
-        <omgdi:waypoint x="726" y="269.1666666666667" />
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="-1" y="-1" width="-1" height="-1" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_s00244cfb-8366-485a-8fc2-28ee9f9086b5" bpmnElement="s00244cfb-8366-485a-8fc2-28ee9f9086b5" sourceElement="Shape-Gateway_0lu80mn" targetElement="Shape-Activity_0papqnu">
-        <omgdi:waypoint x="665.6666666666667" y="221.66666666666669" />
-        <omgdi:waypoint x="726" y="174.16666666666669" />
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="-1" y="-1" width="-1" height="-1" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_secc088f3-4feb-4551-89d7-083a05613510" bpmnElement="secc088f3-4feb-4551-89d7-083a05613510" sourceElement="Shape-StartEvent_1i752en" targetElement="Shape-Activity_1dolpbh">
-        <omgdi:waypoint x="192" y="166" />
-        <omgdi:waypoint x="252" y="166" />
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="-1" y="-1" width="-1" height="-1" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="Shape-StartEvent_1i752en" bpmnElement="StartEvent_1i752en">
-        <omgdc:Bounds x="160" y="150" width="32" height="32" />
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="0" y="0" width="32" height="32" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Shape-Gateway_0lu80mn" bpmnElement="Gateway_0lu80mn">
-        <omgdc:Bounds x="634" y="206" width="32" height="32" />
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="0" y="0" width="32" height="32" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Shape-Event_17tyocj" bpmnElement="Event_17tyocj">
-        <omgdc:Bounds x="871" y="253" width="32" height="32" />
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="0" y="0" width="32" height="32" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Shape-Activity_1dolpbh" bpmnElement="Activity_1dolpbh">
-        <omgdc:Bounds x="252" y="139" width="85" height="55" />
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="0" y="0" width="85" height="55" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Shape-safb785d1-56fe-47eb-b898-a94ad421a164" bpmnElement="safb785d1-56fe-47eb-b898-a94ad421a164">
-        <omgdc:Bounds x="397" y="150" width="32" height="32" />
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="0" y="0" width="32" height="32" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Shape-Activity_0e63owg" bpmnElement="Activity_0e63owg">
-        <omgdc:Bounds x="489" y="83" width="85" height="55" />
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="0" y="0" width="85" height="55" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Shape-Activity_12kfcby" bpmnElement="Activity_12kfcby">
-        <omgdc:Bounds x="489" y="194" width="85" height="55" />
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="0" y="0" width="85" height="55" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Shape-Activity_0papqnu" bpmnElement="Activity_0papqnu">
-        <omgdc:Bounds x="726" y="147" width="85" height="55" />
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="0" y="0" width="85" height="55" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Shape-seea301de-1c5d-4e00-af88-055ffc7a9e63" bpmnElement="seea301de-1c5d-4e00-af88-055ffc7a9e63">
-        <omgdc:Bounds x="871" y="158" width="32" height="32" />
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="0" y="0" width="32" height="32" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Shape-Activity_1djdv13" bpmnElement="Activity_1djdv13">
-        <omgdc:Bounds x="726" y="242" width="85" height="55" />
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="0" y="0" width="85" height="55" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Shape-_2" bpmnElement="_2">
-        <omgdc:Bounds x="630" y="90" width="32" height="32" />
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="0" y="0" width="32" height="32" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-    </bpmndi:BPMNPlane>
-  </bpmndi:BPMNDiagram>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test" id="m1586786943177" name="">
+ <process id="teacher" name="teacher" isExecutable="true" isClosed="false" processType="None">
+<startEvent id="sc3327657-3207-404e-ad24-59fc14026fdd" />
+<sequenceFlow id="s37f7a578-5b41-41ba-ac59-dc02f636710e" sourceRef="sc3327657-3207-404e-ad24-59fc14026fdd" targetRef="s016ea6db-c638-433d-92eb-5c1b8203aca1"/>
+<parallelGateway gatewayDirection="Unspecified" id="s016ea6db-c638-433d-92eb-5c1b8203aca1" />
+<userTask id="Activity_1dolpbh" name="发布作业"><documentation id="s7ed6f758-e085-4496-a62d-7bd340be0dfd">null</documentation></userTask>
+<sequenceFlow id="sd85ec23b-0d61-4466-835e-838d87f635f4" sourceRef="s016ea6db-c638-433d-92eb-5c1b8203aca1" targetRef="Activity_1dolpbh"/>
+<sequenceFlow id="s2613a8ac-6f06-4405-902f-a679bf84903a" sourceRef="Activity_1dolpbh" targetRef="s657344d8-c3e3-42e9-95be-6b88ba447886"/>
+<endEvent id="s657344d8-c3e3-42e9-95be-6b88ba447886" />
+<userTask id="Activity_0e63owg" name="发现学生未收到，重发"><documentation id="s6a110893-f41e-4586-b502-6b0f78f0af43">homework_not_receive</documentation></userTask>
+<sequenceFlow id="sfb1f5494-e058-4620-be45-2617b345d76f" sourceRef="s016ea6db-c638-433d-92eb-5c1b8203aca1" targetRef="Activity_0e63owg"/>
+<sequenceFlow id="s9f2d0af0-5851-4ccf-8961-8c4c05e27b40" sourceRef="Activity_0e63owg" targetRef="sb6ac04e5-8d67-4a49-b7aa-d1b8d7f472c6"/>
+<endEvent id="sb6ac04e5-8d67-4a49-b7aa-d1b8d7f472c6" />
+<userTask id="Activity_12kfcby" name="判断作业是否合格"><documentation id="s3e160925-df0a-41ee-8724-d00fc56756b6">submit_homework</documentation></userTask>
+<sequenceFlow id="s2a52fc76-d7aa-4b4e-aaff-e7607fab0c24" sourceRef="s016ea6db-c638-433d-92eb-5c1b8203aca1" targetRef="Activity_12kfcby"/>
+<sequenceFlow id="s26afd5d1-1794-4a71-941c-022c64da7bf4" sourceRef="Activity_12kfcby" targetRef="s192a0ea6-9277-4804-af11-af469d3f3b8a"/>
+<endEvent id="s192a0ea6-9277-4804-af11-af469d3f3b8a" />
+<userTask id="Activity_0papqnu" name="合格，记录成绩"><documentation id="s8370577e-3d3c-458e-89a1-41f64812b5bb">null</documentation></userTask>
+<sequenceFlow id="s848141b9-c168-4ee5-9a80-3294d96509eb" sourceRef="s016ea6db-c638-433d-92eb-5c1b8203aca1" targetRef="Activity_0papqnu"/>
+<sequenceFlow id="sd60acdb5-b081-4a4b-9cc9-e9d54609b938" sourceRef="Activity_0papqnu" targetRef="sbc7e7625-c400-46ef-ac58-ae85f9f7f3c2"/>
+<endEvent id="sbc7e7625-c400-46ef-ac58-ae85f9f7f3c2" />
+<userTask id="Activity_1djdv13" name="不合格，让学生修改"><documentation id="s1e31d390-cd52-4f43-95d5-0f2493c6e823">null</documentation></userTask>
+<sequenceFlow id="s9bda4c4e-fab0-4145-9233-df6d75ae4c48" sourceRef="s016ea6db-c638-433d-92eb-5c1b8203aca1" targetRef="Activity_1djdv13"/>
+<sequenceFlow id="sfba39c29-dbb8-4d98-b7eb-e3dbff3a0ac4" sourceRef="Activity_1djdv13" targetRef="s96cf6cb7-991b-4242-b01e-8a7dd9173f7d"/>
+<endEvent id="s96cf6cb7-991b-4242-b01e-8a7dd9173f7d" />
+	</process>
 </definitions>

@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test" id="m1586786943177" name="">
  <process id="teacher" name="teacher" isExecutable="true" isClosed="false" processType="None">
-<startEvent id="s52f1349f-8848-482e-abec-925e9b709cf6" />
-<sequenceFlow id="sbb5e5cb1-39d7-45f3-937d-3ff5f3533e0b" sourceRef="s52f1349f-8848-482e-abec-925e9b709cf6" targetRef="s2bc7cdf4-da52-431d-ae3f-1e4a6e9d6dfd"/>
-<parallelGateway gatewayDirection="Unspecified" id="s2bc7cdf4-da52-431d-ae3f-1e4a6e9d6dfd" />
-<userTask id="Activity_1dolpbh" name="发布作业"><documentation id="sb26326e2-7310-4f34-af8c-b7634d4df974">null</documentation></userTask>
-<sequenceFlow id="s8f7984a3-df76-46f3-9500-fd5395c4ce66" sourceRef="s2bc7cdf4-da52-431d-ae3f-1e4a6e9d6dfd" targetRef="Activity_1dolpbh"/>
-<sequenceFlow id="s9d4c6be0-ab66-42d5-8d74-b82a07e918a2" sourceRef="Activity_1dolpbh" targetRef="sce6329a3-9b6a-4226-b825-9ca077e9cc30"/>
-<endEvent id="sce6329a3-9b6a-4226-b825-9ca077e9cc30" />
-<userTask id="Activity_0e63owg" name="发现学生未收到，重发"><documentation id="sb5b2c680-71d2-4bdf-a639-eac052dd11f8">homework_not_receive</documentation></userTask>
-<sequenceFlow id="s4dffeec2-cfe3-4098-878c-279b97228c30" sourceRef="s2bc7cdf4-da52-431d-ae3f-1e4a6e9d6dfd" targetRef="Activity_0e63owg"/>
-<sequenceFlow id="sc07a1bcb-a048-4489-9edb-0850664ac320" sourceRef="Activity_0e63owg" targetRef="sbf97b0ee-6e4a-4ff1-b788-2d5baf7a6536"/>
-<endEvent id="sbf97b0ee-6e4a-4ff1-b788-2d5baf7a6536" />
-<userTask id="Activity_12kfcby" name="判断作业是否合格"><documentation id="s42fa4cc5-da0f-4ba5-995f-4116e931c6f7">submit_homework</documentation></userTask>
-<sequenceFlow id="s1a3ddd82-adc8-4032-bb53-5e257f2597da" sourceRef="s2bc7cdf4-da52-431d-ae3f-1e4a6e9d6dfd" targetRef="Activity_12kfcby"/>
-<sequenceFlow id="s2958ca4d-a1ef-4909-b3fd-f9178a6e061b" sourceRef="Activity_12kfcby" targetRef="s76d66f13-eb4d-4602-8a6a-e1381eee5ab3"/>
-<endEvent id="s76d66f13-eb4d-4602-8a6a-e1381eee5ab3" />
-<userTask id="Activity_0papqnu" name="合格，记录成绩"><documentation id="sfa640657-ad93-4b7e-8205-fe5af3b89586">null</documentation></userTask>
-<sequenceFlow id="s74ec0f94-0bad-48a8-8b28-123007fd5bcd" sourceRef="s2bc7cdf4-da52-431d-ae3f-1e4a6e9d6dfd" targetRef="Activity_0papqnu"/>
-<sequenceFlow id="sc5d6ca1d-dee8-4c5c-868b-669fe08ccd55" sourceRef="Activity_0papqnu" targetRef="se511b435-da87-48cf-a185-af97aa58eed1"/>
-<endEvent id="se511b435-da87-48cf-a185-af97aa58eed1" />
-<userTask id="Activity_1djdv13" name="不合格，让学生修改"><documentation id="s3ddcadae-f739-47d3-8fef-4b50c93646fe">null</documentation></userTask>
-<sequenceFlow id="s4cf5cc14-49cf-4130-ba61-6819d2abd668" sourceRef="s2bc7cdf4-da52-431d-ae3f-1e4a6e9d6dfd" targetRef="Activity_1djdv13"/>
-<sequenceFlow id="sed2e5c7b-c529-4cc6-8fd6-dd55e186713f" sourceRef="Activity_1djdv13" targetRef="sc0f41ace-f225-45a4-8966-92c7608dba52"/>
-<endEvent id="sc0f41ace-f225-45a4-8966-92c7608dba52" />
+<startEvent id="sec435d9e-3f71-4966-aac6-31236b0e37d8" />
+<sequenceFlow id="sf74cf3fa-340f-4e0f-9e37-ea6e2a0aec89" sourceRef="sec435d9e-3f71-4966-aac6-31236b0e37d8" targetRef="s386de348-e585-49db-a9a3-7866cba666d0"/>
+<parallelGateway gatewayDirection="Unspecified" id="s386de348-e585-49db-a9a3-7866cba666d0" />
+<userTask id="Activity_1dolpbh" name="发布作业"><documentation id="sdd297ec7-9245-4663-b5ba-1b81118e56ab">null</documentation></userTask>
+<sequenceFlow id="s93251916-c64c-4bb0-bcc2-2040282899a1" sourceRef="s386de348-e585-49db-a9a3-7866cba666d0" targetRef="Activity_1dolpbh"/>
+<sequenceFlow id="s8fdcfff6-243f-4527-a124-626a7ca45df1" sourceRef="Activity_1dolpbh" targetRef="s01023ea9-cdc4-4b6a-ad40-2787c62ce6b2"/>
+<endEvent id="s01023ea9-cdc4-4b6a-ad40-2787c62ce6b2" />
+<userTask id="Activity_0e63owg" name="发现学生未收到，重发"><documentation id="s7e50934f-769d-4402-9730-11074050da0e">homework_not_receive</documentation></userTask>
+<sequenceFlow id="se4352c89-1df9-439a-84b5-db8c347b576f" sourceRef="s386de348-e585-49db-a9a3-7866cba666d0" targetRef="Activity_0e63owg"/>
+<sequenceFlow id="s192bee0e-c68e-4986-9aeb-9178a7422479" sourceRef="Activity_0e63owg" targetRef="s91f9b908-c00c-4978-aa9b-772dbdf93cdd"/>
+<endEvent id="s91f9b908-c00c-4978-aa9b-772dbdf93cdd" />
+<userTask id="Activity_12kfcby" name="判断作业是否合格"><documentation id="s9aa0061a-59ad-47ff-a11d-b5c0347d0630">submit_homework</documentation></userTask>
+<sequenceFlow id="scb380d0e-c048-4a12-9df3-f57ba650a05b" sourceRef="s386de348-e585-49db-a9a3-7866cba666d0" targetRef="Activity_12kfcby"/>
+<sequenceFlow id="sfdf46f46-4342-4fa1-b915-3c27d41cff18" sourceRef="Activity_12kfcby" targetRef="s7b5de219-9afb-49bb-97a4-fb4a36b1a1cc"/>
+<endEvent id="s7b5de219-9afb-49bb-97a4-fb4a36b1a1cc" />
+<userTask id="Activity_0papqnu" name="合格，记录成绩"><documentation id="s93883623-7737-4ec8-83eb-bf31be7fd758">null</documentation></userTask>
+<sequenceFlow id="s58fdc8a9-6ca0-4d0b-b2ea-456c07cd0f6c" sourceRef="s386de348-e585-49db-a9a3-7866cba666d0" targetRef="Activity_0papqnu"/>
+<sequenceFlow id="s4523db12-0c77-4a18-96ce-954abc849f36" sourceRef="Activity_0papqnu" targetRef="s756328dd-7a95-4bb2-9cee-1ae2a7a6ff43"/>
+<endEvent id="s756328dd-7a95-4bb2-9cee-1ae2a7a6ff43" />
+<userTask id="Activity_1djdv13" name="不合格，让学生修改"><documentation id="sde1959e6-7f11-42a5-8636-bb76f0ffbad3">null</documentation></userTask>
+<sequenceFlow id="sd89947de-752b-444d-b195-46cb87069355" sourceRef="s386de348-e585-49db-a9a3-7866cba666d0" targetRef="Activity_1djdv13"/>
+<sequenceFlow id="s2bb243ba-6965-46db-a0e0-83115c3f38a1" sourceRef="Activity_1djdv13" targetRef="se7777cf8-4d23-43bd-91d3-bd8773e0bf37"/>
+<endEvent id="se7777cf8-4d23-43bd-91d3-bd8773e0bf37" />
 	</process>
 </definitions>

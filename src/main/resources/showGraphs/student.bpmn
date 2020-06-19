@@ -1,48 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test" id="m1586786943177" name="">
  <process id="student" name="student" isExecutable="true" isClosed="false" processType="None">
-<startEvent id="se236d366-8db9-498a-bfe4-7490cbf8719d" />
-<sequenceFlow id="sc5fe7c0b-3f67-4bfd-b438-51e24b7fabf4" sourceRef="se236d366-8db9-498a-bfe4-7490cbf8719d" targetRef="s6c528634-3196-4b1d-ad3b-eebf43dbb154"/>
-<parallelGateway gatewayDirection="Unspecified" id="s6c528634-3196-4b1d-ad3b-eebf43dbb154" />
-<userTask id="Activity_0szfi63" name="判断是否收到作业"><documentation id="s373ec9b2-4d7c-4084-b32b-ae5794fe5e9a">publish_homework</documentation></userTask>
-<sequenceFlow id="s00c346af-8b7b-4a83-9ffd-f3f4e8333620" sourceRef="s6c528634-3196-4b1d-ad3b-eebf43dbb154" targetRef="Activity_0szfi63"/>
-<sequenceFlow id="sd1a81ba8-e222-4044-b007-cdb99c2f2a4f" sourceRef="Activity_0szfi63" targetRef="s06e7eb85-ba1f-40d2-9311-db089b1460c1"/>
-<endEvent id="s06e7eb85-ba1f-40d2-9311-db089b1460c1" />
-<userTask id="Activity_14sg6bh" name="未收到"><documentation id="s03f6a2fa-894d-4c1a-8894-272bb78e4374">null</documentation></userTask>
-<sequenceFlow id="s49d28e4a-7416-4fb8-91cb-3c3895127aaf" sourceRef="s6c528634-3196-4b1d-ad3b-eebf43dbb154" targetRef="Activity_14sg6bh"/>
-<sequenceFlow id="sb82a5d89-38d4-44ba-88ee-abee396a8df9" sourceRef="Activity_14sg6bh" targetRef="s5bb7f091-a241-47cd-aff2-f10ae6381f29"/>
-<endEvent id="s5bb7f091-a241-47cd-aff2-f10ae6381f29" />
-<userTask id="Activity_1kui647" name="收到作业"><documentation id="s308b66fe-7da3-43ad-bb44-ea65473758f5">null</documentation></userTask>
-<sequenceFlow id="s05790e9b-f7e7-42ad-9e05-e39c7c8a20bb" sourceRef="s6c528634-3196-4b1d-ad3b-eebf43dbb154" targetRef="Activity_1kui647"/>
-<sequenceFlow id="s793e2150-858a-481d-9e20-d4e8198f3a0d" sourceRef="Activity_1kui647" targetRef="sf7de980e-461a-4c5a-bbdf-827fabe1ba9a"/>
-<endEvent id="sf7de980e-461a-4c5a-bbdf-827fabe1ba9a" />
-<userTask id="Activity_12hgmx2" name="做作业"><documentation id="s07a08799-34f7-4698-8e13-1e05d6da37e3">null</documentation></userTask>
-<sequenceFlow id="s8f213ffa-d332-46c6-8cc3-ccf6fb380eb1" sourceRef="s6c528634-3196-4b1d-ad3b-eebf43dbb154" targetRef="Activity_12hgmx2"/>
-<sequenceFlow id="s039bba60-851d-46d0-a228-0fb4442f498e" sourceRef="Activity_12hgmx2" targetRef="s9a6a389d-9996-4e7e-8199-6a583769fc2a"/>
-<endEvent id="s9a6a389d-9996-4e7e-8199-6a583769fc2a" />
-<userTask id="Activity_14aduyz" name="修改作业"><documentation id="sa18d36b9-9439-4960-9de8-0fcc8443046b">modify_homework</documentation></userTask>
-<sequenceFlow id="sb4d7322c-25c1-4fc5-990b-14c6da767229" sourceRef="s6c528634-3196-4b1d-ad3b-eebf43dbb154" targetRef="Activity_14aduyz"/>
-<sequenceFlow id="s41edf747-8616-4bbc-9ff5-a6745750eb4f" sourceRef="Activity_14aduyz" targetRef="s1fe0d8b4-26bf-43c9-830b-120e6bc9517b"/>
-<endEvent id="s1fe0d8b4-26bf-43c9-830b-120e6bc9517b" />
-<userTask id="Activity_0moo2g2" name="提交作业"><documentation id="s789f2f42-75c6-4033-9fa9-d6eb2c533d27">null</documentation></userTask>
-<sequenceFlow id="sdb6765f6-1acd-484e-a602-8f53468c655d" sourceRef="s6c528634-3196-4b1d-ad3b-eebf43dbb154" targetRef="Activity_0moo2g2"/>
-<sequenceFlow id="s8b7ca205-2877-447a-9c98-eefd4d909c96" sourceRef="Activity_0moo2g2" targetRef="sf8657a34-29b3-4499-bc79-96b5c2221ec2"/>
-<endEvent id="sf8657a34-29b3-4499-bc79-96b5c2221ec2" />
-<userTask id="Activity_0flk915" name="确认成绩"><documentation id="s927ca3ff-86a2-4101-9422-013aae82d4dc">send_score</documentation></userTask>
-<sequenceFlow id="s0b31fab6-78cc-4610-a4ff-ea99950f5938" sourceRef="s6c528634-3196-4b1d-ad3b-eebf43dbb154" targetRef="Activity_0flk915"/>
-<sequenceFlow id="sfb418335-2374-4884-a4f8-936263811846" sourceRef="Activity_0flk915" targetRef="s44e00053-7745-4136-80df-62e31776ed88"/>
-<endEvent id="s44e00053-7745-4136-80df-62e31776ed88" />
-<userTask id="Activity_17nzsf01" name="知道疫情，停工"><documentation id="sda1c8ef1-aae5-4772-ac5f-8c2c1f274bb8">send_score1</documentation></userTask>
-<sequenceFlow id="s37067695-4eb4-44ef-b8f8-385be8bab7d2" sourceRef="s6c528634-3196-4b1d-ad3b-eebf43dbb154" targetRef="Activity_17nzsf01"/>
-<sequenceFlow id="s766f2f15-7340-4ac4-897c-2834b2df5efa" sourceRef="Activity_17nzsf01" targetRef="s1aa6f094-2404-4f5e-b35a-f74db8cab18b"/>
-<endEvent id="s1aa6f094-2404-4f5e-b35a-f74db8cab18b" />
-<userTask id="Activity_17nzsf02" name="知道疫情，交通运输受阻"><documentation id="s6ee0c6d7-cae4-4d63-9d82-7bf8dde002f5">send_score2</documentation></userTask>
-<sequenceFlow id="s3096679b-ca8c-4193-bb80-b104cb7645e1" sourceRef="s6c528634-3196-4b1d-ad3b-eebf43dbb154" targetRef="Activity_17nzsf02"/>
-<sequenceFlow id="s49b43f74-5f14-4525-b293-251ef724d359" sourceRef="Activity_17nzsf02" targetRef="s3cf34fc8-69d8-40ad-833e-614fa7387249"/>
-<endEvent id="s3cf34fc8-69d8-40ad-833e-614fa7387249" />
-<userTask id="Activity_17nzsf03" name="知道环保检查"><documentation id="s3095d485-d587-47df-a028-268e7998dfbb">send_score3</documentation></userTask>
-<sequenceFlow id="sc0d7abaf-9769-41ab-9897-fa8f4469f5a6" sourceRef="s6c528634-3196-4b1d-ad3b-eebf43dbb154" targetRef="Activity_17nzsf03"/>
-<sequenceFlow id="s457e4116-4249-43d4-8c6e-460aa3e9371e" sourceRef="Activity_17nzsf03" targetRef="s24f39ef5-4a14-449e-b868-df499f5b2404"/>
-<endEvent id="s24f39ef5-4a14-449e-b868-df499f5b2404" />
+<startEvent id="sd9d3662c-c30b-4f88-9b90-6556b2e5e8c3" />
+<sequenceFlow id="s0fe08a5c-0ec4-4b10-b8c1-65cf0f0bb5fc" sourceRef="sd9d3662c-c30b-4f88-9b90-6556b2e5e8c3" targetRef="s8af94c1e-8aa1-4b7f-b47e-1ef49de92906"/>
+<parallelGateway gatewayDirection="Unspecified" id="s8af94c1e-8aa1-4b7f-b47e-1ef49de92906" />
+<userTask id="Activity_0szfi63" name="判断是否收到作业"><documentation id="s475810c3-41cb-43fb-97af-5aee3ff2ff05">publish_homework</documentation></userTask>
+<sequenceFlow id="sa4e6ee75-12b6-4f3d-91a3-727be11df41b" sourceRef="s8af94c1e-8aa1-4b7f-b47e-1ef49de92906" targetRef="Activity_0szfi63"/>
+<sequenceFlow id="sad18c250-a5b8-41f4-bd7f-a70bc793c05c" sourceRef="Activity_0szfi63" targetRef="s36bbb3a6-218b-449b-8f02-649e571f24b2"/>
+<endEvent id="s36bbb3a6-218b-449b-8f02-649e571f24b2" />
+<userTask id="Activity_14sg6bh" name="未收到"><documentation id="s631f6148-d22b-45b2-8466-712653b4852a">null</documentation></userTask>
+<sequenceFlow id="sb640f5b0-9143-4389-b38c-a6941f58997b" sourceRef="s8af94c1e-8aa1-4b7f-b47e-1ef49de92906" targetRef="Activity_14sg6bh"/>
+<sequenceFlow id="sd58eb18e-3c60-4ad0-abab-b5dc20ede4a7" sourceRef="Activity_14sg6bh" targetRef="s492a7663-fe39-4c67-98ba-a34ebf97c7e8"/>
+<endEvent id="s492a7663-fe39-4c67-98ba-a34ebf97c7e8" />
+<userTask id="Activity_1kui647" name="收到作业"><documentation id="s2cad860e-2945-4ed5-8829-b5dc38844607">null</documentation></userTask>
+<sequenceFlow id="sf0aa4eb2-8b23-45f2-b09b-dae142f45609" sourceRef="s8af94c1e-8aa1-4b7f-b47e-1ef49de92906" targetRef="Activity_1kui647"/>
+<sequenceFlow id="sb91ed541-c807-41b0-a350-440c847d2800" sourceRef="Activity_1kui647" targetRef="s516d1018-1cde-4d72-b149-8a62c5bfd662"/>
+<endEvent id="s516d1018-1cde-4d72-b149-8a62c5bfd662" />
+<userTask id="Activity_12hgmx2" name="做作业"><documentation id="s46b6760b-264e-473d-b112-45aff36ef535">null</documentation></userTask>
+<sequenceFlow id="s446cdb90-7fb6-4c4a-a4f5-f48f8029c94e" sourceRef="s8af94c1e-8aa1-4b7f-b47e-1ef49de92906" targetRef="Activity_12hgmx2"/>
+<sequenceFlow id="sa3d1e464-d0ba-436b-8710-4d105d4ee504" sourceRef="Activity_12hgmx2" targetRef="s5ac3d8f6-0c6e-4335-ba41-f9f29d66a3f1"/>
+<endEvent id="s5ac3d8f6-0c6e-4335-ba41-f9f29d66a3f1" />
+<userTask id="Activity_14aduyz" name="修改作业"><documentation id="s3cc6b9b0-06a0-40ac-ba7a-d24f40843bdd">modify_homework</documentation></userTask>
+<sequenceFlow id="s56729e44-7923-4cc3-ab0e-2963f1e3b4c4" sourceRef="s8af94c1e-8aa1-4b7f-b47e-1ef49de92906" targetRef="Activity_14aduyz"/>
+<sequenceFlow id="s861c215d-59fe-4367-bdab-4d721f85434c" sourceRef="Activity_14aduyz" targetRef="s6bc66f6d-7bc9-4e38-8f1a-4207996ea729"/>
+<endEvent id="s6bc66f6d-7bc9-4e38-8f1a-4207996ea729" />
+<userTask id="Activity_0moo2g2" name="提交作业"><documentation id="s94a72408-7703-425d-8516-7595eced3109">null</documentation></userTask>
+<sequenceFlow id="s9b1e3030-116a-40e5-860d-f06fe12cda06" sourceRef="s8af94c1e-8aa1-4b7f-b47e-1ef49de92906" targetRef="Activity_0moo2g2"/>
+<sequenceFlow id="s3b062ae9-bfdf-4766-b793-7c8f47c4e151" sourceRef="Activity_0moo2g2" targetRef="sc3432152-a7b1-4627-9773-a23297c4c8c2"/>
+<endEvent id="sc3432152-a7b1-4627-9773-a23297c4c8c2" />
+<userTask id="Activity_0flk915" name="确认成绩"><documentation id="s75dd7728-9115-4cd7-b8e1-3d23f90f04e4">send_score</documentation></userTask>
+<sequenceFlow id="s08cb39aa-0595-4ea1-a90d-1cfbe793c777" sourceRef="s8af94c1e-8aa1-4b7f-b47e-1ef49de92906" targetRef="Activity_0flk915"/>
+<sequenceFlow id="s81def743-ce61-4a09-bc04-ff61968d6c1f" sourceRef="Activity_0flk915" targetRef="s94fc45dc-0ece-40b2-847d-dbd37f7aa5b6"/>
+<endEvent id="s94fc45dc-0ece-40b2-847d-dbd37f7aa5b6" />
+<userTask id="Activity_17nzsf01" name="知道疫情，停工"><documentation id="s7e733a7c-10c2-40ca-93b5-bedd7e4148f1">send_score1</documentation></userTask>
+<sequenceFlow id="s24ae53ca-6267-4755-b46f-2edecdc43668" sourceRef="s8af94c1e-8aa1-4b7f-b47e-1ef49de92906" targetRef="Activity_17nzsf01"/>
+<sequenceFlow id="s521e0b8f-c035-4400-a93f-853b83bf3e4d" sourceRef="Activity_17nzsf01" targetRef="sf3ccae1e-9c61-4e8d-b6b8-6db84b9e0463"/>
+<endEvent id="sf3ccae1e-9c61-4e8d-b6b8-6db84b9e0463" />
+<userTask id="Activity_17nzsf02" name="知道疫情，交通运输受阻"><documentation id="sa6202a47-e5cd-469a-aabf-dddaa82ec6ad">send_score2</documentation></userTask>
+<sequenceFlow id="s846f032e-062a-4380-ab34-9b660f1721b7" sourceRef="s8af94c1e-8aa1-4b7f-b47e-1ef49de92906" targetRef="Activity_17nzsf02"/>
+<sequenceFlow id="se45169dd-a9a8-4769-a43d-3337c5203827" sourceRef="Activity_17nzsf02" targetRef="s5a5c3460-6fb0-4127-af4c-94eec7206a2e"/>
+<endEvent id="s5a5c3460-6fb0-4127-af4c-94eec7206a2e" />
+<userTask id="Activity_17nzsf03" name="知道环保检查"><documentation id="s8da1d897-c7cb-4b9d-a1e8-826c3fdf4c56">send_score3</documentation></userTask>
+<sequenceFlow id="sb9b193ff-3ca1-41e5-a1a6-1978360657d7" sourceRef="s8af94c1e-8aa1-4b7f-b47e-1ef49de92906" targetRef="Activity_17nzsf03"/>
+<sequenceFlow id="s18ed71a0-5ee2-4be3-90b4-357a4400fb57" sourceRef="Activity_17nzsf03" targetRef="s2022f7b9-12b0-4a45-8ada-6df765de1bae"/>
+<endEvent id="s2022f7b9-12b0-4a45-8ada-6df765de1bae" />
 	</process>
 </definitions>

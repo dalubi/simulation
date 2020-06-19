@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
@@ -38,7 +38,7 @@
       </div>
     </nav>
 
-    <div style="width: 1200px;border-style: dotted;margin-left: 100px;border-width: 1px;">
+    <div style="width: 1200px;margin-left: 100px">
       <h1 style="text-align: center">这个Task的指令序列</h1>
       <table class="table table-striped table-dark" style="height: auto;text-align: center;vertical-align:middle;">
         <thead class="thead-dark">
@@ -46,47 +46,19 @@
           <th scope="col">指令序列号</th>
           <th scope="col">指令表中序号</th>
           <th scope="col">指令名</th>
-          <th scope="col" style="width: 600px;">指令内容描述</th>
-          <th scope="col">指令编辑</th>
+          <th scope="col" style="width: 600px;">内容描述</th>
+          <th scope="col">修改</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-          <td>1</td>
-          <td>44</th>
-          <td>students</td>
-          <td>向列表{students}中加入新的对象{XiaoMing}</td>
+        <tr th:each="taskdetail:${taskDetails}">
+          <td th:text="${taskdetail.getInstructionCount()}"></td>
+          <td th:text="${taskdetail.getInstructionId()}"></th>
+          <td th:text="${taskdetail.getInstructionName()}"></td>
+          <td th:text="${taskdetail.getInstructionDesc()}"></td>
           <td>
             <div>
-              <button type="button" class="btn btn-outline-primary">修改</button>
-              <button type="button" class="btn btn-outline-danger">删除</button>
-              <button type="button" class="btn btn-outline-info">添加</button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>35</td>
-          <td>delay</td>
-          <td>耗时{10}个单位时间，打印的消息是{准备做蛋糕}</td>
-          <td>
-            <div>
-              <button type="button" class="btn btn-outline-primary">修改</button>
-              <button type="button" class="btn btn-outline-danger">删除</button>
-              <button type="button" class="btn btn-outline-info">添加</button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>23</td>
-          <td>create</td>
-          <td>创建一个{1}类型的对象，这个对象中对应的参数类型是{1,2},这个对象中对应的参数是{null,cc},最终这个对象命名为{AA}</td>
-          <td>
-            <div>
-              <button type="button" class="btn btn-outline-primary">修改</button>
-              <button type="button" class="btn btn-outline-danger">删除</button>
-              <button type="button" class="btn btn-outline-info">添加</button>
+              <button type="button" class="btn btn-outline-danger">修改</button>
             </div>
           </td>
         </tr>

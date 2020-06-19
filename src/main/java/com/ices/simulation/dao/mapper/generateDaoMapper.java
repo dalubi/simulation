@@ -46,8 +46,8 @@ public interface generateDaoMapper {
     @Select("select * from federateVariable where variableId=#{variableId}")
     federateVariable findFederateVariableById(Integer variableId);
 
-    @Select("select * from externalInformation where Id=1 ")
-    externalInformation findExternalInformation();
+    @Select("select * from externalInformation where Id=#{Id} ")
+    externalInformation findExternalInformation(Integer Id);
 
     @Select("select * from federateObject")
     List<federateObject> findFederateObject();
@@ -112,8 +112,19 @@ public interface generateDaoMapper {
     @Select("select * from InstructionListClear where id=#{instructionId}")
     instructionListClear findInstructionListClearById(Integer instructionId);
 
-    @Insert("insert into elema.federate(federateName) " +
+    @Insert("insert into federate(federateName) " +
             "values(#{federateName})")
     void insertExternal(String federateName);
 
+    @Select("select max(Id) from externalinformation")
+    int ExternalInformationMaxId();
+
+    @Select("select max(Id) from runtimecrtl")
+    int runtimeMaxId();
+
+    @Select("select runtime from runtimecrtl where id=#{id}")
+    int queryRuntime(int id);
+
+    @Insert("insert into runtimecrtl(runtime) values(#{runtime})")
+    void insertRuntime(int runtime);
 }

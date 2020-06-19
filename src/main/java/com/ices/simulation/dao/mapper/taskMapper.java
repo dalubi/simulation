@@ -10,10 +10,10 @@ public interface taskMapper {
     void insertTaskId(String taskId);
 
     //每个任务用来构造指令序列用的
-    @Select("select instructionSequence from elema.task where taskId=#{taskId}")
+    @Select("select instructionSequence from task where taskId=#{taskId}")
     String findInstructionSequenceById(String taskId);
 
-    @Select("select instructionIds from elema.task where taskId=#{taskId}")
+    @Select("select instructionIds from task where taskId=#{taskId}")
     String findInstructionIdsById(String taskId);
 
     //更新指令序列
@@ -24,7 +24,7 @@ public interface taskMapper {
                                              @Param("taskId") String taskId);
 
     //根据一个taskId，得到这个指令的任务序列
-    @Select("select * from elema.task where taskId = #{taskId}")
+    @Select("select * from task where taskId = #{taskId}")
     @ResultType(value = task.class)
     task findTaskInfoById(String taskId);
 

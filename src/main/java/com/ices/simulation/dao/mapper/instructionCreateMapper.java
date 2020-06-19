@@ -14,8 +14,8 @@ public interface instructionCreateMapper {
     void insert(instructionCreate create);
 
     @Select("select max(createId) from instructioncreate")
-    int maxId();
+    Integer maxId();
 
     @Select("select objectId from federateObject where objectName = #{federateObject}")
-    int findObjectIdByName(@Param("federateObject") String federateObject);
+    Integer findObjectIdByName(@Param("federateObject") String federateObject);
 }

@@ -22,20 +22,26 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="/">BPMN SIMU</a>
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="/">上传BPMN<span class="sr-only">(current)</span></a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link" href="/cleanActivitiData">数据清理</a>
                     </li>
-
+                    <li class="nav-item">
+                        <a class="nav-link" href="/insideSelect">选择补充</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/insideTask">内部任务</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/states">所有联邦成员状态图</a>
                     </li>
@@ -255,6 +261,17 @@
                     </tbody>
                 </table>
 
+                <div class="alert alert-warning" role="alert">
+                    <form id="runtimeForm">
+                        <span class="form-group mx-sm-3 mb-2">
+                            <span>仿真运行时间:(天)</span>
+                            <input name="runtime"  style="margin-left: 20px ;width: 200px" placeholder="天为单位">
+                        </span>
+                        <button type="button" class="btn btn-warning mb-2" style="margin-left: 20px"
+                                onclick="submitRuntime()">提交仿真控制参数</button>
+                    </form>
+                </div>
+
                 <div>
                     <button type="button" style="position:absolute; right:200px"
                             onclick="submitGenerateCode()"
@@ -413,6 +430,20 @@
         }else{
             document.getElementById(showId).setAttribute('style','display: none');
         }
+    }
+
+    function submitRuntime() {
+        var formId = "#runtimeForm";
+        var runtimeData = $(formId).serializeArray();
+        $.ajax({
+            url:"/post/runtime",
+            type:"post",
+            dataType:"text",
+            data:runtimeData,
+            success:function(result){
+                alert(result);
+            }
+        });
     }
 
 </script>

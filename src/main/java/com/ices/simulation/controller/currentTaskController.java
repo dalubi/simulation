@@ -1,5 +1,6 @@
 package com.ices.simulation.controller;
 
+import com.ices.simulation.controller.util.curTaskId;
 import com.ices.simulation.dto.taskDTO;
 import com.ices.simulation.service.CurrentTaskPageService;
 import com.ices.simulation.service.process.activitiProcess;
@@ -20,11 +21,9 @@ public class currentTaskController {
     public static activitiProcess getProc() {
         return proc;
     }
-
     public static void setProc(activitiProcess proc) {
         currentTaskController.proc = proc;
     }
-
 
     //再次刷新页面，任务会更新的
     @GetMapping("/currentTask")
@@ -38,7 +37,6 @@ public class currentTaskController {
 
         //将xml展示到图片上
         model.addAttribute("xmlstr",thisPageService.showBPMN(pathName));
-
         thisPageService.CurrentTaskProcess(taskdto,proc);
 
         //把当前的任务取出来,都完成它
@@ -47,6 +45,10 @@ public class currentTaskController {
         }else {
             model.addAttribute("message","finish");
         }
+
+        //把currentTask对应taskId放到静态变量的区域
+        curTaskId.setTaskId(taskdto.getTaskId());
+
         return "currentTask";
     }
 

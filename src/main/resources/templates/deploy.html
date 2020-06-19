@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Deploy</title>
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <!-- required modeler styles -->
@@ -73,14 +73,19 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="/">上传BPMN<span class="sr-only">(current)</span></a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link" href="/cleanActivitiData">数据清理</a>
                     </li>
-
+                    <li class="nav-item">
+                        <a class="nav-link" href="/insideSelect">选择补充</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/insideTask">内部任务</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/states">所有联邦成员状态图</a>
                     </li>
@@ -101,39 +106,55 @@
             <div>
                 <p>点击下方按钮，完成不同信息的编辑</p>
 
-                <button type="button" class="btn btn-outline-secondary btn-lg" onclick="showDIV(this)" value="startInformationDIV">
+                <button type="button" class="btn btn-outline-secondary" onclick="showDIV(this)" value="startInformationDIV">
                     <svg class="bi bi-pencil-square" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                         <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
                     </svg>
-                    编辑仿真成员初始化信息
+                    仿真成员初始化信息
                 </button>
 
-                <button type="button" class="btn btn-outline-success btn-lg" onclick="showDIV(this)" value="objectDIV">
+                <button type="button" class="btn btn-outline-success" onclick="showDIV(this)" value="objectDIV">
                     <svg class="bi bi-pencil-square" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                         <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
                     </svg>
-                    编辑仿真对象
+                    仿真对象
                 </button>
 
-                <button type="button" class="btn btn-outline-danger btn-lg" onclick="showDIV(this)" value="variableDIV">
+                <button type="button" class="btn btn-outline-danger" onclick="showDIV(this)" value="variableDIV">
                     <svg class="bi bi-pencil-square" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                         <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
                     </svg>
-                    编辑仿真变量
+                    仿真变量
                 </button>
 
-                <button type="button" class="btn btn-outline-warning btn-lg" onclick="showDIV(this)" value="ListDIV">
+                <button type="button" class="btn btn-outline-warning" onclick="showDIV(this)" value="ListDIV">
                     <svg class="bi bi-pencil-square" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                         <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
                     </svg>
-                    编辑仿真列表
+                    仿真列表
                 </button>
 
-                <button type="button" class="btn btn-outline-primary btn-lg">
+                <button type="button" class="btn btn-outline-info" onclick="showDIV(this)" value="InitialInstanceDIV">
+                    <svg class="bi bi-pencil-square" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                    </svg>
+                    实例初始化
+                </button>
+
+                <button type="button" class="btn btn-outline-dark" onclick="showDIV(this)" value="updateInstanceDIV">
+                    <svg class="bi bi-pencil-square" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                    </svg>
+                    实例化生命周期
+                </button>
+
+                <button type="button" class="btn btn-outline-primary">
                     <a href="/currentTask">
                         <svg class="bi bi-link" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
@@ -147,7 +168,6 @@
             </div>
 
             <br /><hr><br />
-
 
             <div id="startInformationDIV" style="display: none" >
                 <div class="jumbotron">
@@ -179,8 +199,6 @@
                             </select>
                             <br /><hr />
                             <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;初始taskId(无时填写-1):</span><input type="text" name="firstTask"><span>&nbsp;&nbsp;&nbsp;</span><br /><br />
-                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;初始实例taskId(无时填写-1):</span><input type="text" name="initialInstanceTask"><span>&nbsp;&nbsp;&nbsp;</span><br /><br />
-                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;更新实例taskId(无时填写-1):</span><input type="text" name="updateInstanceTask"><span>&nbsp;&nbsp;&nbsp;</span>
                             <br /><br />
                         </div>
 
@@ -206,7 +224,7 @@
                             <hr>
                             <br />
                             <div>
-                                <form action="/post/insidetask" method="post">
+                                <form id="insidetaskForm">
                                     <div>
                                         <br>
                                         <span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp内部任务Id:</span><input type="text" name="insidetaskId"><span>&nbsp&nbsp&nbsp</span>
@@ -215,7 +233,9 @@
                                         <br />
                                         <br />
                                     </div>
-                                    <input id="insideTaskAfter" style="margin-left: 920px" type="submit"  value="提交内部任务">
+                                    <button id="insideTaskAfter" type="button" class="btn btn-success" style="margin-left: 1000px" onclick="submitInsideTask()">
+                                        提交内部任务
+                                    </button>
                                 </form>
                                 <br /><br/>
                             </div>
@@ -341,6 +361,53 @@
                 </div>
             </div>
 
+            <div id="InitialInstanceDIV" style="display: none">
+                <div class="jumbotron">
+                    <h2>添加这个联邦成员所需的实例初始化信息！</h2><br />
+                    <form id="InitialInstanceForm" action="/post/InitialInstance" method="post">
+                        <br>
+                        <div style="border: black;border-style: dotted;border-width: 2px;">
+                            <br />
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实例的数量:</span><input type="text" name="InstanceNumber"><span>&nbsp;&nbsp;&nbsp;</span>
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实例加入队列:</span><input type="text" name="listName"><span>&nbsp;&nbsp;&nbsp;</span>
+                            <select id="instanceSelect" name="instanceId" onchange="changeinstanceSelect()"></select>
+                            <br />
+                            <br />
+                            <div id="theInstanceAfter" >
+                                <br />
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn btn-info" style="margin-left: 960px" onclick="submitInitialInstance()">
+                            提交实例初始化信息
+                        </button>
+
+                    </form>
+                </div>
+            </div>
+
+            <div id="updateInstanceDIV" style="display: none">
+                <div class="jumbotron">
+                    <h2>添加这个联邦成员所需的实例生命周期信息！</h2><br />
+                    <form id="updateInstanceForm" action="/post/updateInstance" method="post">
+                        <br>
+                        <div style="border: black;border-style: dotted;border-width: 2px;">
+                            <br />
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实例的名称:</span><input type="text" name="instanceName"><span>&nbsp;&nbsp;&nbsp;</span>
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;活跃列表的名称:</span><input type="text" name="activeListName"><span>&nbsp;&nbsp;&nbsp;</span>
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;休眠列表的名称:</span><input type="text" name="dormantListName"><span>&nbsp;&nbsp;&nbsp;</span>
+                            <br />
+                            <br />
+                        </div>
+
+                        <button type="button" class="btn btn-info" style="margin-left: 970px" onclick="submitUpdateInstance()">
+                            提交实例生命周期
+                        </button>
+
+                    </form>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -400,7 +467,32 @@
 </body>
 
 <script language="JavaScript">
-
+    function submitUpdateInstance() {
+        var formId = "#updateInstanceForm";
+        var startInfoData = $(formId).serializeArray();
+        $.ajax({
+            url:"/post/updateInstance",
+            type:"post",
+            dataType:"text",
+            data:startInfoData,
+            success:function(result){
+                alert(result);
+            }
+        });
+    }
+    function submitInitialInstance() {
+        var formId = "#InitialInstanceForm";
+        var startInfoData = $(formId).serializeArray();
+        $.ajax({
+            url:"/post/initialInstance",
+            type:"post",
+            dataType:"text",
+            data:startInfoData,
+            success:function(result){
+                alert(result);
+            }
+        });
+    }
     function submitStartInformation() {
         var formId = "#startInfoForm";
         var startInfoData = $(formId).serializeArray();
@@ -555,6 +647,91 @@
         }else{
             document.getElementById(showId).setAttribute('style','display: none');
         }
+        if(showId==="InitialInstanceDIV"){
+            findCenterName();
+
+        }
+    }
+
+    function findCenterName(){
+        //清空原有select内的数据
+        $("#instanceSelect").empty();
+        $.ajax({
+            url: "/post/instanceSelect",
+            type:"post",
+            dataType:"json",
+            success:function(data){
+                if (data.stateCode == 200){
+                    $("#instanceSelect").append("<option value='-1'>选择实例对象</option>");
+                    //遍历 json为{id:"00",text:"aa".....},{id:"01",text:"bb".....}
+                    for(let i=0; i<data.data.length; ++i){
+                        var id = data.data[i].objectId;
+                        var text = data.data[i].objectName;
+                        $("#instanceSelect").append("<option value='"+id+"'>"+text+"</option>");
+                    }
+                }else {
+                    alert(data.msg)
+                }
+
+
+            },
+
+        });
+    }
+    function changeinstanceSelect(){
+        let federateObjectId=$("#instanceSelect").val();
+        let json = {
+            "federateObjectId" : federateObjectId};
+        $.ajax({
+            url: "/post/showChoosenInstance",
+            type:"post",
+            data:JSON.stringify(json),
+            contentType:'application/json;charset=utf-8',
+            dataType:"json",
+            success:function(data){
+                if (data.stateCode == 200){
+                    let html="";
+                    let theInstanceAfter="";
+                    for(let i=0; i<data.data.length; ++i){
+                        html="<div style=\"border: black;border-style: dotted;border-width: 2px;\">\n" +
+                            "        <h4>设置实例参数</h4>\n" +
+                            "        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;参数的名称:<span>"+data.data[i].instanceName+"</span>\n" +
+                            "        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;参数的类型:<span>"+data.data[i].instanceType+"</span>\n" +
+                            "        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实例参数初值设置:</span>\n" +
+                            "        <select name=\"isRandom\">\n" +
+                            "           <option value=\"0\">随机整数</option>\n" +
+                            "           <option value=\"1\">赋值</option>\n" +
+                            "           <option value=\"3\">参数是一个对象</option>\n" +
+                            "       </select>\n" +
+                            "       <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;随机下限:</span><input type=\"text\" name=\"fromInt\" placeholder=\"-1\"><span>&nbsp;&nbsp;&nbsp;</span>\n" +
+                            "       <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;随机上限:</span><input type=\"text\" name=\"toInt\" placeholder=\"-1\"><span>&nbsp;&nbsp;&nbsp;</span>\n" +
+                            "       <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;初始赋值:</span><input type=\"text\" name=\"initialValue\" placeholder=\"-1\"><span>&nbsp;&nbsp;&nbsp;</span>\n" +
+                            "   </div>";
+                        theInstanceAfter = document.getElementById("theInstanceAfter");
+                        theInstanceAfter.insertAdjacentHTML("beforebegin",html);
+                    }
+
+                }else {
+                    alert(data.msg)
+                }
+            },
+        });
+    }
+
+    function submitInsideTask(){
+        let formId = "#insidetaskForm";
+        let serializeArray = $(formId).serializeArray();
+        console.log(serializeArray);
+        $.ajax({
+            url:"/post/insidetask",
+            type:"post",
+            dataType:"text",
+            data:serializeArray,
+            success:function(result){
+                alert(result);
+            }
+        });
     }
 </script>
+
 </html>
