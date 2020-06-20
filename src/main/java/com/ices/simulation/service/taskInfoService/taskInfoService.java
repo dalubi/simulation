@@ -1,9 +1,8 @@
 package com.ices.simulation.service.taskInfoService;
 
-import com.ices.simulation.dao.mapper.taskMapper;
-import com.ices.simulation.dao.model.instructionListAdd;
-import com.ices.simulation.dao.model.task;
+import com.ices.simulation.dao.mapper.*;
 import com.ices.simulation.dao.mapper.utils.taskInfoMapper;
+import com.ices.simulation.dao.model.*;
 import com.ices.simulation.service.taskInfoService.pojo.taskInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +28,9 @@ public class taskInfoService {
         task taskInfoById = taskMapper.findTaskInfoById(taskId + "");
         this.sequence = taskInfoById.getInstructionSequence().split(",");
         this.ids = taskInfoById.getInstructionIds().split(",");
+        if(this.sequence.length==0||this.ids.length==0){
+            //没有指令的时候该怎么返回
+        }
         for(int i=0;i<sequence.length;i++){
             taskInfo instructionInfoById = getInstructionInfoById(i,sequence[i], Integer.parseInt(ids[i]));
             infos.add(instructionInfoById);
@@ -51,7 +53,8 @@ public class taskInfoService {
                 taskInfo.setInstructionDesc(sb.toString());
                 taskInfo.setButtonValue("listadd_"+instructionId);
                 break;
-
+            case "delay" :
+                break;
         }
         return taskInfo;
     }

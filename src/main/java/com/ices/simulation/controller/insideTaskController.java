@@ -20,8 +20,19 @@ public class insideTaskController {
     @GetMapping("/insideTask")
     public String getInsideTask(){
         //返回所有内部id的详细信息
-
         return "insideTask";
+    }
+
+    @GetMapping("/insideTaskFinish")
+    public String getInsideTaskWithId(){
+        String insideTaskId = curTaskId.getTaskId();
+
+        //将insidetaskId对应的内部任务完成
+        String iscomplete = insidetaskMapper.checkCompleteById(insideTaskId);
+        if(iscomplete.equals("未完成")){
+            insidetaskMapper.update(insideTaskId,"已完成");
+        }
+        return "redirect:/insideTask";
     }
 
     @RequestMapping(value = "/post/insidetask", method = RequestMethod.POST)

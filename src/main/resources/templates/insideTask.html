@@ -81,7 +81,7 @@
                 <form id="aInsideTask">
                     <span>请设置要插入的内部任务Id：</span>
                     <input type="text" name="insidetaskId" id="insidetaskId" placeholder="内部任务的id">
-                    <button type="button" onclick="submitInsidetaskId()">提交</button>
+                    <button type="button" class="btn btn-outline-success" onclick="submitInsidetaskId()">指令与内部任务固定</button>
                 </form>
 
                 <hr />
@@ -143,9 +143,11 @@
                     <div id="addInstruction">
                     </div>
 
+                    <hr />
+
                     <!--添加一条指令编辑的按钮-->
-                    <button type="button" class="btn btn-dark"
-                            style="margin-left: 1040px"
+                    <button type="button" class="btn btn-outline-dark"
+                            style="margin-left: 870px"
                             onclick="addInstruction()">
                         <svg class="bi bi-plus-square" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M8 3.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H4a.5.5 0 0 1 0-1h3.5V4a.5.5 0 0 1 .5-.5z"/>
@@ -154,7 +156,15 @@
                         </svg>
                         命令
                     </button>
-
+                <!--添加一条指令编辑的按钮-->
+                <a href="/insideTaskFinish" class="btn btn-outline-dark" role="button" aria-pressed="true">
+                    <svg class="bi bi-file-post" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M4 1h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H4z"/>
+                        <path d="M4 5.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-7z"/>
+                        <path fill-rule="evenodd" d="M4 3.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+                    </svg>
+                    内部任务编辑完成
+                </a>
             </div>
         </div>
     </div>
@@ -177,6 +187,7 @@
             }
         });
     }
+
 
     function addInstruction() {
         let inst_count = document.getElementsByClassName("instruction").length;
@@ -252,6 +263,40 @@
             current.innerText = "隐藏指令细节";
         }
     }
+
+    function chaInsideTask() {
+        var json = [];
+        $.ajax({
+            type : 'POST',
+            url :'/post/queryInsideTask',
+            data : JSON.stringify(json),
+            contentType : 'application/json;charset=utf-8',
+            dataType : 'json',
+            success : function(data) {
+                if (data.stateCode === 200) {
+                    console.log("查询成功");
+                    //暂时的解决掉数据的参数传递问题
+                    json = JSON.stringify(data.data)
+                    // $("#orderTable").html("");
+                    $("#insideTaskTable").siblings(
+                        'tr'
+                    ).remove()
+                    for (var i= 0;i<data.data.length; i++) {
+                        var tr;
+                        tr = '<td>' + data.data[i].insidetaskId + '</td>' +  '<td>'
+                            + data.data[i].information + '</td>'
+                            + '<td>' + data.data[i].iscomplete +   '</td>';
+                        $("#insideTaskTable").append('<tr>' + tr + '</tr>');
+                    }
+                } else
+                    // 查询失败,错误信息在data.msg里面（未填写个人信息，请完善个人信息）
+                    alert("错误信息：" + data.msg)
+
+            }
+        })
+    }
+
+
 </script>
 
 <script language="JavaScript">
@@ -1318,7 +1363,6 @@
             }
         });
     }
-
 </script>
 </body>
 </html>

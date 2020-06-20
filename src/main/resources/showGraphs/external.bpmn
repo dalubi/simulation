@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test" id="m1586786943177" name="">
  <process id="external" name="external" isExecutable="true" isClosed="false" processType="None">
-<startEvent id="s59c52465-ed34-49e8-a811-4aba8de69eeb" />
-<sequenceFlow id="sa4984e84-0d76-4131-86fe-8e18e7c1ec4e" sourceRef="s59c52465-ed34-49e8-a811-4aba8de69eeb" targetRef="sbc7c43b1-8b5a-456e-96bf-52e36703579b"/>
-<parallelGateway gatewayDirection="Unspecified" id="sbc7c43b1-8b5a-456e-96bf-52e36703579b" />
-<userTask id="Activity_17nzsf0" name="疫情，停工"><documentation id="s27cd4db7-6aee-4cdc-ae78-73b34421978d">null</documentation></userTask>
-<sequenceFlow id="sfa811deb-052c-44b2-9036-67d16ad3814a" sourceRef="sbc7c43b1-8b5a-456e-96bf-52e36703579b" targetRef="Activity_17nzsf0"/>
-<sequenceFlow id="s88db3cee-61c2-451c-9c63-223f076be22b" sourceRef="Activity_17nzsf0" targetRef="sfb0d1f07-f9de-4932-b97a-4f104d98c717"/>
-<endEvent id="sfb0d1f07-f9de-4932-b97a-4f104d98c717" />
-<userTask id="Activity_1b4jw0p" name="疫情，交通运输受阻"><documentation id="s31b7220f-d92d-4772-b093-0cb2fb30e103">null</documentation></userTask>
-<sequenceFlow id="s844efc12-944f-4bcf-a80a-94427e1e074e" sourceRef="sbc7c43b1-8b5a-456e-96bf-52e36703579b" targetRef="Activity_1b4jw0p"/>
-<sequenceFlow id="sc02c42a4-c57a-40d1-9712-b0a455294198" sourceRef="Activity_1b4jw0p" targetRef="s34d3c12d-0363-4060-98ce-1497242cd18d"/>
-<endEvent id="s34d3c12d-0363-4060-98ce-1497242cd18d" />
-<userTask id="Activity_0fn78nx" name="环保检查"><documentation id="s837c2242-808a-4190-887d-3c2cca374498">null</documentation></userTask>
-<sequenceFlow id="s67d3019c-5eae-45c4-abfc-e39d427c1aec" sourceRef="sbc7c43b1-8b5a-456e-96bf-52e36703579b" targetRef="Activity_0fn78nx"/>
-<sequenceFlow id="s9445ce7b-5e2f-4905-8bf4-25ec50c60ea6" sourceRef="Activity_0fn78nx" targetRef="s916052c8-4b40-44dd-8f22-27f1778679e3"/>
-<endEvent id="s916052c8-4b40-44dd-8f22-27f1778679e3" />
+<startEvent id="s148e34a0-1123-4ef1-a38d-60adcb5a50ec" />
+<sequenceFlow id="s4be35fcf-b6d0-4e05-8008-46d97c41fefb" sourceRef="s148e34a0-1123-4ef1-a38d-60adcb5a50ec" targetRef="scc086f1a-cbdd-4fbd-93d5-850f6377d526"/>
+<parallelGateway gatewayDirection="Unspecified" id="scc086f1a-cbdd-4fbd-93d5-850f6377d526" />
+<userTask id="Activity_17nzsf0" name="疫情，停工"><documentation id="s8a34e56d-7bd1-434d-954a-a428603ea2c6">null</documentation></userTask>
+<sequenceFlow id="s4743d011-c66c-4689-b710-8e537220e1d0" sourceRef="scc086f1a-cbdd-4fbd-93d5-850f6377d526" targetRef="Activity_17nzsf0"/>
+<sequenceFlow id="s3500a34f-b4b3-4cde-8713-3488b95f5e2d" sourceRef="Activity_17nzsf0" targetRef="sedf96dbc-be57-466f-99cd-ffb073cb53dd"/>
+<endEvent id="sedf96dbc-be57-466f-99cd-ffb073cb53dd" />
+<userTask id="Activity_1b4jw0p" name="疫情，交通运输受阻"><documentation id="s1e73e96c-8251-45cd-9c18-9e511000c336">null</documentation></userTask>
+<sequenceFlow id="saec35156-bf81-43ff-ad54-6470f403f4dc" sourceRef="scc086f1a-cbdd-4fbd-93d5-850f6377d526" targetRef="Activity_1b4jw0p"/>
+<sequenceFlow id="s15cce1aa-22e7-42b7-be6d-965d11f1c9fe" sourceRef="Activity_1b4jw0p" targetRef="sf3e0d3bb-4486-4ec8-a2a7-64351f5a8728"/>
+<endEvent id="sf3e0d3bb-4486-4ec8-a2a7-64351f5a8728" />
+<userTask id="Activity_0fn78nx" name="环保检查"><documentation id="s3027c0e8-3ae3-4a58-b0cc-caf432f075f6">null</documentation></userTask>
+<sequenceFlow id="s17713cf3-cd2e-4b23-bc93-753b682fba77" sourceRef="scc086f1a-cbdd-4fbd-93d5-850f6377d526" targetRef="Activity_0fn78nx"/>
+<sequenceFlow id="s03b62705-1b13-4e3f-9f66-54abb2b35c95" sourceRef="Activity_0fn78nx" targetRef="sddee953e-188c-4d25-8a2a-68758d9f7d99"/>
+<endEvent id="sddee953e-188c-4d25-8a2a-68758d9f7d99" />
 	</process>
 </definitions>
