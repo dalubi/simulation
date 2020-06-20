@@ -16,7 +16,6 @@ public interface taskInfoMapper {
     @ResultType(value = instructionCreate.class)
     instructionCreate findCreateInstById(@Param("id")int id);
 
-
     @Select("select * from instructiondelay where delayId = #{id}")
     @ResultType(value = instructionDelay.class)
     instructionDelay findDelayInstById(@Param("id")int id);
