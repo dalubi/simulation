@@ -11,11 +11,11 @@ public class cleanData {
 
     public static String DBDRIVER = "com.mysql.jdbc.Driver";
 
-    public static String DB_URL = "jdbc:mysql://localhost:3306/elema?user=root&password=haohao123&useSSL=false";
+    public static String DB_URL = "jdbc:mysql://localhost:3306/simulation?user=root&password=haohao123&useSSL=false";
 
     public static BasicDataSource bds = null;
 
-    public void cleanActivitiData(){
+    public void cleanSimulationData(){
         Statement stmt = null;
         Connection conn = null;
 
@@ -51,9 +51,39 @@ public class cleanData {
             stmt.addBatch("delete from ACT_RU_TASK");
             stmt.addBatch("delete from ACT_RU_EXECUTION");
             stmt.addBatch("delete from ACT_RE_PROCDEF");
+
+            stmt.addBatch("delete from editinformation");
+            stmt.addBatch("delete from externalinformation");
+            stmt.addBatch("delete from instructioncreate");
+            stmt.addBatch("delete from instructiondelay");
+            stmt.addBatch("delete from instructionexpression");
+            stmt.addBatch("delete from instructionforeach");
+            stmt.addBatch("delete from instructionfornumber");
+            stmt.addBatch("delete from instructionlistadd");
+            stmt.addBatch("delete from instructionlistget");
+            stmt.addBatch("delete from instructionlistgetindex");
+            stmt.addBatch("delete from instructionlistremove");
+            stmt.addBatch("delete from instructionlistsize");
+            stmt.addBatch("delete from instructionmathabs");
+            stmt.addBatch("delete from instructionobjectget");
+            stmt.addBatch("delete from instructionobjectset");
+            stmt.addBatch("delete from instructionrandomint");
+            stmt.addBatch("delete from instructionrandomordername");
+            stmt.addBatch("delete from instructionselect");
+            stmt.addBatch("delete from instructionsend");
+            stmt.addBatch("delete from instructionupdatetimeperiod");
+            stmt.addBatch("delete from instructiontypeconversion");
+            stmt.addBatch("delete from instructionlistclear");
+            stmt.addBatch("delete from task");
+            stmt.addBatch("delete from editinformation");
+            stmt.addBatch("delete from interaction");
+            stmt.addBatch("delete from federate");
+            stmt.addBatch("delete from parameter");
+            stmt.addBatch("delete from federateList");
             stmt.executeBatch();
             conn.commit();
             conn.setAutoCommit(true);
+            System.out.println("数据清理完成！");
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }

@@ -28,27 +28,25 @@ public class currentTaskController {
     //再次刷新页面，任务会更新的
     @GetMapping("/currentTask")
     public String CurrentTask(Model model) throws DocumentException {
+        taskDTO taskdto = null;
+        if (proc.queryTask()==null){
+            model.addAttribute("processDefineKey",proc.getProcessDefinitionKey());
+            return "zeroCurrentTask";
+        }else{
+            taskdto = proc.queryTask();
+            publishController.setTaskdto(taskdto);
+            String pathName = proc.getPathName();
+            model.addAttribute("processDefineKey",proc.getProcessDefinitionKey());
 
-        taskDTO taskdto = proc.queryTask();
-        publishController.setTaskdto(taskdto);
-        String pathName = proc.getPathName();
+            //将xml展示到图片上
+            model.addAttribute("xmlstr",thisPageService.showBPMN(pathName));
+            thisPageService.CurrentTaskProcess(taskdto,proc);
 
-        model.addAttribute("processDefineKey",proc.getProcessDefinitionKey());
-
-        //将xml展示到图片上
-        model.addAttribute("xmlstr",thisPageService.showBPMN(pathName));
-        thisPageService.CurrentTaskProcess(taskdto,proc);
-
-        //把当前的任务取出来,都完成它
-        if (taskdto!=null){
             model.addAttribute("taskdto",taskdto);
-        }else {
-            model.addAttribute("message","finish");
+
+            //把currentTask对应taskId放到静态变量的区域
+            curTaskId.setTaskId(taskdto.getTaskId());
         }
-
-        //把currentTask对应taskId放到静态变量的区域
-        curTaskId.setTaskId(taskdto.getTaskId());
-
         return "currentTask";
     }
 

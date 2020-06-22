@@ -22,12 +22,12 @@ public class fornumberController {
 
     @RequestMapping(value = "/post/fornumber",method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<String> fornumberInstruction(@RequestParam("number")int number,
-                                                     @RequestParam("insideTaskId")int insideTaskId)
+    public ResponseEntity<String> fornumberInstruction(@RequestParam("number")String number,
+                                                     @RequestParam("insideTaskId")String insideTaskId)
     {
         instructionFornumber instruction = new instructionFornumber();
-        instruction.setNumber(number);
-        instruction.setInsideTaskId(insideTaskId);
+        instruction.setNumber(Integer.parseInt(number));
+        instruction.setInsideTaskId(Integer.parseInt(insideTaskId));
         instruction.setIndent(5);
         instructionMapper.insert(instruction);
 

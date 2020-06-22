@@ -20,16 +20,16 @@ public class listremoveController {
     
     @RequestMapping(value = "/post/listremove",method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<String> listremoveInstruction(@RequestParam("listId")int listId,
+    public ResponseEntity<String> listremoveInstruction(@RequestParam("listId")String listId,
                                                      @RequestParam("accordingToParameterName")String accordingToParameterName,
-                                                     @RequestParam("removeType")int removeType,
+                                                     @RequestParam("removeType")String removeType,
                                                      @RequestParam("removeName")String removeName)
     {
         instructionListRemove instruction = new instructionListRemove();
-        instruction.setListId(listId);
+        instruction.setListId(Integer.parseInt(listId));
         instruction.setAccordingToParameterName(accordingToParameterName);
         instruction.setRemoveName(removeName);
-        instruction.setRemoveType(removeType);
+        instruction.setRemoveType(Integer.parseInt(removeType));
         instruction.setIndent(5);
         instructionMapper.insert(instruction);
 

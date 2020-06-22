@@ -22,7 +22,7 @@ public class listgetController {
     @ResponseBody
     public ResponseEntity<String> listgetInstruction(@RequestParam("listName")String listName,
                                                      @RequestParam("objectName")String objectName,
-                                                     @RequestParam("getType")int getType,
+                                                     @RequestParam("getType")String getType,
                                                      @RequestParam("outName")String outName,
                                                      @RequestParam("fillInformation")String fillInformation,
                                                      @RequestParam("accordingParameter")String accordingParameter)
@@ -31,6 +31,7 @@ public class listgetController {
         instruction.setListName(listName);
         instruction.setObjectName(objectName);
         instruction.setOutName(outName);
+        instruction.setGetType(Integer.parseInt(getType));
         instruction.setFillInformation(fillInformation);
         instruction.setAccordingParameter(accordingParameter);
         instruction.setIndent(5);

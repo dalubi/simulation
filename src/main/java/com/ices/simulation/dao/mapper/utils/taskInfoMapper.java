@@ -56,6 +56,11 @@ public interface taskInfoMapper {
     @ResultType(value = instructionMathAbs.class)
     instructionMathAbs findMathAbsInstById(@Param("id")int id);
 
+    /*修改位置-3*/
+    @Select("select * from instructionsend where sendId = #{id}")
+    @ResultType(value = instructionSend.class)
+    instructionSend findSendInstById(@Param("id")int id);
+
     @Select("select * from instructionobjectget where objectGetId = #{id}")
     @ResultType(value = instructionObjectGet.class)
     instructionObjectGet findObjectGetInstById(@Param("id")int id);

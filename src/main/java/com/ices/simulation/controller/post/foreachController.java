@@ -26,13 +26,13 @@ public class foreachController {
     public ResponseEntity<String> foreachInstruction(@RequestParam("listName")String listName,
                                                     @RequestParam("objectName")String objectName,
                                                     @RequestParam("outName")String outName,
-                                                    @RequestParam("insideTaskId")int insideTaskId)
+                                                    @RequestParam("insideTaskId")String insideTaskId)
     {
         instructionForeach instruction = new instructionForeach();
         instruction.setListName(listName);
         instruction.setObjectName(objectName);
         instruction.setOutName(outName);
-        instruction.setInsideTaskId(insideTaskId);
+        instruction.setInsideTaskId(Integer.parseInt(insideTaskId));
         instruction.setIndent(5);
         instructionMapper.insert(instruction);
 

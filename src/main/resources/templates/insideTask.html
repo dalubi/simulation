@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>insidetask编辑</title>
@@ -75,13 +75,15 @@
                     </tbody>
                 </table>
             </div>
-
+            <div class="alert alert-danger" role="alert" style="text-align: center">
+                所有内部任务的填写都完成了，跳转到所有任务的状态图界面
+            </div>
             <hr />
             <div>
                 <form id="aInsideTask">
                     <span>请设置要插入的内部任务Id：</span>
                     <input type="text" name="insidetaskId" id="insidetaskId" placeholder="内部任务的id">
-                    <button type="button" class="btn btn-outline-success" onclick="submitInsidetaskId()">指令与内部任务固定</button>
+                    <button type="button" class="btn btn-outline-success" onclick="submitInsidetaskId()">指令ID与内部任务固定</button>
                 </form>
 
                 <hr />
@@ -191,58 +193,59 @@
 
     function addInstruction() {
         let inst_count = document.getElementsByClassName("instruction").length;
-        let html ='<div id="instruction_"+inst_count+" class="instruction" style="border: black;border-width: 1px;border-style: dotted">\n' +
-            '                    <br />\n' +
-            '                    <span class="dropdown">\n' +
-            '\n' +
-            '                        <button class="btn btn-secondary dropdown-toggle" type="button"\n' +
-            '                                style="margin-left: 10px" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">\n' +
-            '                            <svg class="bi bi-option" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">\n' +
-            '                              <path fill-rule="evenodd" d="M1 2.5a.5.5 0 0 1 .5-.5h3.797a.5.5 0 0 1 .439.26L11 13h3.5a.5.5 0 0 1 0 1h-3.797a.5.5 0 0 1-.439-.26L5 3H1.5a.5.5 0 0 1-.5-.5zm10 0a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5z"/>\n' +
-            '                            </svg>\n' +
-            '                            请选择要插入的操作命令\n' +
-            '                        </button>\n' +
-            '\n' +
-            '                        <span class="dropdown-menu" aria-labelledby="dropdownMenu2">\n' +
-            '                              <button class="dropdown-item" type="button" onclick="SendInstruction(this)">发送一个交互类</button>\n' +
-            '                              <button class="dropdown-item" type="button" onclick="UpdateTimePeriodInstruction(this)">生命周期更新</button>\n' +
-            '                                <hr />\n' +
-            '                              <button class="dropdown-item" type="button" onclick="CreateInstruction(this)">创建对象</button>\n' +
-            '                              <button class="dropdown-item" type="button" onclick="DelayInstruction(this)">延时</button>\n' +
-            '                              <button class="dropdown-item" type="button" onclick="ExpressionInstruction(this)">表达式</button>\n' +
-            '                              <button class="dropdown-item" type="button" onclick="ObjectGetInstruction(this)">获得一个对象</button>\n' +
-            '                              <button class="dropdown-item" type="button" onclick="ObjectSetInstruction(this)">设置一个对象</button>\n' +
-            '                                <hr />\n' +
-            '                              <button class="dropdown-item" type="button" onclick="ListAddInstruction(this)">列表加入</button>\n' +
-            '                              <button class="dropdown-item" type="button" onclick="ListSizeInstruction(this)">列表大小</button>\n' +
-            '                              <button class="dropdown-item" type="button" onclick="ListClearInstruction(this)">列表清空</button>\n' +
-            '                              <button class="dropdown-item" type="button" onclick="ListRemoveInstruction(this)">列表移除</button>\n' +
-            '                              <button class="dropdown-item" type="button" onclick="ListGetInstruction(this)">列表获得一个对象（按名字）</button>\n' +
-            '                              <button class="dropdown-item" type="button" onclick="ListGetIndexInstruction(this)">列表获得一个对象（按下标）</button>\n' +
-            '                                <hr />\n' +
-            '                              <button class="dropdown-item" type="button" onclick="TypeConversionInstruction(this)">强制转换</button>\n' +
-            '                              <button class="dropdown-item" type="button" onclick="MathAbsInstruction(this)">绝对值</button>\n' +
-            '                              <button class="dropdown-item" type="button" onclick="RandomIntInstruction(this)">产生一个随机数</button>\n' +
-            '                                <hr />\n' +
-            '                              <button class="dropdown-item" type="button" onclick="SelectInstruction(this)">选择</button>\n' +
-            '                              <button class="dropdown-item" type="button" onclick="ForeachInstruction(this)">foreach</button>\n' +
-            '                              <button class="dropdown-item" type="button" onclick="FornumberInstruction(this)">fornumber</button>\n' +
-            '                        </span>\n' +
-            '\n' +
-            '                    </span>\n' +
-            '\n' +
-            '                    <span>\n' +
-            '                        <button type="button" class="btn btn-warning" id="hideButton" onclick="HideDetails(this)">\n' +
-            '                            <svg class="bi bi-display-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">\n' +
-            '                              <path d="M5.75 13.5c.167-.333.25-.833.25-1.5h4c0 .667.083 1.167.25 1.5H11a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1h.75z"/>\n' +
-            '                              <path fill-rule="evenodd" d="M13.991 3H2c-.325 0-.502.078-.602.145a.758.758 0 0 0-.254.302A1.46 1.46 0 0 0 1 4.01V10c0 .325.078.502.145.602.07.105.17.188.302.254a1.464 1.464 0 0 0 .538.143L2.01 11H14c.325 0 .502-.078.602-.145a.758.758 0 0 0 .254-.302 1.464 1.464 0 0 0 .143-.538L15 9.99V4c0-.325-.078-.502-.145-.602a.757.757 0 0 0-.302-.254A1.46 1.46 0 0 0 13.99 3zM14 2H2C0 2 0 4 0 4v6c0 2 2 2 2 2h12c2 0 2-2 2-2V4c0-2-2-2-2-2z"/>\n' +
-            '                              <path d="M2 4h12v6H2z"/>\n' +
-            '                            </svg>\n' +
-            '                            隐藏指令细节\n' +
-            '                        </button>\n' +
-            '                    </span>\n' +
-            '                    <br /><br />\n' +
-            '                </div><br />';
+        console.log(inst_count);
+        let html = "<div id=\"instruction_"+inst_count+"\" class=\"instruction\" style=\"border: black;border-width: 1px;border-style: dotted\">\n" +
+            "                    <br />\n" +
+            "                    <span class=\"dropdown\">\n" +
+            "\n" +
+            "                        <button class=\"btn btn-secondary dropdown-toggle\" type=\"button\"\n" +
+            "                                style=\"margin-left: 10px\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n" +
+            "                            <svg class=\"bi bi-option\" width=\"1em\" height=\"1em\" viewBox=\"0 0 16 16\" fill=\"currentColor\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+            "                              <path fill-rule=\"evenodd\" d=\"M1 2.5a.5.5 0 0 1 .5-.5h3.797a.5.5 0 0 1 .439.26L11 13h3.5a.5.5 0 0 1 0 1h-3.797a.5.5 0 0 1-.439-.26L5 3H1.5a.5.5 0 0 1-.5-.5zm10 0a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5z\"/>\n" +
+            "                            </svg>\n" +
+            "                            请选择要插入的操作命令\n" +
+            "                        </button>\n" +
+            "\n" +
+            "                        <span class=\"dropdown-menu\" aria-labelledby=\"dropdownMenu2\">\n" +
+            "                              <button class=\"dropdown-item\" type=\"button\" onclick=\"SendInstruction(this)\">发送一个交互类</button>\n" +
+            "                              <button class=\"dropdown-item\" type=\"button\" onclick=\"UpdateTimePeriodInstruction(this)\">生命周期更新</button>\n" +
+            "                                <hr />\n" +
+            "                              <button class=\"dropdown-item\" type=\"button\" onclick=\"CreateInstruction(this)\">创建对象</button>\n" +
+            "                              <button class=\"dropdown-item\" type=\"button\" onclick=\"DelayInstruction(this)\">延时</button>\n" +
+            "                              <button class=\"dropdown-item\" type=\"button\" onclick=\"ExpressionInstruction(this)\">表达式</button>\n" +
+            "                              <button class=\"dropdown-item\" type=\"button\" onclick=\"ObjectGetInstruction(this)\">获得一个对象</button>\n" +
+            "                              <button class=\"dropdown-item\" type=\"button\" onclick=\"ObjectSetInstruction(this)\">设置一个对象</button>\n" +
+            "                                <hr />\n" +
+            "                              <button class=\"dropdown-item\" type=\"button\" onclick=\"ListAddInstruction(this)\">列表加入</button>\n" +
+            "                              <button class=\"dropdown-item\" type=\"button\" onclick=\"ListSizeInstruction(this)\">列表大小</button>\n" +
+            "                              <button class=\"dropdown-item\" type=\"button\" onclick=\"ListClearInstruction(this)\">列表清空</button>\n" +
+            "                              <button class=\"dropdown-item\" type=\"button\" onclick=\"ListRemoveInstruction(this)\">列表移除</button>\n" +
+            "                              <button class=\"dropdown-item\" type=\"button\" onclick=\"ListGetInstruction(this)\">列表获得一个对象（按名字）</button>\n" +
+            "                              <button class=\"dropdown-item\" type=\"button\" onclick=\"ListGetIndexInstruction(this)\">列表获得一个对象（按下标）</button>\n" +
+            "                                <hr />\n" +
+            "                              <button class=\"dropdown-item\" type=\"button\" onclick=\"TypeConversionInstruction(this)\">强制转换</button>\n" +
+            "                              <button class=\"dropdown-item\" type=\"button\" onclick=\"MathAbsInstruction(this)\">绝对值</button>\n" +
+            "                              <button class=\"dropdown-item\" type=\"button\" onclick=\"RandomIntInstruction(this)\">产生一个随机数</button>\n" +
+            "                                <hr />\n" +
+            "                              <button class=\"dropdown-item\" type=\"button\" onclick=\"SelectInstruction(this)\">选择</button>\n" +
+            "                              <button class=\"dropdown-item\" type=\"button\" onclick=\"ForeachInstruction(this)\">foreach</button>\n" +
+            "                              <button class=\"dropdown-item\" type=\"button\" onclick=\"FornumberInstruction(this)\">fornumber</button>\n" +
+            "                        </span>\n" +
+            "\n" +
+            "                    </span>\n" +
+            "\n" +
+            "                    <span>\n" +
+            "                        <button type=\"button\" class=\"btn btn-warning\" id=\"hideButton\" onclick=\"HideDetails(this)\">\n" +
+            "                            <svg class=\"bi bi-display-fill\" width=\"1em\" height=\"1em\" viewBox=\"0 0 16 16\" fill=\"currentColor\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+            "                              <path d=\"M5.75 13.5c.167-.333.25-.833.25-1.5h4c0 .667.083 1.167.25 1.5H11a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1h.75z\"/>\n" +
+            "                              <path fill-rule=\"evenodd\" d=\"M13.991 3H2c-.325 0-.502.078-.602.145a.758.758 0 0 0-.254.302A1.46 1.46 0 0 0 1 4.01V10c0 .325.078.502.145.602.07.105.17.188.302.254a1.464 1.464 0 0 0 .538.143L2.01 11H14c.325 0 .502-.078.602-.145a.758.758 0 0 0 .254-.302 1.464 1.464 0 0 0 .143-.538L15 9.99V4c0-.325-.078-.502-.145-.602a.757.757 0 0 0-.302-.254A1.46 1.46 0 0 0 13.99 3zM14 2H2C0 2 0 4 0 4v6c0 2 2 2 2 2h12c2 0 2-2 2-2V4c0-2-2-2-2-2z\"/>\n" +
+            "                              <path d=\"M2 4h12v6H2z\"/>\n" +
+            "                            </svg>\n" +
+            "                            隐藏指令细节\n" +
+            "                        </button>\n" +
+            "                    </span>\n" +
+            "                    <br /><br />\n" +
+            "                </div><br />";
         let addInstruction = document.getElementById("addInstruction");
         addInstruction.insertAdjacentHTML("beforebegin",html);
     }

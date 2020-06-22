@@ -24,11 +24,11 @@ public class objectsetController {
     public ResponseEntity<String> objectsetInstruction(@RequestParam("parameterName")String parameterName,
                                                      @RequestParam("objectName")String objectName,
                                                      @RequestParam("setName")String setName,
-                                                     @RequestParam("setType")int setType)
+                                                     @RequestParam("setType")String setType)
     {
         instructionObjectSet instruction = new instructionObjectSet();
         instruction.setParameterName(parameterName);
-        instruction.setSetType(setType);
+        instruction.setSetType(Integer.parseInt(setType));
         instruction.setSetName(setName);
         instruction.setObjectName(objectName);
         instruction.setIndent(5);

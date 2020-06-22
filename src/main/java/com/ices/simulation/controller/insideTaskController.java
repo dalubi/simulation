@@ -50,8 +50,8 @@ public class insideTaskController {
             insidetask.setInformation(informations[i]);
             insidetask.setIscomplete("未完成");
             insidetaskMapper.insert(insidetask);
+            taskMapper.insertTaskId(insidetaskIds[i]);
         }
-        taskMapper.insertTaskId(insidetaskId);
         return "success";
     }
 

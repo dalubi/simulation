@@ -19,16 +19,16 @@ public class selectController {
     @Autowired
     taskMapper taskMapper;
 
-    @RequestMapping(value = "/post/select",method = RequestMethod.POST)
+    @GetMapping(value = "/post/select")
     @ResponseBody
-    public ResponseEntity<String> selectInstruction(@RequestParam("InformationName")String InformationName,
-                                                     @RequestParam("branch1Id")int branch1Id,
-                                                     @RequestParam("branch2Id")int branch2Id)
+    public ResponseEntity<String> selectInstruction(@RequestParam("informationName")String InformationName,
+                                                     @RequestParam("branch1Id")String branch1Id,
+                                                     @RequestParam("branch2Id")String branch2Id)
     {
         instructionSelect instruction = new instructionSelect();
         instruction.setInformationName(InformationName);
-        instruction.setBranch1id(branch1Id);
-        instruction.setBranch2id(branch2Id);
+        instruction.setBranch1id(Integer.parseInt(branch1Id));
+        instruction.setBranch2id(Integer.parseInt(branch2Id));
         instruction.setIndent(5);
         instructionMapper.insert(instruction);
 
