@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test" id="m1586786943177" name="">
+ <process id="platform" name="platform" isExecutable="true" isClosed="false" processType="None">
+<startEvent id="Event_14oct9z" />
+<endEvent id="Event_1xd4qfm" />
+<userTask id="Activity_1ycvn4f" name="平台建立订单，请求餐馆制作"><documentation id="s6ae3bcc6-af08-4d08-9d59-466b6fbe3f4a">CUSTOMER_MAKE_ORDER</documentation></userTask>
+<endEvent id="s1da952e5-95e5-40e2-9623-3a8c510a4dcc" />
+<sequenceFlow id="s0870cab5-4d50-47bd-9511-b2e09072eeaa" sourceRef="Activity_1ycvn4f" targetRef="s1da952e5-95e5-40e2-9623-3a8c510a4dcc"/>
+<userTask id="Activity_02ow4ek" name="确认餐馆未接单，删除该订单，发送给顾客"><documentation id="s7f83540c-fc0f-4dfe-9dd6-08adc0aa4cb0">RESTAURANT_NOT_Receive</documentation></userTask>
+<endEvent id="s2a8bb3e6-be58-4aba-8a96-7a258236f655" />
+<sequenceFlow id="s9fed2145-83a1-4de5-9ccd-93ab9cf39177" sourceRef="Activity_02ow4ek" targetRef="s2a8bb3e6-be58-4aba-8a96-7a258236f655"/>
+<userTask id="Activity_1jvyc0c" name="确认骑手未接单，删除该订单，发送给顾客"><documentation id="sa9efb98e-bbf1-45fc-8560-2b357aa506b6">Rider_Not_Receive</documentation></userTask>
+<endEvent id="sd01e66c5-6dd1-4cef-a8d8-f0b2c74b0d41" />
+<sequenceFlow id="sbc13f54d-ff2e-4041-9df6-e2aa00506478" sourceRef="Activity_1jvyc0c" targetRef="sd01e66c5-6dd1-4cef-a8d8-f0b2c74b0d41"/>
+<userTask id="Activity_04wua8v" name="平台观察到骑手前往餐馆时的位置"><documentation id="s0623e3b5-8b5e-4b9a-8d35-80d6d04d4e5e">Show_rider_to_restaurant</documentation></userTask>
+<endEvent id="sea5e9776-53c0-42fe-989e-a663779a81a0" />
+<sequenceFlow id="sf32d606f-ff45-46f8-aaf2-bcd26ced8f37" sourceRef="Activity_04wua8v" targetRef="sea5e9776-53c0-42fe-989e-a663779a81a0"/>
+<userTask id="Activity_1phnzsw" name="平台了解情况"><documentation id="sc6b43d1f-ccab-4ff9-bf8d-4c4fe6b82880">rider_get_order</documentation></userTask>
+<endEvent id="s5644a2dd-a3c0-41f3-a634-fb95fb62aedd" />
+<sequenceFlow id="s6667f383-8330-4c0e-881c-5bb96181f427" sourceRef="Activity_1phnzsw" targetRef="s5644a2dd-a3c0-41f3-a634-fb95fb62aedd"/>
+<userTask id="Activity_0v7d24b" name="平台删除订单"><documentation id="s747a38c5-3d51-4220-be5e-2f288926d105">customer_confirmm_order</documentation></userTask>
+<sequenceFlow id="s0376ce64-436c-418e-b900-bf4addbfcfdf" sourceRef="Activity_0v7d24b" targetRef="Event_1xd4qfm"/>
+<userTask id="Activity_02melpm" name="平台观察骑手在到顾客途中位置"><documentation id="s539a21aa-d4f8-429e-ab74-9fcdbfc3b528">Show_Rider_To_Customer</documentation></userTask>
+<endEvent id="s05ccc1a4-7c24-4eb5-9dc3-49cc4b7d2d96" />
+<sequenceFlow id="s469b50c7-0823-41b9-ae77-221a577ba5bb" sourceRef="Activity_02melpm" targetRef="s05ccc1a4-7c24-4eb5-9dc3-49cc4b7d2d96"/>
+<parallelGateway gatewayDirection="Unspecified" id="s9788aca7-4471-44ba-9909-86f8f47fa96b" />
+<sequenceFlow id="s63d05259-6bd2-4073-a0b1-da1887b9b5d8" sourceRef="s9788aca7-4471-44ba-9909-86f8f47fa96b" targetRef="Activity_1jvyc0c"/>
+<sequenceFlow id="sb1034a3d-78bc-4cfb-ae61-9552b489772d" sourceRef="s9788aca7-4471-44ba-9909-86f8f47fa96b" targetRef="Activity_04wua8v"/>
+<sequenceFlow id="sc6371c2a-fc55-4290-97d5-a144217c3219" sourceRef="s9788aca7-4471-44ba-9909-86f8f47fa96b" targetRef="Activity_02melpm"/>
+<sequenceFlow id="s1dff8630-3e7a-4ef3-b532-3c0204f8b07c" sourceRef="s9788aca7-4471-44ba-9909-86f8f47fa96b" targetRef="Activity_1phnzsw"/>
+<sequenceFlow id="s5e84ea2f-7290-4732-8e80-aa7dd7efb1fe" sourceRef="s9788aca7-4471-44ba-9909-86f8f47fa96b" targetRef="Event_14oct9z"/>
+<sequenceFlow id="s08296c6a-5203-4f2f-bb79-d3b8ce12383f" sourceRef="s9788aca7-4471-44ba-9909-86f8f47fa96b" targetRef="Activity_1ycvn4f"/>
+<sequenceFlow id="s87dcd0f2-12b0-470c-b3d9-0e53045a55ff" sourceRef="s9788aca7-4471-44ba-9909-86f8f47fa96b" targetRef="Event_1xd4qfm"/>
+<sequenceFlow id="s630970e3-6575-4f76-af82-0a63f82b375c" sourceRef="s9788aca7-4471-44ba-9909-86f8f47fa96b" targetRef="Activity_0v7d24b"/>
+<sequenceFlow id="s25ae1436-85fc-46db-adc6-8936e72a6a22" sourceRef="s9788aca7-4471-44ba-9909-86f8f47fa96b" targetRef="Activity_02ow4ek"/>
+<startEvent id="s31e60183-3fa3-4d0b-a5a2-9df0a9a2c4c3" />
+<sequenceFlow id="sb4aba54d-3ecd-4837-a8f9-e84c7c781905" sourceRef="s31e60183-3fa3-4d0b-a5a2-9df0a9a2c4c3" targetRef="s9788aca7-4471-44ba-9909-86f8f47fa96b"/>
+	</process>
+</definitions>

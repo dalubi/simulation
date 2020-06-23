@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test" id="m1586786943177" name="">
+ <process id="platform" name="platform" isExecutable="true" isClosed="false" processType="None">
+<startEvent id="s503e1d35-2891-46fc-8580-ca2ce49b4a32" />
+<sequenceFlow id="sfdd1ba1a-3c43-4368-87a9-d33617151d5e" sourceRef="s503e1d35-2891-46fc-8580-ca2ce49b4a32" targetRef="scef57d11-79b7-4411-8a29-a329260c70e0"/>
+<parallelGateway gatewayDirection="Unspecified" id="scef57d11-79b7-4411-8a29-a329260c70e0" />
+<userTask id="Activity_1ycvn4f" name="平台建立订单，请求餐馆制作"><documentation id="s32e32266-7073-4f58-8bdd-6b3a8467625b">CUSTOMER_MAKE_ORDER</documentation></userTask>
+<sequenceFlow id="s5af56552-d949-4dd6-b34d-f779f2881e1b" sourceRef="scef57d11-79b7-4411-8a29-a329260c70e0" targetRef="Activity_1ycvn4f"/>
+<sequenceFlow id="s0a40bccd-abfc-4c26-b49f-06302fdccf91" sourceRef="Activity_1ycvn4f" targetRef="s201cc7e8-20d7-46b3-8829-515376752026"/>
+<endEvent id="s201cc7e8-20d7-46b3-8829-515376752026" />
+<userTask id="Activity_02ow4ek" name="确认餐馆未接单，删除该订单，发送给顾客"><documentation id="s426e0743-e99d-464e-9859-9821aa821f66">RESTAURANT_NOT_Receive</documentation></userTask>
+<sequenceFlow id="sfb364312-c64e-4a0f-a293-0a8eac88b94c" sourceRef="scef57d11-79b7-4411-8a29-a329260c70e0" targetRef="Activity_02ow4ek"/>
+<sequenceFlow id="se506bfff-8b75-48fa-9876-00d14df2be25" sourceRef="Activity_02ow4ek" targetRef="s80d7efbe-cf9b-42fb-8e45-85e60162d994"/>
+<endEvent id="s80d7efbe-cf9b-42fb-8e45-85e60162d994" />
+<userTask id="Activity_1jvyc0c" name="确认骑手未接单，删除该订单，发送给顾客"><documentation id="sf18cf582-60aa-4272-b604-fbfb07b96c9b">Rider_Not_Receive</documentation></userTask>
+<sequenceFlow id="sff95c3af-64eb-49c3-9ea3-928ea8376165" sourceRef="scef57d11-79b7-4411-8a29-a329260c70e0" targetRef="Activity_1jvyc0c"/>
+<sequenceFlow id="s301f1a4c-0528-4393-a2bb-402e5cead8ec" sourceRef="Activity_1jvyc0c" targetRef="sa1aaf690-222f-4ba6-8ef0-c4a7106e7a98"/>
+<endEvent id="sa1aaf690-222f-4ba6-8ef0-c4a7106e7a98" />
+<userTask id="Activity_04wua8v" name="平台观察到骑手前往餐馆时的位置"><documentation id="s17c4cc18-0a49-42ec-99fe-76408f2981c8">Show_rider_to_restaurant</documentation></userTask>
+<sequenceFlow id="s5067e0d7-1496-4741-9ad0-4c26722ba6d8" sourceRef="scef57d11-79b7-4411-8a29-a329260c70e0" targetRef="Activity_04wua8v"/>
+<sequenceFlow id="sab52ee02-3b93-401b-94aa-ff3908656dc9" sourceRef="Activity_04wua8v" targetRef="s6337d879-e6ca-45b0-a6ab-c48873e75c11"/>
+<endEvent id="s6337d879-e6ca-45b0-a6ab-c48873e75c11" />
+<userTask id="Activity_1phnzsw" name="平台了解情况"><documentation id="s61c4e993-aa20-459a-ae1f-18b012c118d4">rider_get_order</documentation></userTask>
+<sequenceFlow id="s11b499e8-7aeb-40dd-a308-80fa4b627e97" sourceRef="scef57d11-79b7-4411-8a29-a329260c70e0" targetRef="Activity_1phnzsw"/>
+<sequenceFlow id="s8c308d78-04b6-4920-8eb1-07f5bce14412" sourceRef="Activity_1phnzsw" targetRef="s785f4a3a-d579-4afb-a072-e8ce62d3555f"/>
+<endEvent id="s785f4a3a-d579-4afb-a072-e8ce62d3555f" />
+<userTask id="Activity_0v7d24b" name="平台删除订单"><documentation id="s064b3443-b903-49a8-980c-56f9c904a72c">customer_confirmm_order</documentation></userTask>
+<sequenceFlow id="sb96d42c1-192b-4216-87db-a836dc7eb027" sourceRef="scef57d11-79b7-4411-8a29-a329260c70e0" targetRef="Activity_0v7d24b"/>
+<sequenceFlow id="s68fc7c0b-06ff-48ed-8666-f884ed8fee23" sourceRef="Activity_0v7d24b" targetRef="s07cdadf9-215f-400e-a829-c9d6746447cc"/>
+<endEvent id="s07cdadf9-215f-400e-a829-c9d6746447cc" />
+<userTask id="Activity_02melpm" name="平台观察骑手在到顾客途中位置"><documentation id="s0510f170-280f-4ddf-bf55-8ab14c210c53">Show_Rider_To_Customer</documentation></userTask>
+<sequenceFlow id="s8a8acde8-4abb-45d3-b8c8-aadd95e26cd2" sourceRef="scef57d11-79b7-4411-8a29-a329260c70e0" targetRef="Activity_02melpm"/>
+<sequenceFlow id="sdafdfb49-696f-42d0-b60e-6dfde3b8755b" sourceRef="Activity_02melpm" targetRef="s79c7d57b-6071-4a13-bfa4-84d03fa11a23"/>
+<endEvent id="s79c7d57b-6071-4a13-bfa4-84d03fa11a23" />
+	</process>
+</definitions>

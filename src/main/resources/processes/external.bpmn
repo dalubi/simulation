@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test" id="m1586786943177" name="">
  <process id="external" name="external" isExecutable="true" isClosed="false" processType="None">
-<userTask id="Activity_17nzsf0" name="疫情，停工"><documentation id="sc5cd8032-8c83-4e63-a60a-0e5affb5f58d">null</documentation></userTask>
-<endEvent id="s1cbf79d9-bb08-440b-ae66-ed5f778984d8" />
-<sequenceFlow id="sfadc7a3c-db11-466f-8a64-2c66996686d2" sourceRef="Activity_17nzsf0" targetRef="s1cbf79d9-bb08-440b-ae66-ed5f778984d8"/>
-<userTask id="Activity_1b4jw0p" name="疫情，交通运输受阻"><documentation id="s400fc1cb-1c3f-42e6-913c-13dd1adc4127">null</documentation></userTask>
-<endEvent id="scaf2803d-51c0-4bb4-a528-41be5df1a837" />
-<sequenceFlow id="s51f8adf6-fa66-4304-8358-1a7103c62f27" sourceRef="Activity_1b4jw0p" targetRef="scaf2803d-51c0-4bb4-a528-41be5df1a837"/>
-<userTask id="Activity_0fn78nx" name="环保检查"><documentation id="s9e00bd07-6c65-4be9-91b9-b5972c878c4d">null</documentation></userTask>
-<endEvent id="s8335f758-0c3c-4ef5-b3d5-6d2a7c0b3a9f" />
-<sequenceFlow id="s947db389-010d-4214-ad51-a8270398bc9f" sourceRef="Activity_0fn78nx" targetRef="s8335f758-0c3c-4ef5-b3d5-6d2a7c0b3a9f"/>
-<parallelGateway gatewayDirection="Unspecified" id="sd1cbf2a1-e6e6-470b-b590-277f411d4b20" />
-<sequenceFlow id="saa1650ea-fc9d-47be-90a0-2d58112bc359" sourceRef="sd1cbf2a1-e6e6-470b-b590-277f411d4b20" targetRef="Activity_17nzsf0"/>
-<sequenceFlow id="s7eb75112-8a73-43f3-bc9c-8e806f3e5e57" sourceRef="sd1cbf2a1-e6e6-470b-b590-277f411d4b20" targetRef="Activity_1b4jw0p"/>
-<sequenceFlow id="s516187c4-3b17-47ca-a216-cd11f5b913ad" sourceRef="sd1cbf2a1-e6e6-470b-b590-277f411d4b20" targetRef="Activity_0fn78nx"/>
-<startEvent id="se6294c53-3b4a-408e-9e34-744d86526112" />
-<sequenceFlow id="s08389a13-df41-493a-a0b3-4975f2311deb" sourceRef="se6294c53-3b4a-408e-9e34-744d86526112" targetRef="sd1cbf2a1-e6e6-470b-b590-277f411d4b20"/>
+<startEvent id="sd00687d1-604e-4da5-a50d-122720e47ca0" />
+<sequenceFlow id="sc005dff4-581a-4660-9efd-11d1d7eca888" sourceRef="sd00687d1-604e-4da5-a50d-122720e47ca0" targetRef="s1b7f779b-f6c9-46b4-ad8b-cc49b2dad47a"/>
+<parallelGateway gatewayDirection="Unspecified" id="s1b7f779b-f6c9-46b4-ad8b-cc49b2dad47a" />
+<userTask id="Activity_1oca23q" name="发送天气恶劣外部事件"><documentation id="s42d8856b-c105-40d7-9181-3735fb51c069">null</documentation></userTask>
+<sequenceFlow id="sb12ba4c1-5baa-41e2-bdbf-c18dd9a0de3c" sourceRef="s1b7f779b-f6c9-46b4-ad8b-cc49b2dad47a" targetRef="Activity_1oca23q"/>
+<sequenceFlow id="sc970b1c0-c05f-441a-8d2d-7df5b5edfab9" sourceRef="Activity_1oca23q" targetRef="sdb1ca0d7-9c93-4300-a22c-c0caa348527f"/>
+<endEvent id="sdb1ca0d7-9c93-4300-a22c-c0caa348527f" />
+<userTask id="Activity_023jrs0" name="发送天气良好外部事件"><documentation id="sbd86bb6c-5e6e-4724-9296-7be793ac158d">null</documentation></userTask>
+<sequenceFlow id="s5bd71cb4-6dcf-42eb-ad4d-28efaa9bb7fa" sourceRef="s1b7f779b-f6c9-46b4-ad8b-cc49b2dad47a" targetRef="Activity_023jrs0"/>
+<sequenceFlow id="sf967d1fb-ac49-4af7-8260-8a76f442ba72" sourceRef="Activity_023jrs0" targetRef="s3577111d-e0ac-4b23-837f-b05e8d2e60bd"/>
+<endEvent id="s3577111d-e0ac-4b23-837f-b05e8d2e60bd" />
 	</process>
 </definitions>

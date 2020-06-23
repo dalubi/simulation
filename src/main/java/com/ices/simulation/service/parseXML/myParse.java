@@ -85,7 +85,9 @@ public class myParse {
         //生成xml文件
         for(Map.Entry<String, PoolNode> pool : allPools.entrySet()){
             PoolNode poolNode = pool.getValue();
+            //状态图
             completeXml(poolNode);
+            //散点图
             completeXml2(poolNode);
         }
     }
@@ -295,7 +297,8 @@ public class myParse {
         File file = null;
         FileWriter fw =null;
         try{
-            file = new File(myparse.pathVariable.getShowbpmnpath()+poolName+".bpmn");
+            file = new File(myparse.pathVariable.getProcessespath()+poolName+".bpmn");
+            //file = new File("/Users/america/IdeaProjects/simulation/src/main/resources/processes/" +poolName+".bpmn");
             if(!file.exists()){
                 file.createNewFile();
             }
@@ -314,7 +317,8 @@ public class myParse {
         FileWriter fw =null;
         try{
             ///Users/america/Mystudy/elema/src/main/resources/processes/
-            String strFile = myparse.pathVariable.getProcessespath()+poolName+".bpmn";
+            String strFile = myparse.pathVariable.getShowbpmnpath()+poolName+".bpmn";
+            //String strFile = "/Users/america/IdeaProjects/simulation/src/main/resources/showGraphs/" +poolName+".bpmn";
             file = new File(strFile);
             if(!file.exists()){
                 file.createNewFile();
@@ -327,6 +331,7 @@ public class myParse {
             e.printStackTrace();
         }
     }
+
     private static void WriteIntoFile2(String processId,String xmlStr){
         String poolName = poolNameToFederateName.get(processId);
         File file = null;

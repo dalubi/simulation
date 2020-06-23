@@ -448,19 +448,7 @@
             });
         }
 
-        function submitInteractionParams(){
-            var formId = "#InteractionParamsForm";
-            var InteractionParamsFormData = $(formId).serializeArray();
-            $.ajax({
-                url:"/post/fillInteractionWithParams",
-                type:"post",
-                dataType:"text",
-                data:InteractionParamsFormData,
-                success:function(result){
-                    alert(result);
-                }
-            });
-        }
+
 
     </script>
 

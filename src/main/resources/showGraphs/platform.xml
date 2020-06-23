@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test" id="m1586786943177" name="">
+  <process id="platform" name="platform" isExecutable="true" isClosed="false" processType="None">
+    <endEvent id="Event_1xd4qfm"></endEvent>
+    <userTask id="Activity_1ycvn4f" name="平台建立订单，请求餐馆制作">
+      <documentation>CUSTOMER_MAKE_ORDER</documentation>
+    </userTask>
+    <parallelGateway id="see4f78b1-7ee1-4201-96a1-4783f8acd525"></parallelGateway>
+    <sequenceFlow id="se85aaae7-dd65-4b3e-a36e-ed67f2bf0ef7" sourceRef="Activity_1ycvn4f" targetRef="see4f78b1-7ee1-4201-96a1-4783f8acd525"></sequenceFlow>
+    <sequenceFlow id="s76280dfa-a6b1-43a5-991d-0f71dd8381e5" sourceRef="see4f78b1-7ee1-4201-96a1-4783f8acd525" targetRef="Activity_02ow4ek"></sequenceFlow>
+    <sequenceFlow id="se6d57f54-bd93-4159-8f8b-be9d25b4d039" sourceRef="see4f78b1-7ee1-4201-96a1-4783f8acd525" targetRef="Activity_1jvyc0c"></sequenceFlow>
+    <sequenceFlow id="s7086c694-3618-4dc8-b43a-be346cb282d5" sourceRef="see4f78b1-7ee1-4201-96a1-4783f8acd525" targetRef="Activity_04wua8v"></sequenceFlow>
+    <userTask id="Activity_02ow4ek" name="确认餐馆未接单，删除该订单，发送给顾客">
+      <documentation>RESTAURANT_NOT_Receive</documentation>
+    </userTask>
+    <endEvent id="s194ecb49-93d3-4577-916b-290b7fe125c1"></endEvent>
+    <sequenceFlow id="s172282e2-fbd6-4d7a-8f30-266bfc518219" sourceRef="Activity_02ow4ek" targetRef="s194ecb49-93d3-4577-916b-290b7fe125c1"></sequenceFlow>
+    <userTask id="Activity_1jvyc0c" name="确认骑手未接单，删除该订单，发送给顾客">
+      <documentation>Rider_Not_Receive</documentation>
+    </userTask>
+    <endEvent id="sa19d914d-230b-4189-a3ca-da3a0ee13ae8"></endEvent>
+    <sequenceFlow id="sf9416409-0304-421f-a073-d26224fd4a9d" sourceRef="Activity_1jvyc0c" targetRef="sa19d914d-230b-4189-a3ca-da3a0ee13ae8"></sequenceFlow>
+    <userTask id="Activity_04wua8v" name="平台观察到骑手前往餐馆时的位置">
+      <documentation>Show_rider_to_restaurant</documentation>
+    </userTask>
+    <parallelGateway id="s228121ae-1dbd-40f8-9324-e91d232bab33"></parallelGateway>
+    <sequenceFlow id="sa9db4ae6-b386-4419-bd51-31f051657e76" sourceRef="Activity_04wua8v" targetRef="s228121ae-1dbd-40f8-9324-e91d232bab33"></sequenceFlow>
+    <sequenceFlow id="s67fe925d-86d0-4990-b19b-6af45fd94570" sourceRef="s228121ae-1dbd-40f8-9324-e91d232bab33" targetRef="Activity_1phnzsw"></sequenceFlow>
+    <sequenceFlow id="s6370e2c2-1932-4841-b522-6a9e48684392" sourceRef="s228121ae-1dbd-40f8-9324-e91d232bab33" targetRef="Activity_0v7d24b"></sequenceFlow>
+    <sequenceFlow id="sd11bbb4a-dbd8-4490-85d1-26174eaecdf4" sourceRef="s228121ae-1dbd-40f8-9324-e91d232bab33" targetRef="Activity_02melpm"></sequenceFlow>
+    <userTask id="Activity_1phnzsw" name="平台了解情况">
+      <documentation>rider_get_order</documentation>
+    </userTask>
+    <endEvent id="s77a91ba5-1e6f-40ad-8dab-a4652a6e863d"></endEvent>
+    <sequenceFlow id="sa66989c5-f3ee-405e-b91f-a66636ed55db" sourceRef="Activity_1phnzsw" targetRef="s77a91ba5-1e6f-40ad-8dab-a4652a6e863d"></sequenceFlow>
+    <userTask id="Activity_0v7d24b" name="平台删除订单">
+      <documentation>customer_confirmm_order</documentation>
+    </userTask>
+    <sequenceFlow id="s0fa9d5e2-1aad-4711-9bed-ee231e384489" sourceRef="Activity_0v7d24b" targetRef="Event_1xd4qfm"></sequenceFlow>
+    <userTask id="Activity_02melpm" name="平台观察骑手在到顾客途中位置">
+      <documentation>Show_Rider_To_Customer</documentation>
+    </userTask>
+    <endEvent id="s2e2247a1-db42-4e41-b6a2-cd5587923ec4"></endEvent>
+    <sequenceFlow id="s81c4655d-da5f-4781-bb30-dd322793370b" sourceRef="Activity_02melpm" targetRef="s2e2247a1-db42-4e41-b6a2-cd5587923ec4"></sequenceFlow>
+    <startEvent id="s3173fd52-930d-42ac-9469-587095f025cd"></startEvent>
+    <sequenceFlow id="s3acf8443-dc11-4e32-8f8f-0d1290e8bb95" sourceRef="s3173fd52-930d-42ac-9469-587095f025cd" targetRef="Activity_1ycvn4f"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_platform">
+    <bpmndi:BPMNPlane bpmnElement="platform" id="BPMNPlane_platform">
+      <bpmndi:BPMNShape bpmnElement="Event_1xd4qfm" id="BPMNShape_Event_1xd4qfm">
+        <omgdc:Bounds height="35.0" width="35.0" x="710.0" y="335.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_1ycvn4f" id="BPMNShape_Activity_1ycvn4f">
+        <omgdc:Bounds height="60.0" width="100.0" x="80.0" y="160.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="see4f78b1-7ee1-4201-96a1-4783f8acd525" id="BPMNShape_see4f78b1-7ee1-4201-96a1-4783f8acd525">
+        <omgdc:Bounds height="40.0" width="40.0" x="230.0" y="170.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_02ow4ek" id="BPMNShape_Activity_02ow4ek">
+        <omgdc:Bounds height="60.0" width="100.0" x="320.0" y="160.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="s194ecb49-93d3-4577-916b-290b7fe125c1" id="BPMNShape_s194ecb49-93d3-4577-916b-290b7fe125c1">
+        <omgdc:Bounds height="35.0" width="35.0" x="475.0" y="170.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_1jvyc0c" id="BPMNShape_Activity_1jvyc0c">
+        <omgdc:Bounds height="60.0" width="100.0" x="320.0" y="0.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sa19d914d-230b-4189-a3ca-da3a0ee13ae8" id="BPMNShape_sa19d914d-230b-4189-a3ca-da3a0ee13ae8">
+        <omgdc:Bounds height="35.0" width="35.0" x="475.0" y="15.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_04wua8v" id="BPMNShape_Activity_04wua8v">
+        <omgdc:Bounds height="60.0" width="100.0" x="320.0" y="320.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="s228121ae-1dbd-40f8-9324-e91d232bab33" id="BPMNShape_s228121ae-1dbd-40f8-9324-e91d232bab33">
+        <omgdc:Bounds height="40.0" width="40.0" x="472.0" y="320.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_1phnzsw" id="BPMNShape_Activity_1phnzsw">
+        <omgdc:Bounds height="60.0" width="100.0" x="560.0" y="160.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="s77a91ba5-1e6f-40ad-8dab-a4652a6e863d" id="BPMNShape_s77a91ba5-1e6f-40ad-8dab-a4652a6e863d">
+        <omgdc:Bounds height="35.0" width="35.0" x="710.0" y="175.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_0v7d24b" id="BPMNShape_Activity_0v7d24b">
+        <omgdc:Bounds height="60.0" width="100.0" x="560.0" y="320.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_02melpm" id="BPMNShape_Activity_02melpm">
+        <omgdc:Bounds height="60.0" width="100.0" x="560.0" y="0.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="s2e2247a1-db42-4e41-b6a2-cd5587923ec4" id="BPMNShape_s2e2247a1-db42-4e41-b6a2-cd5587923ec4">
+        <omgdc:Bounds height="35.0" width="35.0" x="710.0" y="15.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="s3173fd52-930d-42ac-9469-587095f025cd" id="BPMNShape_s3173fd52-930d-42ac-9469-587095f025cd">
+        <omgdc:Bounds height="35.0" width="35.0" x="0.0" y="175.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="se85aaae7-dd65-4b3e-a36e-ed67f2bf0ef7" id="BPMNEdge_se85aaae7-dd65-4b3e-a36e-ed67f2bf0ef7">
+        <omgdi:waypoint x="180.0" y="190.0"></omgdi:waypoint>
+        <omgdi:waypoint x="230.0" y="190.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="s76280dfa-a6b1-43a5-991d-0f71dd8381e5" id="BPMNEdge_s76280dfa-a6b1-43a5-991d-0f71dd8381e5">
+        <omgdi:waypoint x="270.0" y="190.0"></omgdi:waypoint>
+        <omgdi:waypoint x="320.0" y="190.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="se6d57f54-bd93-4159-8f8b-be9d25b4d039" id="BPMNEdge_se6d57f54-bd93-4159-8f8b-be9d25b4d039">
+        <omgdi:waypoint x="270.0" y="190.0"></omgdi:waypoint>
+        <omgdi:waypoint x="282.0" y="190.0"></omgdi:waypoint>
+        <omgdi:waypoint x="282.0" y="30.0"></omgdi:waypoint>
+        <omgdi:waypoint x="320.0" y="30.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="s7086c694-3618-4dc8-b43a-be346cb282d5" id="BPMNEdge_s7086c694-3618-4dc8-b43a-be346cb282d5">
+        <omgdi:waypoint x="270.0" y="190.0"></omgdi:waypoint>
+        <omgdi:waypoint x="282.0" y="190.0"></omgdi:waypoint>
+        <omgdi:waypoint x="282.0" y="350.0"></omgdi:waypoint>
+        <omgdi:waypoint x="320.0" y="350.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="s172282e2-fbd6-4d7a-8f30-266bfc518219" id="BPMNEdge_s172282e2-fbd6-4d7a-8f30-266bfc518219">
+        <omgdi:waypoint x="420.0" y="190.0"></omgdi:waypoint>
+        <omgdi:waypoint x="432.0" y="190.0"></omgdi:waypoint>
+        <omgdi:waypoint x="432.0" y="185.0"></omgdi:waypoint>
+        <omgdi:waypoint x="475.0" y="187.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sf9416409-0304-421f-a073-d26224fd4a9d" id="BPMNEdge_sf9416409-0304-421f-a073-d26224fd4a9d">
+        <omgdi:waypoint x="420.0" y="30.0"></omgdi:waypoint>
+        <omgdi:waypoint x="432.0" y="30.0"></omgdi:waypoint>
+        <omgdi:waypoint x="432.0" y="30.0"></omgdi:waypoint>
+        <omgdi:waypoint x="475.0" y="32.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sa9db4ae6-b386-4419-bd51-31f051657e76" id="BPMNEdge_sa9db4ae6-b386-4419-bd51-31f051657e76">
+        <omgdi:waypoint x="420.0" y="350.0"></omgdi:waypoint>
+        <omgdi:waypoint x="432.0" y="350.0"></omgdi:waypoint>
+        <omgdi:waypoint x="472.0" y="340.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="s67fe925d-86d0-4990-b19b-6af45fd94570" id="BPMNEdge_s67fe925d-86d0-4990-b19b-6af45fd94570">
+        <omgdi:waypoint x="512.0" y="340.0"></omgdi:waypoint>
+        <omgdi:waypoint x="524.0" y="320.0"></omgdi:waypoint>
+        <omgdi:waypoint x="524.0" y="190.0"></omgdi:waypoint>
+        <omgdi:waypoint x="560.0" y="190.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="s6370e2c2-1932-4841-b522-6a9e48684392" id="BPMNEdge_s6370e2c2-1932-4841-b522-6a9e48684392">
+        <omgdi:waypoint x="512.0" y="340.0"></omgdi:waypoint>
+        <omgdi:waypoint x="522.0" y="320.0"></omgdi:waypoint>
+        <omgdi:waypoint x="522.0" y="350.0"></omgdi:waypoint>
+        <omgdi:waypoint x="560.0" y="350.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sd11bbb4a-dbd8-4490-85d1-26174eaecdf4" id="BPMNEdge_sd11bbb4a-dbd8-4490-85d1-26174eaecdf4">
+        <omgdi:waypoint x="512.0" y="340.0"></omgdi:waypoint>
+        <omgdi:waypoint x="522.0" y="320.0"></omgdi:waypoint>
+        <omgdi:waypoint x="522.0" y="30.0"></omgdi:waypoint>
+        <omgdi:waypoint x="560.0" y="30.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sa66989c5-f3ee-405e-b91f-a66636ed55db" id="BPMNEdge_sa66989c5-f3ee-405e-b91f-a66636ed55db">
+        <omgdi:waypoint x="660.0" y="190.0"></omgdi:waypoint>
+        <omgdi:waypoint x="710.0" y="192.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="s0fa9d5e2-1aad-4711-9bed-ee231e384489" id="BPMNEdge_s0fa9d5e2-1aad-4711-9bed-ee231e384489">
+        <omgdi:waypoint x="660.0" y="350.0"></omgdi:waypoint>
+        <omgdi:waypoint x="710.0" y="352.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="s81c4655d-da5f-4781-bb30-dd322793370b" id="BPMNEdge_s81c4655d-da5f-4781-bb30-dd322793370b">
+        <omgdi:waypoint x="660.0" y="30.0"></omgdi:waypoint>
+        <omgdi:waypoint x="672.0" y="30.0"></omgdi:waypoint>
+        <omgdi:waypoint x="672.0" y="30.0"></omgdi:waypoint>
+        <omgdi:waypoint x="710.0" y="32.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="s3acf8443-dc11-4e32-8f8f-0d1290e8bb95" id="BPMNEdge_s3acf8443-dc11-4e32-8f8f-0d1290e8bb95">
+        <omgdi:waypoint x="35.0" y="192.0"></omgdi:waypoint>
+        <omgdi:waypoint x="80.0" y="190.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

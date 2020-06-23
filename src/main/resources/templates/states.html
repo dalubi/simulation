@@ -342,6 +342,20 @@
         bpmnFile.item(i).setAttribute('href',hrefStr);
     }
 
+    function submitInteractionParams(){
+        var formId = "#InteractionParamsForm";
+        var InteractionParamsFormData = $(formId).serializeArray();
+        $.ajax({
+            url:"/post/fillInteractionWithParams",
+            type:"post",
+            dataType:"text",
+            data:InteractionParamsFormData,
+            success:function(result){
+                alert(result);
+            }
+        });
+    }
+
     //联邦参数，验证上传成功
     var countOfParameter  = 2 ;
     var addParameter = document.getElementById("addParameter");
