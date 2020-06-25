@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test" id="m1586786943177" name="">
  <process id="restaurant" name="restaurant" isExecutable="true" isClosed="false" processType="None">
-<startEvent id="sab283930-2e70-4ed2-891c-1dd0624beec4" />
-<sequenceFlow id="sf9780407-1591-4744-829b-58fabe186e3a" sourceRef="sab283930-2e70-4ed2-891c-1dd0624beec4" targetRef="s70bb3882-3c02-47e0-8020-6b4151d06edd"/>
-<parallelGateway gatewayDirection="Unspecified" id="s70bb3882-3c02-47e0-8020-6b4151d06edd" />
-<userTask id="Activity_0ulri60" name="餐馆查询是否存在活跃餐馆"><documentation id="sc3b0b261-d240-4d19-97be-f5152a086d2b">RESTAURANT_REQUEST</documentation></userTask>
-<sequenceFlow id="sf7e61ad5-e1e3-44d6-a68f-c0a433126577" sourceRef="s70bb3882-3c02-47e0-8020-6b4151d06edd" targetRef="Activity_0ulri60"/>
-<sequenceFlow id="se6dc57e2-b153-4583-8cb2-19fdb903b513" sourceRef="Activity_0ulri60" targetRef="s48739c6b-7158-4ad6-a95c-8ea7b4c2cdc3"/>
-<endEvent id="s48739c6b-7158-4ad6-a95c-8ea7b4c2cdc3" />
-<userTask id="Activity_0xdu83f" name="不存在，发送给平台"><documentation id="s8119a56f-b04d-4a88-bd9d-2ed42d9aa829">null</documentation></userTask>
-<sequenceFlow id="sb5035748-6a3b-48b3-b791-d0e90f8957fd" sourceRef="s70bb3882-3c02-47e0-8020-6b4151d06edd" targetRef="Activity_0xdu83f"/>
-<sequenceFlow id="sd7166c14-ab64-4250-8b5c-88fb15ddfdaf" sourceRef="Activity_0xdu83f" targetRef="s3c2a7a7b-a8ab-4fa5-afcc-4d2472df89d3"/>
-<endEvent id="s3c2a7a7b-a8ab-4fa5-afcc-4d2472df89d3" />
-<userTask id="Activity_1ik7ajp" name="存在，发送请求给骑手"><documentation id="s88e562a4-8759-4878-8ca7-fb5596608658">null</documentation></userTask>
-<sequenceFlow id="sd8d1a533-7d9f-453d-b762-ff046df2d007" sourceRef="s70bb3882-3c02-47e0-8020-6b4151d06edd" targetRef="Activity_1ik7ajp"/>
-<sequenceFlow id="s5cb430f7-85a1-4fe3-bc4b-ea200a71a45a" sourceRef="Activity_1ik7ajp" targetRef="s99209079-123c-4b90-aad7-dccaa4d9731a"/>
-<endEvent id="s99209079-123c-4b90-aad7-dccaa4d9731a" />
-<userTask id="Activity_0j1o6zz" name="制作外卖，制作完毕发送给骑手"><documentation id="s1307c05c-e944-4e45-b87a-bc13e2e9cbe6">Rider_Receive</documentation></userTask>
-<sequenceFlow id="sd314a32d-0c5a-44f9-94a6-e38acb96ba49" sourceRef="s70bb3882-3c02-47e0-8020-6b4151d06edd" targetRef="Activity_0j1o6zz"/>
-<sequenceFlow id="sbb5e2a60-3e24-4d04-b341-471ee16c3b44" sourceRef="Activity_0j1o6zz" targetRef="s45414313-a99e-4140-91a3-d1a39f70dc1f"/>
-<endEvent id="s45414313-a99e-4140-91a3-d1a39f70dc1f" />
+<startEvent id="s65c516e7-91fa-4d6f-a1c6-6890d9ecd8fb" />
+<sequenceFlow id="s11a2b530-5bc1-4b5f-8663-dc71f7daf07c" sourceRef="s65c516e7-91fa-4d6f-a1c6-6890d9ecd8fb" targetRef="s6f686131-64a8-45db-a0fb-7a5208571cea"/>
+<parallelGateway gatewayDirection="Unspecified" id="s6f686131-64a8-45db-a0fb-7a5208571cea" />
+<userTask id="Activity_0ulri60" name="餐馆查询是否存在活跃餐馆"><documentation id="s9cbcee04-66d0-4688-90f8-c68aec6c555c">RESTAURANT_REQUEST</documentation></userTask>
+<sequenceFlow id="s14514d46-e587-45fe-b551-8cd62ffddb9e" sourceRef="s6f686131-64a8-45db-a0fb-7a5208571cea" targetRef="Activity_0ulri60"/>
+<sequenceFlow id="sebbcb11d-1bbd-41b0-b0b0-2ffeb42348ac" sourceRef="Activity_0ulri60" targetRef="sba526a8e-ccac-46a2-a456-5dda26420308"/>
+<endEvent id="sba526a8e-ccac-46a2-a456-5dda26420308" />
+<userTask id="Activity_0xdu83f" name="不存在，发送给平台"><documentation id="s3be99a10-cded-4097-9ada-2eb9aa065aca">null</documentation></userTask>
+<sequenceFlow id="s3fc56355-bb76-45bc-ac6c-af143d167b35" sourceRef="s6f686131-64a8-45db-a0fb-7a5208571cea" targetRef="Activity_0xdu83f"/>
+<sequenceFlow id="s5c08e7e1-a875-4530-8e02-7933bd32f9df" sourceRef="Activity_0xdu83f" targetRef="sd5316237-6f11-4d35-8bf1-99592eeec09c"/>
+<endEvent id="sd5316237-6f11-4d35-8bf1-99592eeec09c" />
+<userTask id="Activity_1ik7ajp" name="存在，发送请求给骑手"><documentation id="sbb07503e-ee21-43e9-a5f0-cb805539f4cc">null</documentation></userTask>
+<sequenceFlow id="s8dcb360f-db4f-489a-9725-c179e40945e1" sourceRef="s6f686131-64a8-45db-a0fb-7a5208571cea" targetRef="Activity_1ik7ajp"/>
+<sequenceFlow id="sb67f458a-d9cf-43ab-9f60-48e6e362ccac" sourceRef="Activity_1ik7ajp" targetRef="s9bfb55d7-6004-4e10-9547-8de684f32373"/>
+<endEvent id="s9bfb55d7-6004-4e10-9547-8de684f32373" />
+<userTask id="Activity_0j1o6zz" name="制作外卖，制作完毕发送给骑手"><documentation id="sc88f1060-8f91-425e-a58c-8ca26ea8f45c">Rider_Receive</documentation></userTask>
+<sequenceFlow id="s0a702b6d-8e0b-49c6-8bdb-a3aefba44de9" sourceRef="s6f686131-64a8-45db-a0fb-7a5208571cea" targetRef="Activity_0j1o6zz"/>
+<sequenceFlow id="se4d3e77b-ac11-4577-b5e5-425caa2d33b2" sourceRef="Activity_0j1o6zz" targetRef="s764f287b-e57f-4345-8fe9-2127fd065ed2"/>
+<endEvent id="s764f287b-e57f-4345-8fe9-2127fd065ed2" />
 	</process>
 </definitions>

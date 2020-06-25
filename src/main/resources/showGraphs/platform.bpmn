@@ -3,37 +3,37 @@
  <process id="platform" name="platform" isExecutable="true" isClosed="false" processType="None">
 <startEvent id="Event_14oct9z" />
 <endEvent id="Event_1xd4qfm" />
-<userTask id="Activity_1ycvn4f" name="平台建立订单，请求餐馆制作"><documentation id="s6ae3bcc6-af08-4d08-9d59-466b6fbe3f4a">CUSTOMER_MAKE_ORDER</documentation></userTask>
-<endEvent id="s1da952e5-95e5-40e2-9623-3a8c510a4dcc" />
-<sequenceFlow id="s0870cab5-4d50-47bd-9511-b2e09072eeaa" sourceRef="Activity_1ycvn4f" targetRef="s1da952e5-95e5-40e2-9623-3a8c510a4dcc"/>
-<userTask id="Activity_02ow4ek" name="确认餐馆未接单，删除该订单，发送给顾客"><documentation id="s7f83540c-fc0f-4dfe-9dd6-08adc0aa4cb0">RESTAURANT_NOT_Receive</documentation></userTask>
-<endEvent id="s2a8bb3e6-be58-4aba-8a96-7a258236f655" />
-<sequenceFlow id="s9fed2145-83a1-4de5-9ccd-93ab9cf39177" sourceRef="Activity_02ow4ek" targetRef="s2a8bb3e6-be58-4aba-8a96-7a258236f655"/>
-<userTask id="Activity_1jvyc0c" name="确认骑手未接单，删除该订单，发送给顾客"><documentation id="sa9efb98e-bbf1-45fc-8560-2b357aa506b6">Rider_Not_Receive</documentation></userTask>
-<endEvent id="sd01e66c5-6dd1-4cef-a8d8-f0b2c74b0d41" />
-<sequenceFlow id="sbc13f54d-ff2e-4041-9df6-e2aa00506478" sourceRef="Activity_1jvyc0c" targetRef="sd01e66c5-6dd1-4cef-a8d8-f0b2c74b0d41"/>
-<userTask id="Activity_04wua8v" name="平台观察到骑手前往餐馆时的位置"><documentation id="s0623e3b5-8b5e-4b9a-8d35-80d6d04d4e5e">Show_rider_to_restaurant</documentation></userTask>
-<endEvent id="sea5e9776-53c0-42fe-989e-a663779a81a0" />
-<sequenceFlow id="sf32d606f-ff45-46f8-aaf2-bcd26ced8f37" sourceRef="Activity_04wua8v" targetRef="sea5e9776-53c0-42fe-989e-a663779a81a0"/>
-<userTask id="Activity_1phnzsw" name="平台了解情况"><documentation id="sc6b43d1f-ccab-4ff9-bf8d-4c4fe6b82880">rider_get_order</documentation></userTask>
-<endEvent id="s5644a2dd-a3c0-41f3-a634-fb95fb62aedd" />
-<sequenceFlow id="s6667f383-8330-4c0e-881c-5bb96181f427" sourceRef="Activity_1phnzsw" targetRef="s5644a2dd-a3c0-41f3-a634-fb95fb62aedd"/>
-<userTask id="Activity_0v7d24b" name="平台删除订单"><documentation id="s747a38c5-3d51-4220-be5e-2f288926d105">customer_confirmm_order</documentation></userTask>
-<sequenceFlow id="s0376ce64-436c-418e-b900-bf4addbfcfdf" sourceRef="Activity_0v7d24b" targetRef="Event_1xd4qfm"/>
-<userTask id="Activity_02melpm" name="平台观察骑手在到顾客途中位置"><documentation id="s539a21aa-d4f8-429e-ab74-9fcdbfc3b528">Show_Rider_To_Customer</documentation></userTask>
-<endEvent id="s05ccc1a4-7c24-4eb5-9dc3-49cc4b7d2d96" />
-<sequenceFlow id="s469b50c7-0823-41b9-ae77-221a577ba5bb" sourceRef="Activity_02melpm" targetRef="s05ccc1a4-7c24-4eb5-9dc3-49cc4b7d2d96"/>
-<parallelGateway gatewayDirection="Unspecified" id="s9788aca7-4471-44ba-9909-86f8f47fa96b" />
-<sequenceFlow id="s63d05259-6bd2-4073-a0b1-da1887b9b5d8" sourceRef="s9788aca7-4471-44ba-9909-86f8f47fa96b" targetRef="Activity_1jvyc0c"/>
-<sequenceFlow id="sb1034a3d-78bc-4cfb-ae61-9552b489772d" sourceRef="s9788aca7-4471-44ba-9909-86f8f47fa96b" targetRef="Activity_04wua8v"/>
-<sequenceFlow id="sc6371c2a-fc55-4290-97d5-a144217c3219" sourceRef="s9788aca7-4471-44ba-9909-86f8f47fa96b" targetRef="Activity_02melpm"/>
-<sequenceFlow id="s1dff8630-3e7a-4ef3-b532-3c0204f8b07c" sourceRef="s9788aca7-4471-44ba-9909-86f8f47fa96b" targetRef="Activity_1phnzsw"/>
-<sequenceFlow id="s5e84ea2f-7290-4732-8e80-aa7dd7efb1fe" sourceRef="s9788aca7-4471-44ba-9909-86f8f47fa96b" targetRef="Event_14oct9z"/>
-<sequenceFlow id="s08296c6a-5203-4f2f-bb79-d3b8ce12383f" sourceRef="s9788aca7-4471-44ba-9909-86f8f47fa96b" targetRef="Activity_1ycvn4f"/>
-<sequenceFlow id="s87dcd0f2-12b0-470c-b3d9-0e53045a55ff" sourceRef="s9788aca7-4471-44ba-9909-86f8f47fa96b" targetRef="Event_1xd4qfm"/>
-<sequenceFlow id="s630970e3-6575-4f76-af82-0a63f82b375c" sourceRef="s9788aca7-4471-44ba-9909-86f8f47fa96b" targetRef="Activity_0v7d24b"/>
-<sequenceFlow id="s25ae1436-85fc-46db-adc6-8936e72a6a22" sourceRef="s9788aca7-4471-44ba-9909-86f8f47fa96b" targetRef="Activity_02ow4ek"/>
-<startEvent id="s31e60183-3fa3-4d0b-a5a2-9df0a9a2c4c3" />
-<sequenceFlow id="sb4aba54d-3ecd-4837-a8f9-e84c7c781905" sourceRef="s31e60183-3fa3-4d0b-a5a2-9df0a9a2c4c3" targetRef="s9788aca7-4471-44ba-9909-86f8f47fa96b"/>
+<userTask id="Activity_1ycvn4f" name="平台建立订单，请求餐馆制作"><documentation id="sab422ca2-8968-4d40-be6f-7101b0b1c076">CUSTOMER_MAKE_ORDER</documentation></userTask>
+<endEvent id="sbe9a7f09-c3c6-4c62-83f7-cc3275e419c5" />
+<sequenceFlow id="saef27c82-f846-4df3-8cca-e8521a37922a" sourceRef="Activity_1ycvn4f" targetRef="sbe9a7f09-c3c6-4c62-83f7-cc3275e419c5"/>
+<userTask id="Activity_02ow4ek" name="确认餐馆未接单，删除该订单，发送给顾客"><documentation id="s49ea9388-eca9-4703-bccc-03eaf61b0b10">RESTAURANT_NOT_Receive</documentation></userTask>
+<endEvent id="s232659fc-2bd1-4a31-9482-c1d0828152db" />
+<sequenceFlow id="se1445b3e-52ef-4a2d-94c3-17cbf7376d05" sourceRef="Activity_02ow4ek" targetRef="s232659fc-2bd1-4a31-9482-c1d0828152db"/>
+<userTask id="Activity_1jvyc0c" name="确认骑手未接单，删除该订单，发送给顾客"><documentation id="s87ab30ac-6a2e-400a-929c-a8867c785b4b">Rider_Not_Receive</documentation></userTask>
+<endEvent id="s65be1f1e-e990-4575-8a61-9429d7308403" />
+<sequenceFlow id="s409b905a-8767-44be-85f0-078ff100da42" sourceRef="Activity_1jvyc0c" targetRef="s65be1f1e-e990-4575-8a61-9429d7308403"/>
+<userTask id="Activity_04wua8v" name="平台观察到骑手前往餐馆时的位置"><documentation id="sf6d3e2ac-2731-4225-b6c6-6ffd350a1c0a">Show_rider_to_restaurant</documentation></userTask>
+<endEvent id="sa72f0427-fd67-48fc-84c5-5d38bb5a509e" />
+<sequenceFlow id="s349b1323-c27e-4585-b8e8-467f49c10d72" sourceRef="Activity_04wua8v" targetRef="sa72f0427-fd67-48fc-84c5-5d38bb5a509e"/>
+<userTask id="Activity_1phnzsw" name="平台了解情况"><documentation id="s0d5e111f-4020-4e8a-bc78-d4a1f9569f92">rider_get_order</documentation></userTask>
+<endEvent id="saa15c72e-c90f-4dac-8a03-40a8827a0be4" />
+<sequenceFlow id="s9bdb71e0-5dcb-4911-84b1-935fd8ee3085" sourceRef="Activity_1phnzsw" targetRef="saa15c72e-c90f-4dac-8a03-40a8827a0be4"/>
+<userTask id="Activity_0v7d24b" name="平台删除订单"><documentation id="s8563ec3c-3c14-4c34-a1c7-bf23bc77584b">customer_confirmm_order</documentation></userTask>
+<sequenceFlow id="sac309ae5-f1b4-4fc3-bc29-e49c626ecc51" sourceRef="Activity_0v7d24b" targetRef="Event_1xd4qfm"/>
+<userTask id="Activity_02melpm" name="平台观察骑手在到顾客途中位置"><documentation id="s82bdce09-4333-465b-aeeb-26ac1a603920">Show_Rider_To_Customer</documentation></userTask>
+<endEvent id="s03cd77c0-726d-418b-a30a-4cec2e8b7656" />
+<sequenceFlow id="s8a9328ca-75ab-4216-9b6b-5a5fd508ec6f" sourceRef="Activity_02melpm" targetRef="s03cd77c0-726d-418b-a30a-4cec2e8b7656"/>
+<parallelGateway gatewayDirection="Unspecified" id="sebbd07f0-6cf2-46df-8228-ffe37fa28b62" />
+<sequenceFlow id="s7c0e5449-7600-42c5-b582-64fa77b41d0e" sourceRef="sebbd07f0-6cf2-46df-8228-ffe37fa28b62" targetRef="Activity_1jvyc0c"/>
+<sequenceFlow id="s1af5d846-562f-4526-a147-11ee22f02b69" sourceRef="sebbd07f0-6cf2-46df-8228-ffe37fa28b62" targetRef="Activity_04wua8v"/>
+<sequenceFlow id="sd18e3dad-8d96-46e6-9862-3f11f298275d" sourceRef="sebbd07f0-6cf2-46df-8228-ffe37fa28b62" targetRef="Activity_02melpm"/>
+<sequenceFlow id="s199efd75-42f3-4ac0-8481-87e7d5ab4289" sourceRef="sebbd07f0-6cf2-46df-8228-ffe37fa28b62" targetRef="Activity_1phnzsw"/>
+<sequenceFlow id="s55272096-6e5a-472b-83fe-e356a96c0f21" sourceRef="sebbd07f0-6cf2-46df-8228-ffe37fa28b62" targetRef="Event_14oct9z"/>
+<sequenceFlow id="sd1cac61c-eb6b-45c2-bd81-0bd8acc37b7d" sourceRef="sebbd07f0-6cf2-46df-8228-ffe37fa28b62" targetRef="Activity_1ycvn4f"/>
+<sequenceFlow id="s2ca55363-13ca-4d60-9ab6-d8a5125d429b" sourceRef="sebbd07f0-6cf2-46df-8228-ffe37fa28b62" targetRef="Event_1xd4qfm"/>
+<sequenceFlow id="s18907aa4-2913-498a-b7b3-41157dd19bba" sourceRef="sebbd07f0-6cf2-46df-8228-ffe37fa28b62" targetRef="Activity_0v7d24b"/>
+<sequenceFlow id="s6f7a3168-e32c-4393-add4-b83b17122d7e" sourceRef="sebbd07f0-6cf2-46df-8228-ffe37fa28b62" targetRef="Activity_02ow4ek"/>
+<startEvent id="sbae000ea-070e-4b68-88fb-cdeada8ed891" />
+<sequenceFlow id="s519b6fb5-1947-402e-a077-bdc307fd8f9a" sourceRef="sbae000ea-070e-4b68-88fb-cdeada8ed891" targetRef="sebbd07f0-6cf2-46df-8228-ffe37fa28b62"/>
 	</process>
 </definitions>
