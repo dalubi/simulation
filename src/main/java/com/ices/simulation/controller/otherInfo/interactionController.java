@@ -18,14 +18,19 @@ public class interactionController {
     public String fillInteraction(@RequestParam("interactionId") String interactionId,
                                   @RequestParam("parameters") String parameters){
         String[] interactionIdList = interactionId.split(",");
-        String[] parameterList = parameters.split(",");
-        //parameterList  17;19;20
+        String[] parameterList = parameters.split(";");
         int count=interactionIdList.length;
+
         for (int i=0;i<count;++i){
             String containParameter=parameterList[i];
-            String realContainParameter = containParameter.replaceAll(";", ",");
+            if (containParameter.charAt(0)==','){
+                containParameter = containParameter.substring(1, containParameter.length());
+            }
+            if (containParameter.charAt(containParameter.length()-1)==','){
+                containParameter = containParameter.substring(0, containParameter.length()- 1);
+            }
             int interId=Integer.parseInt(interactionIdList[i]);
-            interactionMapper.giveParamsToInteractionById(interId,realContainParameter);
+            interactionMapper.giveParamsToInteractionById(interId,containParameter);
         }
         return "交互类参数信息填充完毕";
     }
