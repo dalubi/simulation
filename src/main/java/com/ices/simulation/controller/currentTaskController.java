@@ -35,13 +35,14 @@ public class currentTaskController {
         }else{
             taskdto = proc.queryTask();
             publishController.setTaskdto(taskdto);
+
             String pathName = proc.getPathName();
             model.addAttribute("processDefineKey",proc.getProcessDefinitionKey());
 
             //将xml展示到图片上
             model.addAttribute("xmlstr",thisPageService.showBPMN(pathName));
-            thisPageService.CurrentTaskProcess(taskdto,proc);
 
+            thisPageService.CurrentTaskProcess(taskdto,proc);
             model.addAttribute("taskdto",taskdto);
 
             //把currentTask对应taskId放到静态变量的区域

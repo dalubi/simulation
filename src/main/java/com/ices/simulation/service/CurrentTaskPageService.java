@@ -40,7 +40,6 @@ public class CurrentTaskPageService {
         if (taskdto.getInteraction()!=null && !taskdto.getInteraction().equals("null")){
             Integer federateId = editInformationMapper.findFederateIdByFederateName(proc.getProcessDefinitionKey());
             Integer interactionId = editInformationMapper.findInteractionIdByInteractionName(taskdto.getInteraction());
-
             editInformation editInformation = new editInformation();
             editInformation.setFromFederateId(federateId);
             editInformation.setFromInteractionId(interactionId);
