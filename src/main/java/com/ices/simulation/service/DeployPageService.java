@@ -118,33 +118,8 @@ public class DeployPageService {
         startInformationMapper.updateFederateVariableByFederateId(curFederateId,sb.toString());
     }
 
-    public void federateObjectProcess( String[] objectNames,String[] InitialIds,String[] parameterNamesArray, String[] paremeterNamesFinals,
-                                       String[] parameterTypesArray,String[] paremeterTypesFinals,int curFederateId){
-        int parameterNamesCount = 0 ;
-        for(String parameterNamesElem:parameterNamesArray){
-            //将他们用逗号连接起来
-            String[] split1 = parameterNamesElem.split(" ");
-            StringBuilder sb = new StringBuilder();
-            for(String elem1:split1){
-                sb.append(elem1);
-                sb.append(",");
-            }
-            paremeterNamesFinals[parameterNamesCount++]=sb.toString();
-        }
-
-        int parameterTypesCount = 0 ;
-        for(String parameterTypesElem:parameterTypesArray){
-            //fwe ewfw 将他们用逗号连接起来
-            String[] split1 = parameterTypesElem.split(" ");
-            StringBuilder sb = new StringBuilder();
-            for(String elem1:split1){
-                sb.append(elem1);
-                sb.append(",");
-            }
-            paremeterTypesFinals[parameterTypesCount++]=sb.toString();
-        }
-        int objectCount=objectNames.length;
-
+    public void federateObjectProcess( String[] objectNames,String[] InitialIds,String[] names,String[] types,int curFederateId){
+        int objectCount = objectNames.length;
         List<Integer> curlistId=new ArrayList<>();
         String s = startInformationMapper.queryFederateObjectsById(curFederateId);
         if(s!=null){
@@ -155,8 +130,8 @@ public class DeployPageService {
             federateObject federateobject = new federateObject();
             federateobject.setObjectName(objectNames[i]);
             federateobject.setInitialId(InitialIds[i]);
-            federateobject.setParameterTypes(paremeterTypesFinals[i]);
-            federateobject.setParameterNames(paremeterNamesFinals[i]);
+            federateobject.setParameterTypes(types[i]);
+            federateobject.setParameterNames(names[i]);
             federateObjectMapper.insert(federateobject);
             int maxId = federateObjectMapper.maxId();
             curlistId.add(maxId);

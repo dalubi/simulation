@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test" id="m1586786943177" name="">
+ <process id="customer" name="customer" isExecutable="true" isClosed="false" processType="None">
+<startEvent id="s13668991-226c-4beb-8c8a-0a9e1ce82eea" />
+<sequenceFlow id="s69b5dd75-6172-4293-9272-5f28c04c330d" sourceRef="s13668991-226c-4beb-8c8a-0a9e1ce82eea" targetRef="s3b50a7f2-8459-494c-89a7-ad179543aac8"/>
+<parallelGateway gatewayDirection="Unspecified" id="s3b50a7f2-8459-494c-89a7-ad179543aac8" />
+<userTask id="Activity_1vx37rr" name="顾客下订单"><documentation id="s5a8c80d2-417f-4849-8d17-64f8c96631a0">null</documentation></userTask>
+<sequenceFlow id="sf007b50a-49bc-4e4c-abda-6ded8f10f46c" sourceRef="s3b50a7f2-8459-494c-89a7-ad179543aac8" targetRef="Activity_1vx37rr"/>
+<sequenceFlow id="s3ca5137b-5afd-4757-952f-c0984f5008b1" sourceRef="Activity_1vx37rr" targetRef="sbebe65b2-8f86-4515-9514-1ca91ca01376"/>
+<endEvent id="sbebe65b2-8f86-4515-9514-1ca91ca01376" />
+<userTask id="Activity_0akc5b8" name="顾客确认未接单，餐馆未营业"><documentation id="s44f2007d-a90f-43de-a250-e5c7e881ba85">restaurants_Not_enough</documentation></userTask>
+<sequenceFlow id="sd4e4bffa-8258-4354-a05f-e461d821cd4d" sourceRef="s3b50a7f2-8459-494c-89a7-ad179543aac8" targetRef="Activity_0akc5b8"/>
+<sequenceFlow id="s6c9b44c3-909d-4da4-94db-8f283d8dffde" sourceRef="Activity_0akc5b8" targetRef="s7f140aa8-3447-4cee-a6a3-c8a3f823a031"/>
+<endEvent id="s7f140aa8-3447-4cee-a6a3-c8a3f823a031" />
+<userTask id="Activity_16hkd57" name="顾客确认未接单，骑手不足"><documentation id="s3ff4f414-a97f-46da-8767-7bc6b7bb5dd6">riders_Not_enough</documentation></userTask>
+<sequenceFlow id="s0bf72cd6-c933-402f-b179-fa43bb90b5f6" sourceRef="s3b50a7f2-8459-494c-89a7-ad179543aac8" targetRef="Activity_16hkd57"/>
+<sequenceFlow id="sd70bdc51-e859-42e2-b34f-5bc52edcdf71" sourceRef="Activity_16hkd57" targetRef="s7fa3d47a-d10f-4c24-ae68-fd745a1a686b"/>
+<endEvent id="s7fa3d47a-d10f-4c24-ae68-fd745a1a686b" />
+<userTask id="Activity_14w2syu" name="顾客确认已接单"><documentation id="s369457d3-bc2b-411f-899e-349790fbe445">Rider_Arrive_Customer</documentation></userTask>
+<sequenceFlow id="s053916df-197d-468b-8057-5b8f012433c7" sourceRef="s3b50a7f2-8459-494c-89a7-ad179543aac8" targetRef="Activity_14w2syu"/>
+<sequenceFlow id="s9965c436-054e-47be-9e0b-feb5d3dd7bbc" sourceRef="Activity_14w2syu" targetRef="s1408efe0-1423-4983-9431-a6b4f57a9520"/>
+<endEvent id="s1408efe0-1423-4983-9431-a6b4f57a9520" />
+	</process>
+</definitions>

@@ -49,6 +49,7 @@
             bottom: 20px;
             left: 20px;
         }
+
     </style>
 
     <style type="text/css">
@@ -248,31 +249,66 @@
                 <div class="jumbotron">
                     <h2>添加这个联邦成员所需的对象必要信息！</h2><br />
 
-                    <button type="button" class="btn btn-dark" id="addObject" onclick="addObject()"
+                    <button type="button" class="btn btn-dark" onclick="addObject()"
                             style="right: 20px;text-align: center;margin-left: 840px">
                         增加这个联邦成员所需要的对象信息
                     </button>
 
                     <form id="objectForm" action="/post/federateobject" method="post">
                         <br />
-                        <div style="border: black;border-style: dotted;border-width: 2px;">
+
+                        <div style="border: black;border-style: dotted;border-width: 1px;" id="federateobject_0">
                             <br />
                             <h4>
-                                <div class="federateobject">&nbsp;&nbsp;&nbsp;&nbsp;第1个联邦对象信息</div>
+                                <div>&nbsp;&nbsp;&nbsp;&nbsp;第1个联邦对象信息</div>
                             </h4>
-                            <br />
-                            <span>&nbsp;&nbsp;&nbsp;&nbsp;对象名称:</span><input type="text" name="objectName"><span>&nbsp;&nbsp;&nbsp;</span>
-                            <span>&nbsp;&nbsp;&nbsp;&nbsp;初始化ID(非实例对象填写-1):</span><input type="text" name="InitialId"><span>&nbsp;&nbsp;&nbsp;</span>
-                            <br /><br />
-                            <span>&nbsp;&nbsp;&nbsp;&nbsp;参数类型(空格隔开):</span><input type="text" name="parameterTypes"><span>&nbsp;&nbsp;&nbsp;</span>
-                            <span>&nbsp;&nbsp;&nbsp;&nbsp;参数名(空格隔开):</span><input type="text" name="parameterNames"><span>&nbsp;&nbsp;&nbsp;</span>
-                            <br />
-                            <br />
+                            <hr/><br/>
+                            <div class="form-row align-items-center"  style="margin-left: 20px">
+                                <div class="col-auto">
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">对象名称</div>
+                                        </div>
+                                        <input type="text" class="form-control" name="objectName" placeholder="objectName">
+                                    </div>
+                                </div>
+
+                                <div class="col-auto">
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">初始化ID(非实例对象填写-1)</div>
+                                        </div>
+                                        <input type="text" class="form-control" name="InitialId" placeholder="InitialId">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row align-items-center"  style="margin-left: 20px">
+                                <div class="col-auto">
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">这个对象Attribute的数量</div>
+                                        </div>
+                                        <input type="text" class="form-control" id="numOfAttribute_0" name="numOfAttribute" placeholder="Attribute的数目">
+                                    </div>
+                                </div>
+
+                                <div class="col-auto">
+                                    <button type="button" class="btn btn-primary mb-2" onclick="addAttributes(this)">添加Attribute</button>
+                                </div>
+                            </div>
+                            <hr />
+                            <div id="insertAttributePosition_0"></div>
+                            <input type="text" name="parameterName"  value=";" style="display: none">
+                            <input type="text" name="parameterType"  value=";" style="display: none">
                         </div>
+
                         <div id="theAddedFederateObjectAfter">
                             <br />
                         </div>
 
+                        <input id="resultNames" name="parameterNameList" value="" style="display: none">
+                        <input id="resultTypes" name="parameterTypeList" value="" style="display: none">
 
                         <button type="button" class="btn btn-info" style="margin-left: 865px" onclick="submitObjectInfo()">
                             提交这个联邦成员所需对象的编辑
@@ -455,6 +491,7 @@
 </body>
 
 <script language="JavaScript">
+    //提交更新实例
     function submitUpdateInstance() {
         var formId = "#updateInstanceForm";
         var startInfoData = $(formId).serializeArray();
@@ -468,6 +505,8 @@
             }
         });
     }
+
+    //提交初始化实例
     function submitInitialInstance() {
         var formId = "#InitialInstanceForm";
         var startInfoData = $(formId).serializeArray();
@@ -481,6 +520,8 @@
             }
         });
     }
+
+    //提交初始化新消息
     function submitStartInformation() {
         var formId = "#startInfoForm";
         var startInfoData = $(formId).serializeArray();
@@ -495,32 +536,121 @@
         });
     }
 
+    //object的Attribute增加的方法
+    function addAttributes(obj) {
+        let parent = obj.parentElement.parentElement.parentElement;
+        //alert(parent.getAttribute("id"));
+        let currentNodeNum = parent.getAttribute("id").split("_")[1];
+
+        let numOfAttributeId = "numOfAttribute_"+currentNodeNum;
+        let insertAttributePositionId = "insertAttributePosition_"+currentNodeNum;
+
+        let insertPosition = document.getElementById(insertAttributePositionId);
+        let numberOfAttributes = document.getElementById(numOfAttributeId).value;
+
+        let html = "    <div class=\"input-group\">\n" +
+            "      <div class=\"input-group-prepend\">\n" +
+            "        <span class=\"input-group-text\">Attribute的名字和类型</span>\n" +
+            "      </div>\n" +
+            "      <input type=\"text\" class=\"form-control\" name=\"parameterName\" placeholder=\"属性名\">\n" +
+            "      <input type=\"text\" class=\"form-control\" name=\"parameterType\" placeholder=\"类型\">\n" +
+            "    </div>";
+
+        for(let i=0;i<numberOfAttributes;i++){
+            insertPosition.insertAdjacentHTML("beforebegin",html);
+        }
+    }
+
+    // function makeDisableRadios(obj){
+    //     let targets = obj.parentElement.nextElementSibling.children.item(0).children;
+    //     for(let i=0;i<targets.length;i++){
+    //         if (targets.item(i).getAttribute('disabled')==null){
+    //             targets.item(i).setAttribute('disabled','true');
+    //             continue;
+    //         }else{
+    //             targets.item(i).removeAttribute('disabled');
+    //         }
+    //     }
+    // }
+    // function makeDisableInput(obj) {
+    //     let target = obj.parentElement.nextElementSibling.nextElementSibling.children.item(0).children.item(0);
+    //     if (target.getAttribute('disabled')==null){
+    //         target.setAttribute('disabled','true');
+    //     }else{
+    //         target.removeAttribute('disabled');
+    //     }
+    // }
+
     //对象，验证上传成功
-    var countOfObject = 2 ;
-    var addObject = document.getElementById("addObject");
-    addObject.onclick = function() {
-        var html="<br />\n" +
-            "                    <div style=\"border: black;border-style: dotted;border-width: 2px;\">\n" +
-            "                        <br />\n" +
-            "                        <h4>\n" +
-            "                            <div class=\"federateobject\">&nbsp;&nbsp;&nbsp;&nbsp;第"+countOfObject+"个联邦对象信息</div>\n" +
-            "                        </h4>\n" +
-            "                        <br />\n" +
-            "                        <span>&nbsp;&nbsp;&nbsp;&nbsp;对象名称:</span><input type=\"text\" name=\"objectName\"><span>&nbsp;&nbsp;&nbsp;</span>\n" +
-            "                        <span>&nbsp;&nbsp;&nbsp;&nbsp;初始化ID(非实例对象填写-1):</span><input type=\"text\" name=\"InitialId\"><span>&nbsp;&nbsp;&nbsp;</span>\n" +
-            "                        <br /><br />\n" +
-            "                        <span>&nbsp;&nbsp;&nbsp;&nbsp;参数类型(空格隔开):</span><input type=\"text\" name=\"parameterTypes\"><span>&nbsp;&nbsp;&nbsp;</span>\n" +
-            "                        <span>&nbsp;&nbsp;&nbsp;&nbsp;参数名(空格隔开):</span><input type=\"text\" name=\"parameterNames\"><span>&nbsp;&nbsp;&nbsp;</span>\n" +
-            "                        <br />\n" +
-            "                        <br />\n" +
-            "                    </div>";
+    var countOfObject = 1 ;
+    function addObject() {
+        var html = "<br /><div style=\"border: black;border-style: dotted;border-width: 1px;\" id=\"federateobject_"+countOfObject+"\">\n" +
+            "          <br />\n" +
+            "          <h4>\n" +
+            "            <div>&nbsp;&nbsp;&nbsp;&nbsp;第"+(countOfObject+1)+"个联邦对象信息</div>\n" +
+            "          </h4>\n" +
+            "          <hr/><br/>\n" +
+            "          <div class=\"form-row align-items-center\"  style=\"margin-left: 20px\">\n" +
+            "              <div class=\"col-auto\">\n" +
+            "                <div class=\"input-group mb-2\">\n" +
+            "                  <div class=\"input-group-prepend\">\n" +
+            "                    <div class=\"input-group-text\">对象名称</div>\n" +
+            "                  </div>\n" +
+            "                  <input type=\"text\" class=\"form-control\" name=\"objectName\" placeholder=\"objectName\">\n" +
+            "                </div>\n" +
+            "              </div>\n" +
+            "\n" +
+            "              <div class=\"col-auto\">\n" +
+            "                <div class=\"input-group mb-2\">\n" +
+            "                  <div class=\"input-group-prepend\">\n" +
+            "                    <div class=\"input-group-text\">初始化ID(非实例对象填写-1)</div>\n" +
+            "                  </div>\n" +
+            "                  <input type=\"text\" class=\"form-control\" name=\"InitialId\" placeholder=\"InitialId\">\n" +
+            "                </div>\n" +
+            "              </div>\n" +
+            "          </div>\n" +
+            "\n" +
+            "          <div class=\"form-row align-items-center\"  style=\"margin-left: 20px\">\n" +
+            "            <div class=\"col-auto\">\n" +
+            "              <div class=\"input-group mb-2\">\n" +
+            "                <div class=\"input-group-prepend\">\n" +
+            "                  <div class=\"input-group-text\">这个对象Attribute的数量</div>\n" +
+            "                </div>\n" +
+            "                <input type=\"text\" class=\"form-control\" id=\"numOfAttribute_"+countOfObject+"\" name=\"numOfAttribute\" placeholder=\"Attribute的数目\">\n" +
+            "              </div>\n" +
+            "            </div>\n" +
+            "\n" +
+            "            <div class=\"col-auto\">\n" +
+            "              <button type=\"button\" class=\"btn btn-primary mb-2\" onclick=\"addAttributes(this)\">添加Attribute</button>\n" +
+            "            </div>\n" +
+            "          </div><hr>\n" +
+            "\n" +
+            "\n" +
+            "                  <!--在这里之前插入表格-->\n" +
+            "                  <div id=\"insertAttributePosition_"+countOfObject+"\"></div>\n" +
+            "          <input type=\"text\" name=\"parameterName\"  value=\";\" style='display: none'>\n" +
+            "          <input type=\"text\" name=\"parameterType\"  value=\";\" style='display: none'>\n" +
+            "        </div>";
         var theAddedFederateObjectAfter = document.getElementById("theAddedFederateObjectAfter");
         theAddedFederateObjectAfter.insertAdjacentHTML("beforebegin",html);
         countOfObject++;
     }
+
     function submitObjectInfo(){
-        var formId = "#objectForm";
-        var objectInfoData = $(formId).serializeArray();
+        let formId = "#objectForm";
+
+        let names = document.getElementsByName("parameterName");
+        let types = document.getElementsByName("parameterType");
+        let nameList="";
+        let typeList="";
+        for(let i=0;i<names.length;i++){
+            nameList+=names.item(i).value+",";
+            typeList+=types.item(i).value+",";
+        }
+        document.getElementById("resultNames").setAttribute("value",nameList);
+        document.getElementById("resultTypes").setAttribute("value",typeList);
+
+        let objectInfoData = $(formId).serializeArray();
         $.ajax({
             url:"/post/federateobject",
             type:"post",

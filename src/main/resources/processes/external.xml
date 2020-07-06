@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test" id="m1586786943177" name="">
+  <process id="external" name="external" isExecutable="true" isClosed="false" processType="None">
+    <userTask id="Activity_1oca23q" name="发送天气恶劣外部事件">
+      <documentation>null,Bad_Weather</documentation>
+    </userTask>
+    <endEvent id="sf17d836f-257c-4882-a1b4-7076f4e62f0f"></endEvent>
+    <sequenceFlow id="sd927ad6b-4698-47d4-924c-72af9d141690" sourceRef="Activity_1oca23q" targetRef="sf17d836f-257c-4882-a1b4-7076f4e62f0f"></sequenceFlow>
+    <userTask id="Activity_023jrs0" name="发送天气良好外部事件">
+      <documentation>null,Normal_Weather</documentation>
+    </userTask>
+    <endEvent id="s59639bd7-b667-4194-846f-cb46b98ee7f4"></endEvent>
+    <sequenceFlow id="sba9f1bf7-d8c0-4372-903e-b41a17f49d2d" sourceRef="Activity_023jrs0" targetRef="s59639bd7-b667-4194-846f-cb46b98ee7f4"></sequenceFlow>
+    <parallelGateway id="s4cfa2fd1-0019-481a-9b92-384baccbab73"></parallelGateway>
+    <sequenceFlow id="sbb0fd939-bc3d-468c-b021-7156c53a0477" sourceRef="s4cfa2fd1-0019-481a-9b92-384baccbab73" targetRef="Activity_1oca23q"></sequenceFlow>
+    <sequenceFlow id="s049c79e9-6699-4b71-b764-12c6dbd4457b" sourceRef="s4cfa2fd1-0019-481a-9b92-384baccbab73" targetRef="Activity_023jrs0"></sequenceFlow>
+    <startEvent id="s6788bef8-f7bd-4d40-b840-809067748eb5"></startEvent>
+    <sequenceFlow id="s98066ec8-5f58-4021-b25a-066ba1e5b1d7" sourceRef="s6788bef8-f7bd-4d40-b840-809067748eb5" targetRef="s4cfa2fd1-0019-481a-9b92-384baccbab73"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_external">
+    <bpmndi:BPMNPlane bpmnElement="external" id="BPMNPlane_external">
+      <bpmndi:BPMNShape bpmnElement="Activity_1oca23q" id="BPMNShape_Activity_1oca23q">
+        <omgdc:Bounds height="60.0" width="100.0" x="170.0" y="0.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sf17d836f-257c-4882-a1b4-7076f4e62f0f" id="BPMNShape_sf17d836f-257c-4882-a1b4-7076f4e62f0f">
+        <omgdc:Bounds height="35.0" width="35.0" x="320.0" y="15.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_023jrs0" id="BPMNShape_Activity_023jrs0">
+        <omgdc:Bounds height="60.0" width="100.0" x="170.0" y="160.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="s59639bd7-b667-4194-846f-cb46b98ee7f4" id="BPMNShape_s59639bd7-b667-4194-846f-cb46b98ee7f4">
+        <omgdc:Bounds height="35.0" width="35.0" x="320.0" y="172.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="s4cfa2fd1-0019-481a-9b92-384baccbab73" id="BPMNShape_s4cfa2fd1-0019-481a-9b92-384baccbab73">
+        <omgdc:Bounds height="40.0" width="40.0" x="80.0" y="90.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="s6788bef8-f7bd-4d40-b840-809067748eb5" id="BPMNShape_s6788bef8-f7bd-4d40-b840-809067748eb5">
+        <omgdc:Bounds height="35.0" width="35.0" x="0.0" y="95.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sd927ad6b-4698-47d4-924c-72af9d141690" id="BPMNEdge_sd927ad6b-4698-47d4-924c-72af9d141690">
+        <omgdi:waypoint x="270.0" y="30.0"></omgdi:waypoint>
+        <omgdi:waypoint x="282.0" y="30.0"></omgdi:waypoint>
+        <omgdi:waypoint x="282.0" y="30.0"></omgdi:waypoint>
+        <omgdi:waypoint x="320.0" y="32.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sba9f1bf7-d8c0-4372-903e-b41a17f49d2d" id="BPMNEdge_sba9f1bf7-d8c0-4372-903e-b41a17f49d2d">
+        <omgdi:waypoint x="270.0" y="190.0"></omgdi:waypoint>
+        <omgdi:waypoint x="320.0" y="189.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sbb0fd939-bc3d-468c-b021-7156c53a0477" id="BPMNEdge_sbb0fd939-bc3d-468c-b021-7156c53a0477">
+        <omgdi:waypoint x="120.0" y="110.0"></omgdi:waypoint>
+        <omgdi:waypoint x="132.0" y="110.0"></omgdi:waypoint>
+        <omgdi:waypoint x="132.0" y="30.0"></omgdi:waypoint>
+        <omgdi:waypoint x="170.0" y="30.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="s049c79e9-6699-4b71-b764-12c6dbd4457b" id="BPMNEdge_s049c79e9-6699-4b71-b764-12c6dbd4457b">
+        <omgdi:waypoint x="120.0" y="110.0"></omgdi:waypoint>
+        <omgdi:waypoint x="132.0" y="110.0"></omgdi:waypoint>
+        <omgdi:waypoint x="132.0" y="190.0"></omgdi:waypoint>
+        <omgdi:waypoint x="170.0" y="190.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="s98066ec8-5f58-4021-b25a-066ba1e5b1d7" id="BPMNEdge_s98066ec8-5f58-4021-b25a-066ba1e5b1d7">
+        <omgdi:waypoint x="35.0" y="112.0"></omgdi:waypoint>
+        <omgdi:waypoint x="80.0" y="110.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

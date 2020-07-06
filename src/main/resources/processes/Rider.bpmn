@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test" id="m1586786943177" name="">
+ <process id="Rider" name="Rider" isExecutable="true" isClosed="false" processType="None">
+<startEvent id="se0ebe866-2da3-43ae-bf92-127be70092cd" />
+<sequenceFlow id="s497ad9e8-808f-43f8-8793-f91d964b5904" sourceRef="se0ebe866-2da3-43ae-bf92-127be70092cd" targetRef="sb581ccbc-682c-4f22-81be-a8a29898c705"/>
+<parallelGateway gatewayDirection="Unspecified" id="sb581ccbc-682c-4f22-81be-a8a29898c705" />
+<userTask id="Activity_0uk5rms" name="未到达，发送实时位置以及和顾客的距离"><documentation id="s757d0dad-13f6-437a-a390-66d63788119e">null</documentation></userTask>
+<sequenceFlow id="s283bb5dc-8236-47eb-ac96-09c75486e967" sourceRef="sb581ccbc-682c-4f22-81be-a8a29898c705" targetRef="Activity_0uk5rms"/>
+<sequenceFlow id="s69f18f82-cfa1-4096-84fd-a4b167f4adfd" sourceRef="Activity_0uk5rms" targetRef="s76b3c7e0-be3d-4f0d-8470-4de3f3233b70"/>
+<endEvent id="s76b3c7e0-be3d-4f0d-8470-4de3f3233b70" />
+<userTask id="Activity_0xsf6fh" name="已到达，发送给顾客"><documentation id="s22f57669-e546-41aa-9c14-66ac53082c3b">null</documentation></userTask>
+<sequenceFlow id="s99b30b2a-6351-424a-85b9-79499d2b23b1" sourceRef="sb581ccbc-682c-4f22-81be-a8a29898c705" targetRef="Activity_0xsf6fh"/>
+<sequenceFlow id="sd7793469-beb6-4fc2-ae5c-eb25a04606a4" sourceRef="Activity_0xsf6fh" targetRef="sa9d9d9e8-dc72-4784-9933-ab86a58b6cf2"/>
+<endEvent id="sa9d9d9e8-dc72-4784-9933-ab86a58b6cf2" />
+<userTask id="Activity_14plpyw" name="收到天气恶劣"><documentation id="sc1ef657e-432c-47d3-bb9f-992eec401be4">Bad_Weather</documentation></userTask>
+<sequenceFlow id="sf3668000-0f96-4553-b877-cef979d33122" sourceRef="sb581ccbc-682c-4f22-81be-a8a29898c705" targetRef="Activity_14plpyw"/>
+<sequenceFlow id="s8a947dc1-c26a-48eb-b270-f4001e6dacc0" sourceRef="Activity_14plpyw" targetRef="s58c4f204-274e-464b-925f-d0f37ba2e674"/>
+<endEvent id="s58c4f204-274e-464b-925f-d0f37ba2e674" />
+<userTask id="Activity_1g7im2g" name="收到天气良好"><documentation id="sa764907e-cfb4-43e0-994c-b9a34faa4579">Normal_Weather</documentation></userTask>
+<sequenceFlow id="s648aae7d-63e1-4604-9fe8-ac88b75b11ff" sourceRef="sb581ccbc-682c-4f22-81be-a8a29898c705" targetRef="Activity_1g7im2g"/>
+<sequenceFlow id="s00ae188e-259f-473f-b742-efeef7a39756" sourceRef="Activity_1g7im2g" targetRef="s416db490-75ac-4f5b-8e29-beddf67ef134"/>
+<endEvent id="s416db490-75ac-4f5b-8e29-beddf67ef134" />
+<userTask id="Activity_17gel1l" name="判断餐馆是否到达顾客"><documentation id="s8e88ed6d-cba4-49f0-9eca-f082d4e6fe78">null</documentation></userTask>
+<sequenceFlow id="sa4080d79-ccee-4c43-9d99-4c0ebb98b847" sourceRef="sb581ccbc-682c-4f22-81be-a8a29898c705" targetRef="Activity_17gel1l"/>
+<sequenceFlow id="s1a156895-e8df-4eac-b0b8-415d0ff60246" sourceRef="Activity_17gel1l" targetRef="s7fe5044e-5533-4878-a624-53c06c92a59e"/>
+<endEvent id="s7fe5044e-5533-4878-a624-53c06c92a59e" />
+<userTask id="Activity_110mb8p" name="骑手前往顾客"><documentation id="sd64948ed-8a4d-43fa-9a26-c1bc1970706e">Rider_To_Customer</documentation></userTask>
+<sequenceFlow id="sfda68cdf-d2b2-4e18-8a48-93adb4730423" sourceRef="sb581ccbc-682c-4f22-81be-a8a29898c705" targetRef="Activity_110mb8p"/>
+<sequenceFlow id="sac9a40c9-04ea-46a9-8ed8-fa4ae2efa890" sourceRef="Activity_110mb8p" targetRef="s2ad1a164-ba55-46f4-ba24-2c0c450d8adf"/>
+<endEvent id="s2ad1a164-ba55-46f4-ba24-2c0c450d8adf" />
+<userTask id="Activity_1ead2dy" name="已到达，发送骑手已取得外卖"><documentation id="s822b7c67-c702-4412-b57f-c877562f018e">null</documentation></userTask>
+<sequenceFlow id="sf9cfc677-9208-4a76-afc7-864c16e4f016" sourceRef="sb581ccbc-682c-4f22-81be-a8a29898c705" targetRef="Activity_1ead2dy"/>
+<sequenceFlow id="s4a39daa5-792b-40d3-b533-35b7b8122d2b" sourceRef="Activity_1ead2dy" targetRef="scb9f5265-1c45-4b38-a71e-17a0e3e8b48f"/>
+<endEvent id="scb9f5265-1c45-4b38-a71e-17a0e3e8b48f" />
+<userTask id="Activity_17m3ld0" name="未到达，发送实时位置以及和餐馆的距离"><documentation id="s107d88fc-f550-4d4e-aee4-8f42855a4cb0">null</documentation></userTask>
+<sequenceFlow id="s3fea513c-0fa8-4454-ae35-51dec4414f6c" sourceRef="sb581ccbc-682c-4f22-81be-a8a29898c705" targetRef="Activity_17m3ld0"/>
+<sequenceFlow id="s4ca3ca1b-9cbe-475c-bc28-03b8bff1259e" sourceRef="Activity_17m3ld0" targetRef="s28a1fb90-03c4-463f-b339-2557f943e4be"/>
+<endEvent id="s28a1fb90-03c4-463f-b339-2557f943e4be" />
+<userTask id="Activity_1rg8zgm" name="判断骑手是否达到餐馆"><documentation id="sb6768e20-8f91-4a20-b8c0-a65355700cd2">rider_TO_restaurant</documentation></userTask>
+<sequenceFlow id="s0e2d8e0a-0937-407d-9799-f0de08328a65" sourceRef="sb581ccbc-682c-4f22-81be-a8a29898c705" targetRef="Activity_1rg8zgm"/>
+<sequenceFlow id="s0ea8a97e-7e20-489f-9124-b02a05bae3e2" sourceRef="Activity_1rg8zgm" targetRef="s92c626e4-5c5e-4338-9be6-354c0a2692a3"/>
+<endEvent id="s92c626e4-5c5e-4338-9be6-354c0a2692a3" />
+<userTask id="Activity_1qxyx4z" name="骑手前往餐馆，发送位置给平台"><documentation id="s8978a0c0-708b-43b2-854d-dabc5247b4fb">Order_complete</documentation></userTask>
+<sequenceFlow id="s52e1566a-6aa7-469d-b476-cf7889c78448" sourceRef="sb581ccbc-682c-4f22-81be-a8a29898c705" targetRef="Activity_1qxyx4z"/>
+<sequenceFlow id="s53fd94cd-6d4a-435a-9e9a-e2868fd24306" sourceRef="Activity_1qxyx4z" targetRef="s18592a04-b889-4a15-abe7-8faf1059034d"/>
+<endEvent id="s18592a04-b889-4a15-abe7-8faf1059034d" />
+<userTask id="Activity_0p1s6o0" name="骑手不足，发送给平台"><documentation id="sc7edbef7-bec4-4c11-9c12-b3d85da6961c">null</documentation></userTask>
+<sequenceFlow id="s4b04a119-a146-4aee-8148-41c5833dccda" sourceRef="sb581ccbc-682c-4f22-81be-a8a29898c705" targetRef="Activity_0p1s6o0"/>
+<sequenceFlow id="sd9b2dd06-167e-47ec-acda-1cdfc20a26a1" sourceRef="Activity_0p1s6o0" targetRef="s8d7bc3fc-f7f9-4abf-9cbb-e8fa7f88fbdf"/>
+<endEvent id="s8d7bc3fc-f7f9-4abf-9cbb-e8fa7f88fbdf" />
+<userTask id="Activity_1uuevkp" name="存在，发送给餐馆"><documentation id="s164d31dc-3be2-4e6b-afd5-efd154678c1b">null</documentation></userTask>
+<sequenceFlow id="sfdf15514-1503-4db8-9d17-3c54503fc52d" sourceRef="sb581ccbc-682c-4f22-81be-a8a29898c705" targetRef="Activity_1uuevkp"/>
+<sequenceFlow id="scb792508-d749-47c8-8454-1c83598c6a14" sourceRef="Activity_1uuevkp" targetRef="s3f58662e-b1b5-4006-87d2-d4799b06a099"/>
+<endEvent id="s3f58662e-b1b5-4006-87d2-d4799b06a099" />
+<userTask id="Activity_0dkpsta" name="骑手查询是否存在活跃骑手"><documentation id="s99f39f60-b3fe-42a6-9b45-b47ae6deb247">RIDER_REQUEST</documentation></userTask>
+<sequenceFlow id="s8414dd24-f66b-4498-b151-d3a9841cc3ee" sourceRef="sb581ccbc-682c-4f22-81be-a8a29898c705" targetRef="Activity_0dkpsta"/>
+<sequenceFlow id="s6a394588-74c4-415b-b9e4-832f3888fea6" sourceRef="Activity_0dkpsta" targetRef="s3dd6a822-66c0-4388-abb0-07ae6c55ed39"/>
+<endEvent id="s3dd6a822-66c0-4388-abb0-07ae6c55ed39" />
+	</process>
+</definitions>

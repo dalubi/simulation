@@ -95,16 +95,39 @@ public class deployController {
     @ResponseBody
     public String postFederateObjct(@RequestParam("objectName")String objectName,
                                     @RequestParam("InitialId")String InitialId,
-                                    @RequestParam("parameterTypes")String parameterTypes,
-                                    @RequestParam("parameterNames")String parameterNames){
+                                    @RequestParam("parameterNameList")String parameterNames,
+                                    @RequestParam("parameterTypeList")String parameterTypes){
 
         String[] objectNames = objectName.split(",");
         String[] InitialIds = InitialId.split(",");
-        String[] parameterNamesArray = parameterNames.split(",");
-        String[] paremeterNamesFinals = new String[parameterNamesArray.length];
-        String[] parameterTypesArray = parameterTypes.split(",");
-        String[] paremeterTypesFinals = new String[parameterTypesArray.length];
-        thisPageService.federateObjectProcess(objectNames,InitialIds,parameterNamesArray,paremeterNamesFinals,parameterTypesArray,paremeterTypesFinals,this.curFederateId);
+        // 33,55,;,33,55,;,
+        String[] nameLevel1 = parameterNames.split(";");
+        String[] typeLevel1 = parameterTypes.split(";");
+
+        int Level = nameLevel1.length-1;//用';'分出3层，for是从0到1，level等于2
+
+        String[] nameLevel2 = new String[Level];
+        String[] typeLevel2 = new String[Level];
+
+        for(int i=0;i<Level;i++){
+            if(nameLevel1[i].charAt(nameLevel1[i].length()-1)==','){
+                nameLevel1[i]=nameLevel1[i].substring(0,nameLevel1[i].length()-1);
+            }
+            if(nameLevel1[i].charAt(0)==','){
+                nameLevel1[i]=nameLevel1[i].substring(1);
+            }
+            nameLevel2[i]=nameLevel1[i];
+
+            if(typeLevel1[i].charAt(typeLevel1[i].length()-1)==','){
+                typeLevel1[i]=typeLevel1[i].substring(0,typeLevel1[i].length()-1);
+            }
+            if(typeLevel1[i].charAt(0)==','){
+                typeLevel1[i]=typeLevel1[i].substring(1);
+            }
+            typeLevel2[i]=typeLevel1[i];
+        }
+
+        thisPageService.federateObjectProcess(objectNames,InitialIds,nameLevel2,typeLevel2,this.curFederateId);
         return "本联邦所需对象的设计信息已提交";
     }
 

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test" id="m1586786943177" name="">
+ <process id="external" name="external" isExecutable="true" isClosed="false" processType="None">
+<startEvent id="Event_09hb4ga" />
+<sequenceFlow id="s32622b48-efed-4410-9962-4faa52b35463" sourceRef="Event_09hb4ga" targetRef="sfe8c3ba2-fbe6-4d04-ac4a-c2d4bf0cd592"/>
+<userTask id="Activity_1oca23q" name="发送天气恶劣外部事件"><documentation id="sd39ba80b-e6b2-4c00-bdad-8a1e01ebd876">null</documentation></userTask>
+<endEvent id="s3f7586b1-0a23-4e74-bd7c-2ce61ced99dd" />
+<sequenceFlow id="sd7790715-fdce-4190-8368-fb171b3e3698" sourceRef="Activity_1oca23q" targetRef="s3f7586b1-0a23-4e74-bd7c-2ce61ced99dd"/>
+<userTask id="Activity_023jrs0" name="发送天气良好外部事件"><documentation id="s87422ba1-9a43-4f8e-a2ed-bab2df5714a8">null</documentation></userTask>
+<endEvent id="sab1df03a-27a9-47bb-a14c-deee4a10bca4" />
+<sequenceFlow id="s2545d747-e066-41d1-a922-0c789f1fcd15" sourceRef="Activity_023jrs0" targetRef="sab1df03a-27a9-47bb-a14c-deee4a10bca4"/>
+<parallelGateway gatewayDirection="Unspecified" id="sfe8c3ba2-fbe6-4d04-ac4a-c2d4bf0cd592" />
+<sequenceFlow id="s6ef70d96-1f61-490f-bd3d-2e08d396692d" sourceRef="sfe8c3ba2-fbe6-4d04-ac4a-c2d4bf0cd592" targetRef="Activity_1oca23q"/>
+<sequenceFlow id="s1c01a4aa-7dd2-4c66-a010-7bd02578bef7" sourceRef="sfe8c3ba2-fbe6-4d04-ac4a-c2d4bf0cd592" targetRef="Activity_023jrs0"/>
+	</process>
+</definitions>

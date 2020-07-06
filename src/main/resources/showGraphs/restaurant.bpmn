@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test" id="m1586786943177" name="">
+ <process id="restaurant" name="restaurant" isExecutable="true" isClosed="false" processType="None">
+<startEvent id="Event_1crop1c" />
+<parallelGateway gatewayDirection="Unspecified" id="Gateway_1tea7or" />
+<endEvent id="Event_16ug3rk" />
+<userTask id="Activity_0ulri60" name="餐馆查询是否存在活跃餐馆"><documentation id="s9e1a5b54-20e9-4206-aa34-9ba65c9dacab">RESTAURANT_REQUEST</documentation></userTask>
+<sequenceFlow id="s373f57af-8cc9-4511-a604-e732e6919e47" sourceRef="Activity_0ulri60" targetRef="Gateway_1tea7or"/>
+<userTask id="Activity_0xdu83f" name="不存在，发送给平台"><documentation id="sb8c5143e-36b6-43f4-baf8-035e77511497">null</documentation></userTask>
+<endEvent id="s613a6ed6-74a5-481b-a0ec-59c8f3525785" />
+<sequenceFlow id="s41eab92a-bad4-41f0-9c86-c7851179ce69" sourceRef="Activity_0xdu83f" targetRef="s613a6ed6-74a5-481b-a0ec-59c8f3525785"/>
+<userTask id="Activity_1ik7ajp" name="存在，发送请求给骑手"><documentation id="s8e0c9ca6-658f-451b-a4e2-76b6fc27a5d7">null</documentation></userTask>
+<endEvent id="sf905b49d-337a-44ea-8e9c-cd13ab950e42" />
+<sequenceFlow id="sc4477c61-71cb-4029-80fa-bff1072bb670" sourceRef="Activity_1ik7ajp" targetRef="sf905b49d-337a-44ea-8e9c-cd13ab950e42"/>
+<userTask id="Activity_0j1o6zz" name="制作外卖，制作完毕发送给骑手"><documentation id="s75a57d7a-ff7e-49ad-a984-a635eceb8719">Rider_Receive</documentation></userTask>
+<sequenceFlow id="sfc13efd5-9dda-4ffe-9f07-3bd81e219654" sourceRef="Activity_0j1o6zz" targetRef="Event_16ug3rk"/>
+<parallelGateway gatewayDirection="Unspecified" id="sc758fd4c-058e-4194-bf93-e55fc8fde533" />
+<sequenceFlow id="sf05574da-d1ad-4412-9301-ec78f225d194" sourceRef="sc758fd4c-058e-4194-bf93-e55fc8fde533" targetRef="Gateway_1tea7or"/>
+<sequenceFlow id="s4c5a3982-ee91-40eb-aa65-61ce318cfc5c" sourceRef="sc758fd4c-058e-4194-bf93-e55fc8fde533" targetRef="Event_1crop1c"/>
+<sequenceFlow id="scdfe623a-a10e-4565-a2a2-11f5603c6f6c" sourceRef="sc758fd4c-058e-4194-bf93-e55fc8fde533" targetRef="Activity_0ulri60"/>
+<sequenceFlow id="s28729ad5-061c-4681-a3a3-6092400813b7" sourceRef="sc758fd4c-058e-4194-bf93-e55fc8fde533" targetRef="Activity_0xdu83f"/>
+<sequenceFlow id="s4622b991-314e-4b8f-8d54-93d613802bce" sourceRef="sc758fd4c-058e-4194-bf93-e55fc8fde533" targetRef="Activity_1ik7ajp"/>
+<sequenceFlow id="s39e54400-5f5d-4be0-8eb8-ae37a169d72d" sourceRef="sc758fd4c-058e-4194-bf93-e55fc8fde533" targetRef="Event_16ug3rk"/>
+<sequenceFlow id="sd4baf2fc-157f-4730-87ec-99571c155a98" sourceRef="sc758fd4c-058e-4194-bf93-e55fc8fde533" targetRef="Activity_0j1o6zz"/>
+<startEvent id="sc07822c6-7bbc-4bb3-b812-6bcd5ae4a77f" />
+<sequenceFlow id="s40da0f3f-2c2c-4711-b3c2-9f39b524c6d4" sourceRef="sc07822c6-7bbc-4bb3-b812-6bcd5ae4a77f" targetRef="sc758fd4c-058e-4194-bf93-e55fc8fde533"/>
+	</process>
+</definitions>
